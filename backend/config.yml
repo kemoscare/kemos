@@ -1,0 +1,6 @@
+logging:
+  level: INFO
+  loggers:
+    com.biglazy: DEBUG
+
+template: not-empty
