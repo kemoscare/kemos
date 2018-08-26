@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import './App.css';
+
 import { Form } from 'react-formio'
+import Topbar from './Topbar';
+import Sidebar from './Sidebar';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Form src="https://dmfmzapzzsicedw.form.io/biglazy" />
+        <Topbar/>
+        <div className="flex-box">
+          <Sidebar/>
+          <div className="form-component">
+            <Form src="https://dmfmzapzzsicedw.form.io/biglazy" />
+          </div>
+        </div>
       </div>
     );
   }
