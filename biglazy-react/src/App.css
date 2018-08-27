@@ -1,11 +1,15 @@
+#root {
+  height: 100%;
+}
 
 .App {
+  height: 100%;
   width: 100%;
   margin: 0;
-  overflow: hidden;
 }
 
 .flex-box {
+  padding-top: 60px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -13,6 +17,7 @@
 }
 
 .Topbar {
+  position: absolute;
   width: 100%;
   margin-top: 0;
   padding: auto;
@@ -21,19 +26,27 @@
 }
 h1.main-title {
   color: white;
+  padding-bottom: 10px;
 }
 .Sidebar {
-  margin: 10px;
+  margin-right: 10px;
   padding: 5px;
+  padding-right: 50px;
   height: 100%;
   border: 1px solid black;
-  flex-shrink: 0;
+  flex-shrink: 0.5;
   max-width: 300px;
+}
+
+.Sidebar h3.main-title {
+  color: #222;
+
 }
 .form-component {
   padding: 5px;
-  margin: 10px;
   height: 100%;
+  max-width: 900px;
   border: 1px solid black;
   flex-grow: 1;
+  overflow-y: auto;
 }
