@@ -1,5 +1,6 @@
 package com.biglazy;
 
+import com.biglazy.resources.FormResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -23,7 +24,8 @@ public class BigLazyApplication extends Application<BigLazyConfiguration> {
     @Override
     public void run(final BigLazyConfiguration configuration,
                     final Environment environment) {
-        // TODO: implement application
+        final FormResource resource = new FormResource();
+        environment.jersey().register(resource);
     }
 
 }
