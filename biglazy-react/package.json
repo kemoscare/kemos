@@ -2,6 +2,7 @@
   "name": "biglazy-react",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://adriencanterot.github.io/build",
   "dependencies": {
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
