@@ -4,8 +4,6 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import { Form, Formio } from 'react-formio';
-
 ReactDOM.render(
   <App />, document.getElementById('root')
 );
