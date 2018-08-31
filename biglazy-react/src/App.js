@@ -56,7 +56,7 @@ class App extends Component {
         <div className="flex-box">
           <Sidebar chemolist={chemotherapies} chemoClicked={this.onChemoClick}/>
           <div className="form-component">
-            <Form form={formJSON} onSubmit={this.addToList} submission={submission} />
+            <Form src="https://dmfmzapzzsicedw.form.io/biglazy" onSubmit={this.addToList} submission={submission} />
           </div>
         </div>
       </div>
