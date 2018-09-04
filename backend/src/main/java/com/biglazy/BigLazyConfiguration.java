@@ -11,6 +11,7 @@ public class BigLazyConfiguration extends Configuration {
 
     @NotEmpty
     private String defaultName = "Stranger";
+    private String database;
 
     @JsonProperty
     public String getTemplate() {
@@ -30,5 +31,15 @@ public class BigLazyConfiguration extends Configuration {
     @JsonProperty
     public void setDefaultName(String name) {
         this.defaultName = name;
+    }
+
+    @JsonProperty
+    public void setDatabase(String database) {
+        this.database = database;
+    }
+
+    @JsonProperty
+    public String getDatabase() {
+        return this.database;
     }
 }

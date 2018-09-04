@@ -4,6 +4,8 @@ import com.biglazy.resources.FormResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 public class BigLazyApplication extends Application<BigLazyConfiguration> {
 
@@ -18,12 +20,15 @@ public class BigLazyApplication extends Application<BigLazyConfiguration> {
 
     @Override
     public void initialize(final Bootstrap<BigLazyConfiguration> bootstrap) {
-        // TODO: application initialization
     }
 
     @Override
     public void run(final BigLazyConfiguration configuration,
                     final Environment environment) {
+
+        Jdbi jdbi = Jdbi.create(configuration.getDatabase());
+        jdbi.installPlugin(new SqlObjectPlugin());
+
         final FormResource resource = new FormResource();
         environment.jersey().register(resource);
     }

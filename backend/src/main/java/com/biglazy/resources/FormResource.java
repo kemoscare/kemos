@@ -2,6 +2,7 @@ package com.biglazy.resources;
 
 import com.biglazy.api.Protocol;
 import com.codahale.metrics.annotation.Timed;
+import org.jdbi.v3.core.Jdbi;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -15,8 +16,10 @@ import java.util.Optional;
 
 public class FormResource {
 
-    public FormResource() {
+    private Jdbi jdbi;
 
+    public FormResource(Jdbi jdbi) {
+        this.jdbi = jdbi;
     }
 
     @GET

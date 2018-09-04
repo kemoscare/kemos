@@ -4,3 +4,4 @@ logging:
     com.biglazy: DEBUG
 
 template: not-empty
+database: jdbc:postgresql:localhost
