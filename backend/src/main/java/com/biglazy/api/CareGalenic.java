@@ -1,6 +1,8 @@
 package com.biglazy.api;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum CareGalenic {
-    IntraVeinous,
-    PerOs
+    @JsonProperty("iv") IntraVeinous,
+    @JsonProperty("peros") PerOs
 }

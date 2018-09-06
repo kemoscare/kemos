@@ -1,19 +1,18 @@
 package com.biglazy.resources;
 
 import com.biglazy.api.Protocol;
+import com.biglazy.api.Saying;
 import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jdbi.v3.core.Jdbi;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.IOException;
 import java.util.Optional;
 
 @Path("/biglazy")
 @Produces(MediaType.APPLICATION_JSON)
-
 public class FormResource {
 
     private Jdbi jdbi;
@@ -22,9 +21,8 @@ public class FormResource {
         this.jdbi = jdbi;
     }
 
-    @GET
-    @Timed
-    public Protocol sayHello(@QueryParam("name") Optional<String> name) {
-        return new Protocol("", "");
+    @POST
+    public Protocol postForm(Protocol protocol) {
+        return protocol;
     }
 }

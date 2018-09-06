@@ -1,21 +1,30 @@
 package com.biglazy.api;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.org.apache.xpath.internal.operations.Bool;
+
+import java.util.Map;
 
 public class Evaluation {
 
-    private Integer delay;
-    private Integer dayAfter;
+    @JsonProperty("delai") private Integer delay;
+    @JsonProperty("j") private Integer dayAfter;
     private Boolean imagery;
     private Boolean consultation;
 
-    public Evaluation(Integer delay, Integer dayAfter, Boolean imagery, Boolean consultation) {
-
-        this.delay = delay;
-        this.dayAfter = dayAfter;
-        this.imagery = imagery;
-        this.consultation = consultation;
+    @JsonProperty("contenu")
+    private void unpackContent(Map<String, Object> content) {
+        this.imagery = (Boolean)content.get("imagerie");
+        this.consultation = (Boolean)content.get("consultation");
     }
+
+//    public Evaluation(Integer delay, Integer dayAfter, Boolean imagery, Boolean consultation) {
+//
+//        this.delay = delay;
+//        this.dayAfter = dayAfter;
+//        this.imagery = imagery;
+//        this.consultation = consultation;
+//    }
 
     public Integer getDelay() {
         return delay;

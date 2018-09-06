@@ -1,6 +1,8 @@
 package com.biglazy.api;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum CareMode {
-    Admission,
-    DayCare
+    @JsonProperty("hospitalisation") Admission,
+    @JsonProperty("hdj") DayCare
 }

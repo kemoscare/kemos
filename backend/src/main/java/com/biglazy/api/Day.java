@@ -1,21 +1,23 @@
 package com.biglazy.api;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class Day {
 
-    private Integer day;
-    private CareMode careMode;
-    private CareGalenic careGalenic;
-    private List<String> products;
+    @JsonProperty("j") private Integer day;
+    @JsonProperty("mode") private CareMode careMode;
+    @JsonProperty("galenique") private CareGalenic careGalenic;
+    @JsonProperty("produits") private List<String> products;
 
-    public Day(Integer day, CareMode careMode, CareGalenic careGalenic, List<String> products) {
-
-        this.day = day;
-        this.careMode = careMode;
-        this.careGalenic = careGalenic;
-        this.products = products;
-    }
+//    public Day(Integer day, CareMode careMode, CareGalenic careGalenic, List<String> products) {
+//
+//        this.day = day;
+//        this.careMode = careMode;
+//        this.careGalenic = careGalenic;
+//        this.products = products;
+//    }
 
     public Integer getDay() {
         return day;

@@ -1,6 +1,7 @@
 package com.biglazy;
 
 import com.biglazy.resources.FormResource;
+import com.biglazy.resources.JacksonTestResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -29,8 +30,11 @@ public class BigLazyApplication extends Application<BigLazyConfiguration> {
         Jdbi jdbi = Jdbi.create(configuration.getDatabase());
         jdbi.installPlugin(new SqlObjectPlugin());
 
-        final FormResource resource = new FormResource();
+        final FormResource resource = new FormResource(jdbi);
         environment.jersey().register(resource);
+
+        final JacksonTestResource jacksonTestResource = new JacksonTestResource();
+        environment.jersey().register(jacksonTestResource);
     }
 
 }
