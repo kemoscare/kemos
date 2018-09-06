@@ -3,9 +3,29 @@ package com.biglazy.api;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Evaluation {
+
+    private int id;
+    private int protocol_id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getProtocol_id() {
+        return protocol_id;
+    }
+
+    public void setProtocol_id(int protocol_id) {
+        this.protocol_id = protocol_id;
+    }
 
     @JsonProperty("delai") private Integer delay;
     @JsonProperty("j") private Integer dayAfter;
@@ -16,6 +36,14 @@ public class Evaluation {
     private void unpackContent(Map<String, Object> content) {
         this.imagery = (Boolean)content.get("imagerie");
         this.consultation = (Boolean)content.get("consultation");
+    }
+
+    @JsonProperty("contenu")
+    public Map<String, Object> packContent() {
+        Map<String, Object> content = new HashMap<String, Object>();
+        content.put("imagerie", this.imagery);
+        content.put("consultation", this.consultation);
+        return content;
     }
 
 //    public Evaluation(Integer delay, Integer dayAfter, Boolean imagery, Boolean consultation) {

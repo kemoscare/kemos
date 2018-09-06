@@ -8,7 +8,7 @@ import java.util.Map;
 @JsonIgnoreProperties(value = {"submit"}) //ignores submit field
 public class Protocol {
 
-    @JsonProperty("id") private long id;
+    @JsonProperty("id") private int id;
     @JsonProperty("protocole") private String name;
     @JsonProperty("radio-radiochimiotherapie") private RadioChimiotherapie radio_radiochimiottt;
     @JsonProperty("theme") private String theme;
@@ -71,6 +71,10 @@ public class Protocol {
     public void setOrgan(String organ) {
         this.organ = organ;
     }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
 
 }
