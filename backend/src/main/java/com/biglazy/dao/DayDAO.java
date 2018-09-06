@@ -6,6 +6,8 @@ import org.jdbi.v3.sqlobject.CreateSqlObject;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
+//JDBI no longer used : this is legacy code
+
 public interface DayDAO {
 
     @SqlUpdate("CREATE TABLE IF NOT EXISTS day (id SERIAL, protocol_id INTEGER, careMode VARCHAR, careGalenic VARCHAR, products VARCHAR[]);")

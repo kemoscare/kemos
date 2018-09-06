@@ -10,6 +10,8 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
 import java.util.List;
 
+// JDBI no longer used : this is legacy code
+
 public interface EvaluationDAO {
 
     @SqlUpdate("CREATE TABLE IF NOT EXISTS evaluation (id SERIAL, protocol_id INTEGER, delay INTEGER, dayAfter INTEGER, imagery BOOLEAN, consultation BOOLEAN)")
