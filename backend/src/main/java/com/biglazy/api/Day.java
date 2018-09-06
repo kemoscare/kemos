@@ -6,9 +6,6 @@ import java.util.List;
 
 public class Day {
 
-    private int id;
-    private int protocol_id;
-
     @JsonProperty("j") private Integer day;
     @JsonProperty("mode") private CareMode careMode;
     @JsonProperty("galenique") private CareGalenic careGalenic;
@@ -21,23 +18,6 @@ public class Day {
 //        this.careGalenic = careGalenic;
 //        this.products = products;
 //    }
-
-
-    public void setId(int id) {
-        this.id = id;
-    }
-    public int getId() {
-        return id;
-    }
-
-    public int getProtocol_id() {
-        return protocol_id;
-    }
-
-    public void setProtocol_id(int protocol_id) {
-        this.protocol_id = protocol_id;
-    }
-
 
     public Integer getDay() {
         return day;

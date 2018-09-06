@@ -1,14 +1,15 @@
 package com.biglazy.api;
 
 import com.fasterxml.jackson.annotation.*;
+import org.bson.types.ObjectId;
 
 import java.util.List;
-import java.util.Map;
 
 @JsonIgnoreProperties(value = {"submit"}) //ignores submit field
 public class Protocol {
 
-    @JsonProperty("id") private int id;
+    private ObjectId id;
+
     @JsonProperty("protocole") private String name;
     @JsonProperty("radio-radiochimiotherapie") private RadioChimiotherapie radio_radiochimiottt;
     @JsonProperty("theme") private String theme;
@@ -72,9 +73,12 @@ public class Protocol {
         this.organ = organ;
     }
 
-    public int getId() { return id; }
+    public ObjectId getId() {
+        return id;
+    }
 
-    public void setId(int id) { this.id = id; }
-
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
 
 }
