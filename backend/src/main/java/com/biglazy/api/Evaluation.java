@@ -1,5 +1,6 @@
 package com.biglazy.api;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
@@ -8,29 +9,10 @@ import java.util.Map;
 
 public class Evaluation {
 
-    private int id;
-    private int protocol_id;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getProtocol_id() {
-        return protocol_id;
-    }
-
-    public void setProtocol_id(int protocol_id) {
-        this.protocol_id = protocol_id;
-    }
-
     @JsonProperty("delai") private Integer delay;
     @JsonProperty("j") private Integer dayAfter;
-    private Boolean imagery;
-    private Boolean consultation;
+    @JsonIgnore  private Boolean imagery;
+    @JsonIgnore  private Boolean consultation;
 
     @JsonProperty("contenu")
     private void unpackContent(Map<String, Object> content) {
