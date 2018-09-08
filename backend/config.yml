@@ -5,3 +5,5 @@ logging:
 
 template: not-empty
 database: jdbc:postgresql:biglazy
+cors:
+  origins: "*"

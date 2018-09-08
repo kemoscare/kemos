@@ -1,5 +1,7 @@
 package com.biglazy;
 
+import ca.grimoire.dropwizard.cors.CorsBundle;
+import ca.grimoire.dropwizard.cors.config.CrossOriginFilterFactoryHolder;
 import com.biglazy.dao.DayDAO;
 import com.biglazy.dao.EvaluationDAO;
 import com.biglazy.dao.ProtocolDAO;
@@ -35,6 +37,7 @@ public class BigLazyApplication extends Application<BigLazyConfiguration> {
 
     @Override
     public void initialize(final Bootstrap<BigLazyConfiguration> bootstrap) {
+        bootstrap.addBundle(new CorsBundle<BigLazyConfiguration>());
     }
 
     @Override

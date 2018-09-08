@@ -1,11 +1,13 @@
 package com.biglazy;
 
+import ca.grimoire.dropwizard.cors.config.CrossOriginFilterFactory;
+import ca.grimoire.dropwizard.cors.config.CrossOriginFilterFactoryHolder;
 import io.dropwizard.Configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
 
-public class BigLazyConfiguration extends Configuration {
+public class BigLazyConfiguration extends Configuration implements CrossOriginFilterFactoryHolder {
     @NotEmpty
     private String template;
 
@@ -41,5 +43,16 @@ public class BigLazyConfiguration extends Configuration {
     @JsonProperty
     public String getDatabase() {
         return this.database;
+    }
+
+    private CrossOriginFilterFactory cors = new CrossOriginFilterFactory();
+
+    public void setCors(CrossOriginFilterFactory cors) {
+        this.cors = cors;
+    }
+
+    @Override
+    public CrossOriginFilterFactory getCors() {
+        return cors;
     }
 }

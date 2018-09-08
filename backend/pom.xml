@@ -16,6 +16,13 @@
 
     <name>BigLazy</name>
 
+    <repositories>
+        <repository>
+            <id>jcenter</id>
+            <url>https://jcenter.bintray.com/</url>
+        </repository>
+    </repositories>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -63,6 +70,11 @@
             <groupId>org.mongodb</groupId>
             <artifactId>mongodb-driver-sync</artifactId>
             <version>3.8.1</version>
+        </dependency>
+        <dependency>
+            <groupId>ca.grimoire.dropwizard.cors</groupId>
+            <artifactId>dropwizard-simple-cors</artifactId>
+            <version>0.2.1</version>
         </dependency>
 
     </dependencies>

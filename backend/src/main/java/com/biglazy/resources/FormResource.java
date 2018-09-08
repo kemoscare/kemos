@@ -1,7 +1,6 @@
 package com.biglazy.resources;
 
 import com.biglazy.api.Protocol;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import org.bson.types.ObjectId;
@@ -9,7 +8,9 @@ import org.bson.types.ObjectId;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -48,7 +49,18 @@ public class FormResource {
     }
 
     @GET
-    public Protocol getForm(@QueryParam("id") ObjectId objectId) {
+    public List<Protocol> getProtocols(@QueryParam("theme") Optional<String> theme,
+                                       @QueryParam("organ") Optional<String> organ) {
+        List<Protocol> protocols = new ArrayList<>();
+        for(Protocol p : protocolCollection.find()) {
+            protocols.add(p);
+        }
+        return protocols;
+    }
+
+    @GET
+    @Path("/{id}")
+    public Protocol getProtocol(@PathParam("id") ObjectId objectId) {
 
         Protocol protocol = protocolCollection.find(eq(objectId)).first();
         System.out.println(protocol.getId());
