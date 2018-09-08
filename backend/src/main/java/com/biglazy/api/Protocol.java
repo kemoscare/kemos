@@ -1,14 +1,15 @@
 package com.biglazy.api;
 
 import com.fasterxml.jackson.annotation.*;
+import org.bson.codecs.pojo.annotations.BsonIgnore;
 import org.bson.types.ObjectId;
 
 import java.util.List;
 
-@JsonIgnoreProperties(value = {"submit"}) //ignores submit field
+@JsonIgnoreProperties(value = {"submit"}, ignoreUnknown = true) //ignores submit field
 public class Protocol {
 
-    private ObjectId id;
+    @JsonIgnore private ObjectId id;
 
     @JsonProperty("protocole") private String name;
     @JsonProperty("radio-radiochimiotherapie") private RadioChimiotherapie radio_radiochimiottt;
@@ -80,5 +81,19 @@ public class Protocol {
     public void setId(ObjectId id) {
         this.id = id;
     }
+
+
+    @BsonIgnore
+    public String getHexId() {
+        return this.id.toHexString();
+    }
+
+    @BsonIgnore
+    public void setHexId(String id) {
+        if(id != "") {
+            this.id = new ObjectId(id);
+        }
+    }
+
 
 }

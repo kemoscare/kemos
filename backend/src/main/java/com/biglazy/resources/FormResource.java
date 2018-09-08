@@ -27,15 +27,28 @@ public class FormResource {
     }
 
     @POST
-    public Protocol postForm(Protocol protocol) {
-        this.protocolCollection.insertOne(protocol);
-        return protocol;
+    public void postForm(Protocol protocol) {
+
+//        ObjectMapper mapper = new ObjectMapper();
+//        try {
+//            Protocol protocol1 = mapper.readValue(protocol, Protocol.class);
+//            ObjectId id = protocol1.getId();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+        ObjectId id = protocol.getId();
+        if(id == null) {
+            this.protocolCollection.insertOne(protocol);
+        } else {
+            this.protocolCollection.findOneAndReplace(eq(id), protocol);
+        }
+
+
     }
 
     @GET
     public Protocol getForm(@QueryParam("id") ObjectId objectId) {
-
-
 
         Protocol protocol = protocolCollection.find(eq(objectId)).first();
         System.out.println(protocol.getId());
