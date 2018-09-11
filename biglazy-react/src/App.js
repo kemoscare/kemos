@@ -16,6 +16,17 @@ class App extends Component {
     }
   }
 
+  loadChemos() {
+    fetch("http://localhost:8080/biglazy")
+    .then(response => response.json())
+    .then(data => this.setState({chemotherapies: data, submission: {}}))
+    .then(data => console.log(data))
+  }
+
+  componentDidMount() {
+    this.loadChemos()
+  }
+
   submit = (payload) => {
     fetch('http://localhost:8080/biglazy/', {
       method: 'POST',
@@ -24,7 +35,10 @@ class App extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload.data)
+    }).then(o => {
+      this.loadChemos()
     })
+    
   }
 
   addToList = (payload) => {
@@ -38,11 +52,38 @@ class App extends Component {
   }
 
   onChemoClick = (id) => {
-    console.log(id)
-    const submission = JSON.parse(JSON.stringify(this.state.chemotherapies[id]))
+
+    // const submissionObject = {
+    //   owner: null,
+    //   deleted: null,
+    //   roles: [],
+    //   _vid: 0,
+    //   _fvid: 0,
+    //   state: "submitted",
+    //   _id: "",
+    //   access: [],
+    //   metadata:{
+    //     offset: -600,
+    //     referrer: "",
+    //     browserName: "",
+    //     userAgent: "",
+    //     pathName: "",
+    //     onLine: false
+    //   },
+    //   form: "",
+    //   externalIds: [],
+    //   externalTokens: [],
+    //   created: "",
+    //   modified:"",
+    //   __v: 0,
+    //   data: this.state.chemotherapies[id]
+    // }
+
+    const submissionObject = { data: this.state.chemotherapies[id]}
+    console.log(submissionObject)
     this.setState({
       chemotherapies: this.state.chemotherapies,
-      submission: submission
+      submission: submissionObject
     })
   }
 
@@ -56,7 +97,7 @@ class App extends Component {
         <div className="flex-box">
           <Sidebar chemolist={chemotherapies} chemoClicked={this.onChemoClick}/>
           <div className="form-component">
-            <Form src="https://dmfmzapzzsicedw.form.io/biglazy" onSubmit={this.addToList} submission={submission} />
+            <Form form={formJSON} onSubmit={this.submit} submission={submission} />
           </div>
         </div>
       </div>

@@ -5,8 +5,7 @@ class Sidebar extends Component {
     render() {
         const {chemolist} = this.props
         const chemoComponents = chemolist.map((chemo, index) => {
-            console.log(chemo)
-            return <li key={index} onClick={() => this.props.chemoClicked(index)}>{chemo.data.page1Protocolchimiothrapie}</li>
+            return <li key={index} onClick={() => this.props.chemoClicked(index)}>{chemo.protocole}</li>
         })
         return (
             <div className="Sidebar">
