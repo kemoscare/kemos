@@ -1,5 +1,6 @@
 package com.biglazy;
 
+import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -13,7 +14,7 @@ public class MongoFactory {
 
     private static MongoClient factoryContainer = null;
 
-    public static MongoClient client() {
+    public static MongoClient client(ConnectionString connectionString) {
 
         if(factoryContainer == null) {
             CodecRegistry pojoCodecRegistry =
@@ -21,6 +22,7 @@ public class MongoFactory {
 
             MongoClientSettings settings = MongoClientSettings.builder()
                     .codecRegistry(pojoCodecRegistry)
+                    .applyConnectionString(connectionString)
                     .build();
 
             MongoClient mongoClient = MongoClients.create(settings);

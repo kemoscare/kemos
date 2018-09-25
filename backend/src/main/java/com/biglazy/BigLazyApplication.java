@@ -8,6 +8,7 @@ import com.biglazy.dao.ProtocolDAO;
 import com.biglazy.resources.FormResource;
 import com.biglazy.resources.JacksonTestResource;
 
+import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -57,8 +58,10 @@ public class BigLazyApplication extends Application<BigLazyConfiguration> {
 //            evaluationDAO.create();
 //            dayDAO.create();
 //        }
+        System.out.println(configuration.getDatabase());
 
-        MongoClient mongoClient = MongoFactory.client();
+        ConnectionString connectionString = new ConnectionString(configuration.getDatabase());
+        MongoClient mongoClient = MongoFactory.client(connectionString);
 
         final FormResource resource = new FormResource(mongoClient);
         environment.jersey().register(resource);
