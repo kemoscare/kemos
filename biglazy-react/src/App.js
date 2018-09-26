@@ -5,6 +5,7 @@ import { Form } from 'react-formio'
 import Topbar from './Topbar';
 import Sidebar from './Sidebar';
 import formJSON from './form'
+const api = require('./api-' + process.env.NODE_ENV)
 
 class App extends Component {
 
@@ -14,21 +15,24 @@ class App extends Component {
       chemotherapies: [],
       submission: {}
     }
+    console.log(process.env)
   }
 
-  loadChemos() {
-    fetch("http://localhost:8080/biglazy")
+  fetchChemos() {
+    fetch(api.server + 'biglazy')
     .then(response => response.json())
     .then(data => this.setState({chemotherapies: data, submission: {}}))
     .then(data => console.log(data))
   }
 
+
+
   componentDidMount() {
-    this.loadChemos()
+    this.fetchChemos()
   }
 
   submit = (payload) => {
-    fetch('http://localhost:8080/biglazy/', {
+    fetch(api.server + 'biglazy', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -36,7 +40,7 @@ class App extends Component {
       },
       body: JSON.stringify(payload.data)
     }).then(o => {
-      this.loadChemos()
+      this.fetchChemos()
     })
     
   }
@@ -53,37 +57,17 @@ class App extends Component {
 
   onChemoClick = (id) => {
 
-    // const submissionObject = {
-    //   owner: null,
-    //   deleted: null,
-    //   roles: [],
-    //   _vid: 0,
-    //   _fvid: 0,
-    //   state: "submitted",
-    //   _id: "",
-    //   access: [],
-    //   metadata:{
-    //     offset: -600,
-    //     referrer: "",
-    //     browserName: "",
-    //     userAgent: "",
-    //     pathName: "",
-    //     onLine: false
-    //   },
-    //   form: "",
-    //   externalIds: [],
-    //   externalTokens: [],
-    //   created: "",
-    //   modified:"",
-    //   __v: 0,
-    //   data: this.state.chemotherapies[id]
-    // }
-
     const submissionObject = { data: this.state.chemotherapies[id]}
     console.log(submissionObject)
     this.setState({
       chemotherapies: this.state.chemotherapies,
       submission: submissionObject
+    })
+  }
+
+  resetForm = () => {
+    this.setState({
+      submission: {}
     })
   }
 
@@ -95,7 +79,7 @@ class App extends Component {
       <div className="App">
         <Topbar/>
         <div className="flex-box">
-          <Sidebar chemolist={chemotherapies} chemoClicked={this.onChemoClick}/>
+          <Sidebar chemotherapies={chemotherapies} itemClicked={this.onChemoClick} resetForm={this.resetForm}/>
           <div className="form-component">
             <Form form={formJSON} onSubmit={this.submit} submission={submission} />
           </div>
