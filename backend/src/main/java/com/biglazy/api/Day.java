@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Day {
 
-    @JsonProperty("j") private Integer day;
+    @JsonProperty("j") private String day;
     @JsonProperty("mode") private CareMode careMode;
     @JsonProperty("galenique") private CareGalenic careGalenic;
     @JsonProperty("produits") private List<String> products;
@@ -19,11 +19,11 @@ public class Day {
 //        this.products = products;
 //    }
 
-    public Integer getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(Integer day) {
+    public void setDay(String day) {
         this.day = day;
     }
 

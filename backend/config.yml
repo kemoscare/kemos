@@ -4,6 +4,6 @@ logging:
     com.biglazy: DEBUG
 
 template: not-empty
-database: jdbc:postgresql:biglazy
+database: mongodb://localhost
 cors:
   origins: "*"
