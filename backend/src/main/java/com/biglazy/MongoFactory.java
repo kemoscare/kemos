@@ -14,7 +14,7 @@ public class MongoFactory {
 
     private static MongoClient factoryContainer = null;
 
-    public static MongoClient client(ConnectionString connectionString) {
+    public static MongoClient client(ConnectionString connectionString) throws Exception {
 
         if(factoryContainer == null) {
             CodecRegistry pojoCodecRegistry =

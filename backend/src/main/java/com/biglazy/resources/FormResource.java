@@ -1,7 +1,9 @@
 package com.biglazy.resources;
 
+import com.biglazy.MongoFactory;
 import com.biglazy.api.Protocol;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.ConnectionString;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Aggregates;
@@ -26,14 +28,14 @@ import static com.mongodb.client.model.Filters.or;
 @Produces(MediaType.APPLICATION_JSON)
 public class FormResource {
 
-    private MongoClient mongoClient;
+    private ConnectionString connectionString;
     private MongoCollection<Protocol> protocolCollection;
     private MongoCollection<Document> aggregatableCollection;
 
-    public FormResource(MongoClient mongoClient) {
-        this.mongoClient = mongoClient;
-        this.protocolCollection = mongoClient.getDatabase("biglazy").getCollection("protocoles", Protocol.class);
-        this.aggregatableCollection = mongoClient.getDatabase("biglazy").getCollection("protocoles");
+    public FormResource(ConnectionString mongoConnectionString) {
+        this.connectionString = mongoConnectionString;
+        this.protocolCollection = null;
+        this.aggregatableCollection = null;
 
     }
 
@@ -58,8 +60,19 @@ public class FormResource {
 //        }
 //    }
 
+    private void setupCollections() {
+        try {
+            this.protocolCollection = MongoFactory.client(this.connectionString).getDatabase("biglazy").getCollection("protocoles", Protocol.class);
+            this.aggregatableCollection = MongoFactory.client(this.connectionString).getDatabase("biglazy").getCollection("protocoles");
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @POST
     public void postForm(Protocol protocol) {
+
+        this.setupCollections();
 
         ObjectId id = protocol.getId();
         if(id == null) {
@@ -73,6 +86,9 @@ public class FormResource {
     @GET
     public List<Protocol> getProtocols(@QueryParam("theme") Optional<String> theme,
                                        @QueryParam("organ") Optional<String> organ) {
+
+        this.setupCollections();
+
         List<Protocol> protocols = new ArrayList<>();
         for(Protocol p : protocolCollection.find()) {
             protocols.add(p);
@@ -84,6 +100,8 @@ public class FormResource {
     @Path("/{id}")
     public Protocol getProtocol(@PathParam("id") ObjectId objectId) {
 
+        this.setupCollections();
+
         Protocol protocol = protocolCollection.find(eq(objectId)).first();
         System.out.println(protocol.getId());
         return protocol;
@@ -92,6 +110,8 @@ public class FormResource {
     @GET
     @Path("/organs")
     public List<Document> getOrgans(@QueryParam("theme") String theme) {
+
+        this.setupCollections();
         List<Document> organs = new ArrayList<>();
         System.out.println(theme);
         for(Document organ: aggregatableCollection.aggregate(Arrays.asList(Aggregates.match(eq("theme", theme)), Aggregates.group("$organ")))) {
@@ -104,6 +124,7 @@ public class FormResource {
     @GET
     @Path("/themes")
     public List<Document> getThemes() {
+        this.setupCollections();
         List<Document> themes = new ArrayList<>();
         aggregatableCollection.aggregate(Arrays.asList(Aggregates.group("$theme"))).forEach((Consumer<? super Document>) themes::add);
         return themes;

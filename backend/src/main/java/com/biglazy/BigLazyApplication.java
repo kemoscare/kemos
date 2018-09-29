@@ -5,6 +5,7 @@ import ca.grimoire.dropwizard.cors.config.CrossOriginFilterFactoryHolder;
 import com.biglazy.dao.DayDAO;
 import com.biglazy.dao.EvaluationDAO;
 import com.biglazy.dao.ProtocolDAO;
+import com.biglazy.health.DatabaseHealthCheck;
 import com.biglazy.resources.FormResource;
 import com.biglazy.resources.JacksonTestResource;
 
@@ -58,16 +59,17 @@ public class BigLazyApplication extends Application<BigLazyConfiguration> {
 //            evaluationDAO.create();
 //            dayDAO.create();
 //        }
-        System.out.println(configuration.getDatabase());
+
 
         ConnectionString connectionString = new ConnectionString(configuration.getDatabase());
-        MongoClient mongoClient = MongoFactory.client(connectionString);
+        final DatabaseHealthCheck databaseHealthCheck = new DatabaseHealthCheck(connectionString);
 
-        final FormResource resource = new FormResource(mongoClient);
+        final FormResource resource = new FormResource(connectionString);
         environment.jersey().register(resource);
 
         final JacksonTestResource jacksonTestResource = new JacksonTestResource();
         environment.jersey().register(jacksonTestResource);
+        environment.healthChecks().register("MongoDB", databaseHealthCheck);
     }
 
 }
