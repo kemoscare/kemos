@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {TreeBranch, TreeNode} from './Treenode'
+import Searchbar from './Searchbar'
 
 // const ApiListComponent = (category, items, itemClicked) => {
 //     const apiItems = items.map((item, index) => {
@@ -22,7 +24,6 @@ class Sidebar extends Component {
 
     constructor() {
         super()
-        this.state = {themes: []}
     }
 
     // themeClicked = (theme) => {
@@ -44,23 +45,24 @@ class Sidebar extends Component {
     //   }
 
     render() {
+        const { themeResponse, actionFunc, addChemo } = this.props
+        if(themeResponse) {
+            const { linksTo, linksFrom, resources, resourceType, isFinal } = themeResponse
+            return (
+                <div className="Sidebar">
+                    <Searchbar />
+                    {/* <button onClick={() => addChemo()}>Ajouter +</button> */}
+                    <TreeBranch linksFrom={linksFrom} linksTo={linksTo} resources={resources} resourceType={resourceType} actionFunc={actionFunc} isFinal={isFinal} />
+                </div>
+            )
+        } else {
+            return (
+            <div className="Sidebar">
+            <Searchbar />
+            </div>
+            )
+        }
 
-        const { chemotherapies } = this.props
-        const items = chemotherapies.map((item, index) => {
-            return <li key={index}><a onClick={() =>this.props.itemClicked(index)}>{item.protocole}</a></li>
-        })
-        return (
-        <div className="Sidebar">
-            <h3 className="header">Chimiothérapies</h3>
-            <ul>
-                {items}
-                <button onClick={() => this.props.resetForm()}>Ajouter +</button>
-
-            </ul>
-            
-        </div>
-
-        )
     }
 }
 export default Sidebar;

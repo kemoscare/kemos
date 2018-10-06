@@ -2,6 +2,8 @@ package com.biglazy.resources;
 
 import com.biglazy.MongoFactory;
 import com.biglazy.api.Protocol;
+import com.biglazy.api.ResourceType;
+import com.biglazy.api.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.ConnectionString;
 import com.mongodb.client.MongoClient;
@@ -15,12 +17,10 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Consumer;
 
+import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.or;
 
@@ -84,16 +84,27 @@ public class FormResource {
     }
 
     @GET
-    public List<Protocol> getProtocols(@QueryParam("theme") Optional<String> theme,
-                                       @QueryParam("organ") Optional<String> organ) {
+    @Path("/protocols")
+    public Response getProtocols(@QueryParam("theme") Optional<String> theme,
+                                       @QueryParam("organ") Optional<String> organ) throws Exception {
 
         this.setupCollections();
+        List<Document> protocols = new ArrayList<>();
+        Iterator<Document> iterator;
+        if(!organ.isPresent()) {
+            iterator = aggregatableCollection.find(and(eq("theme", theme.orElse("")),
+                                                       eq("organ", null))).iterator();
 
-        List<Protocol> protocols = new ArrayList<>();
-        for(Protocol p : protocolCollection.find()) {
-            protocols.add(p);
+        } else {
+            iterator = aggregatableCollection.find(eq("organ", organ.orElse(""))).iterator();
         }
-        return protocols;
+        while(iterator.hasNext()) {
+            Document document = iterator.next();
+            document.append("hexId", document.getObjectId("_id").toHexString());
+            protocols.add(document);
+        }
+
+        return new Response(ResourceType.Protocol, null, ResourceType.Organ, protocols, true);
     }
 
     @GET
@@ -103,13 +114,12 @@ public class FormResource {
         this.setupCollections();
 
         Protocol protocol = protocolCollection.find(eq(objectId)).first();
-        System.out.println(protocol.getId());
         return protocol;
     }
 
     @GET
     @Path("/organs")
-    public List<Document> getOrgans(@QueryParam("theme") String theme) {
+    public Response getOrgans(@QueryParam("theme") String theme) {
 
         this.setupCollections();
         List<Document> organs = new ArrayList<>();
@@ -118,16 +128,17 @@ public class FormResource {
             organs.add(organ);
         }
 
-        return organs;
+        return new Response(ResourceType.Organ, ResourceType.Protocol, ResourceType.Theme, organs);
     }
 
     @GET
     @Path("/themes")
-    public List<Document> getThemes() {
+    public Response getThemes() {
         this.setupCollections();
         List<Document> themes = new ArrayList<>();
         aggregatableCollection.aggregate(Arrays.asList(Aggregates.group("$theme"))).forEach((Consumer<? super Document>) themes::add);
-        return themes;
+        return new Response(ResourceType.Theme, ResourceType.Organ, null, themes);
+
 
     }
 }

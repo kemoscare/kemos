@@ -12,23 +12,26 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      tree: [],
       chemotherapies: [],
-      submission: {}
+      submission: {},
+      themes: []
     }
     console.log(process.env)
   }
 
-  fetchChemos() {
-    fetch(api.server + 'biglazy')
+  fetchThemes() {
+    fetch(api.server + 'biglazy/themes')
     .then(response => response.json())
-    .then(data => this.setState({chemotherapies: data, submission: {}}))
-    .then(data => console.log(data))
+    .then(data => {
+        console.log(data)
+        this.setState({ themeResponse: data})
+        
+      })
   }
 
-
-
   componentDidMount() {
-    this.fetchChemos()
+    this.fetchThemes()
   }
 
   submit = (payload) => {
@@ -40,29 +43,18 @@ class App extends Component {
       },
       body: JSON.stringify(payload.data)
     }).then(o => {
-      this.fetchChemos()
+      this.fetchChemo(this.state.submission.data.hexId)
+      this.fetchThemes()
+      
     })
     
   }
 
-  addToList = (payload) => {
-    const {chemotherapies} = this.state
-    const joined = chemotherapies.concat([JSON.parse(JSON.stringify(payload))]) //easy hack for deep copying as Form.io submission objects don't seem to be immutable
-    this.setState({
-      chemotherapies: joined,
-      submission: {}
-    })
-    return true
-  }
-
-  onChemoClick = (id) => {
-
-    const submissionObject = { data: this.state.chemotherapies[id]}
-    console.log(submissionObject)
-    this.setState({
-      chemotherapies: this.state.chemotherapies,
-      submission: submissionObject
-    })
+  fetchChemo = (id) => {
+    const url = api.server + 'biglazy/' + id
+    fetch(url)
+      .then(response => response.json())
+      .then(data => this.setState({submission: { data: data}}))
   }
 
   resetForm = () => {
@@ -73,14 +65,15 @@ class App extends Component {
 
   render() {
 
-    const { chemotherapies, submission } = this.state
-
+    const { chemotherapies, submission, themeResponse } = this.state
     return (
       <div className="App">
-        <Topbar/>
         <div className="flex-box">
-          <Sidebar chemotherapies={chemotherapies} itemClicked={this.onChemoClick} resetForm={this.resetForm}/>
+          <Sidebar themeResponse={themeResponse} itemClicked={this.onChemoClick} addChemo={this.resetForm} actionFunc={this.fetchChemo}/>
           <div className="form-component">
+            <div id="Topbar">
+              <span className="KEMOS">KEMOS</span><span className="CARE">.CARE</span>
+            </div>
             <Form form={formJSON} onSubmit={this.submit} submission={submission} />
           </div>
         </div>
