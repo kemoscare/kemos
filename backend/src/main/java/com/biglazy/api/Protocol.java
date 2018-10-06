@@ -1,6 +1,8 @@
 package com.biglazy.api;
 
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.bson.Document;
 import org.bson.codecs.pojo.annotations.BsonIgnore;
 import org.bson.types.ObjectId;
 
@@ -10,6 +12,8 @@ import java.util.List;
 public class Protocol {
 
     @JsonIgnore private ObjectId id;
+    @JsonIgnore @BsonIgnore
+    private static ObjectMapper objectMapper = new ObjectMapper();
 
     @JsonProperty("protocole") private String name;
     @JsonProperty("radio-radiochimiotherapie") private RadioChimiotherapie radio_radiochimiottt;
@@ -93,6 +97,11 @@ public class Protocol {
         if(id != "") {
             this.id = new ObjectId(id);
         }
+    }
+
+    @BsonIgnore @JsonIgnore
+    public Document toBson() throws Exception{
+        return Document.parse(objectMapper.writeValueAsString(this));
     }
 
 
