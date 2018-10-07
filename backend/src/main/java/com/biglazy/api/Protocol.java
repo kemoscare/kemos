@@ -9,6 +9,7 @@ import org.bson.types.ObjectId;
 import java.util.List;
 
 @JsonIgnoreProperties(value = {"submit"}, ignoreUnknown = true) //ignores submit field
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Protocol {
 
     @JsonIgnore private ObjectId id;
