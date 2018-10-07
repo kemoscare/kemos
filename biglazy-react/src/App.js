@@ -21,7 +21,7 @@ class App extends Component {
   }
 
   fetchThemes() {
-    fetch(api.server + 'biglazy/themes')
+    fetch(api.server + 'themes')
     .then(response => response.json())
     .then(data => {
         console.log(data)
@@ -35,7 +35,7 @@ class App extends Component {
   }
 
   submit = (payload) => {
-    fetch(api.server + 'biglazy', {
+    fetch(api.server, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -51,7 +51,7 @@ class App extends Component {
   }
 
   fetchChemo = (id) => {
-    const url = api.server + 'biglazy/' + id
+    const url = api.server + id
     fetch(url)
       .then(response => response.json())
       .then(data => this.setState({submission: { data: data}}))

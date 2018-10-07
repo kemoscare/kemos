@@ -11,13 +11,13 @@ export class TreeNode extends Component {
     nodeClicked = () => {
 
         const {nodeName, linksTo, linksFrom, resourceType} = this.props
-        const url = api.server + 'biglazy/'+linksTo+'s?'+resourceType + '=' + nodeName
+        const url = api.server+linksTo+'s?'+resourceType + '=' + nodeName
         console.log(url)
         fetch(url)
             .then(response => response.json())
             .then(data => {
                 if(data.resources.map(e => e._id).includes(null)) {
-                    fetch(api.server + 'biglazy/protocols?theme=' + nodeName)
+                    fetch(api.server + 'protocols?theme=' + nodeName)
                         .then(response => response.json())
                         .then(missing => this.setState({
                             treeBranch: data,
