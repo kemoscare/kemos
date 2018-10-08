@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { Form } from 'react-formio'
 import Topbar from './Topbar';
 import Sidebar from './Sidebar';
-import formJSON from './form'
+import Panes from './Tab'
 const api = require('./api-' + process.env.NODE_ENV)
 
 class App extends Component {
@@ -74,7 +73,7 @@ class App extends Component {
             <div id="Topbar">
               <span className="KEMOS">KEMOS</span><span className="CARE">.CARE</span>
             </div>
-            <Form form={formJSON} onSubmit={this.submit} submission={submission} />
+            <Panes chemotherapy={submission} />
           </div>
         </div>
       </div>
