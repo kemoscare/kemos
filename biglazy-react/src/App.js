@@ -13,7 +13,7 @@ class App extends Component {
     this.state = {
       tree: [],
       chemotherapies: [],
-      submission: {},
+      selectedProtocol: {},
       themes: []
     }
     console.log(process.env)
@@ -42,7 +42,7 @@ class App extends Component {
       },
       body: JSON.stringify(payload.data)
     }).then(o => {
-      this.fetchChemo(this.state.submission.data.hexId)
+      this.fetchChemo(this.state.selectedProtocol.data.hexId)
       this.fetchThemes()
       
     })
@@ -53,18 +53,18 @@ class App extends Component {
     const url = api.server + id
     fetch(url)
       .then(response => response.json())
-      .then(data => this.setState({submission: { data: data}}))
+      .then(data => this.setState({selectedProtocol: data}))
   }
 
   resetForm = () => {
     this.setState({
-      submission: {}
+      selectedProtocol: {}
     })
   }
 
   render() {
 
-    const { chemotherapies, submission, themeResponse } = this.state
+    const { selectedProtocol, themeResponse } = this.state
     return (
       <div className="App">
         <div className="flex-box">
@@ -73,7 +73,7 @@ class App extends Component {
             <div id="Topbar">
               <span className="KEMOS">KEMOS</span><span className="CARE">.CARE</span>
             </div>
-            <Panes chemotherapy={submission} />
+            <Panes selectedProtocol={selectedProtocol} />
           </div>
         </div>
       </div>
