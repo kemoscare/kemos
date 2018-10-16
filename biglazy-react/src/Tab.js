@@ -32,15 +32,20 @@ const Patient = () => {
 
 class Panes extends Component {
 
+    // formSubmit = (event, payload) => {
+    //     event.preventDefault()
+    //     console.log("here)")
+    // }
+
     render() {
-        const { selectedProtocol } = this.props;
+        const { selectedProtocol, submit } = this.props;
 
         const panes = [
         <Tab id="apercu" title="Aperçu" panel={<Preview protocol={selectedProtocol} />} />,
         <Tab id="patient" title="Patient" panel={<Patient />}/>,
         <Tab id="infirmerie" title="Infirmerie" disabled={true}/>,
         <Tab id="medecin" title="Médecin" disabled={true}/>,
-        <Tab id="modifier" title="Modifier" panel={<Form form={formJSON} onSubmit={this.submit} submission={{data: selectedProtocol}} />}/>
+        <Tab id="modifier" title="Modifier" panel={<Form form={formJSON} onSubmit={submit} submission={{data: selectedProtocol}} />}/>
         ]
         return (
             <Tabs id="TabsExample" onChange={this.handleTabChange} large={true} defaultSelectedTabId="modifier">
