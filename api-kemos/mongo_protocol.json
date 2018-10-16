@@ -1,0 +1,38 @@
+{
+    "_id": {
+        "$oid": "5bb0d7f7cf4fb86664d4c6de"
+    },
+    "dayOneEquals": {
+        "$numberInt": "22"
+    },
+    "days": [
+        {
+            "careGalenic": "IntraVeinous",
+            "careMode": "DayCare",
+            "day": "1",
+            "products": [
+                "Taxotère"
+            ]
+        }
+    ],
+    "evaluations": [
+        {
+            "consultation": true,
+            "dayAfter": {
+                "$numberInt": "3"
+            },
+            "imagery": false
+        },
+        {
+            "consultation": true,
+            "dayAfter": {
+                "$numberInt": "6"
+            },
+            "imagery": true
+        }
+    ],
+    "name": "Taxotère 75",
+    "organ": "prostate",
+    "radio_radiochimiottt": "Chimiotherapie",
+    "theme": "urologie"
+}
