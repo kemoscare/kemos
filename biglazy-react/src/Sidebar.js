@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {TreeBranch, TreeNode} from './Treenode'
 import Searchbar from './Searchbar'
+import { Tree } from '@blueprintjs/core';
 
 // const ApiListComponent = (category, items, itemClicked) => {
 //     const apiItems = items.map((item, index) => {
@@ -24,6 +25,9 @@ class Sidebar extends Component {
 
     constructor() {
         super()
+        this.state = {
+            contentTree: []
+        }
     }
 
     // themeClicked = (theme) => {
@@ -37,32 +41,53 @@ class Sidebar extends Component {
     //         .then(response => console.log(response))
     // }
 
-    // fetchThemes() {
-    //     fetch("http://localhost:8080/biglazy/themes")
-    //       .then(response => response.json())
-    //       .then(data => this.setState({ themes: response}))
-    //       .then(data => console.log(themes))
-    //   }
+    componentDidMount() {
+        this.fetchNames()
+    }
+
+    workTree(tree) {
+
+    }
+
+    fetchNames() {
+        fetch("http://localhost:3001/protocols/names/")
+            .then(response => response.json())
+            .then(json => this.setState({contentTree: json}))
+            .then(json => console.log(json))
+    }
+
+    onNodeClick = (node, mouseEvent) => {
+        const { actionFunc } = this.props
+        if(node.category == "protocol") {
+            console.log(node.id)
+            actionFunc(node.id)
+        } else if(node.isExpanded == true) {
+            this.onCollapse(node, mouseEvent)
+        } else {
+            this.onExpand(node, mouseEvent)
+        }
+    }
+
+    onCollapse = (node, mouseEvent) => {
+        node.isExpanded = false
+        this.setState(this.state)
+        
+    }
+
+    onExpand = (node, mouseEvent) => {
+        node.isExpanded = true
+        this.setState(this.state)
+    }
+
 
     render() {
-        const { themeResponse, actionFunc, addChemo } = this.props
-        if(themeResponse) {
-            const { linksTo, linksFrom, resources, resourceType, isFinal } = themeResponse
-            return (
-                <div className="Sidebar">
-                    <Searchbar />
-                    {/* <button onClick={() => addChemo()}>Ajouter +</button> */}
-                    <TreeBranch linksFrom={linksFrom} linksTo={linksTo} resources={resources} resourceType={resourceType} actionFunc={actionFunc} isFinal={isFinal} />
-                </div>
-            )
-        } else {
-            return (
-            <div className="Sidebar">
-            <Searchbar />
-            </div>
-            )
-        }
 
+        const { contentTree } = this.state
+        return (
+            <div className="Sidebar bp3-dark">
+                <Tree contents={contentTree} onNodeCollapse={this.onCollapse} onNodeExpand={this.onExpand} onNodeClick={this.onNodeClick} />
+            </div>
+        )
     }
 }
 export default Sidebar;

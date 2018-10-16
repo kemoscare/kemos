@@ -20,13 +20,13 @@ class App extends Component {
   }
 
   fetchThemes() {
-    fetch(api.server + 'themes')
-    .then(response => response.json())
-    .then(data => {
-        console.log(data)
-        this.setState({ themeResponse: data})
+    // fetch(api.server + 'themes')
+    // .then(response => response.json())
+    // .then(data => {
+    //     console.log(data)
+    //     this.setState({ themeResponse: data})
         
-      })
+    //   })
   }
 
   componentDidMount() {
@@ -34,7 +34,8 @@ class App extends Component {
   }
 
   submit = (payload) => {
-    fetch(api.server, {
+    delete payload.data["data"]
+    fetch(api.server + 'new', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -42,15 +43,16 @@ class App extends Component {
       },
       body: JSON.stringify(payload.data)
     }).then(o => {
-      this.fetchChemo(this.state.selectedProtocol.data.hexId)
+      console.log(o)
       this.fetchThemes()
-      
+      this.setState({selectedProtocol: payload})
     })
     
   }
 
   fetchChemo = (id) => {
     const url = api.server + id
+    console.log(url)
     fetch(url)
       .then(response => response.json())
       .then(data => this.setState({selectedProtocol: data}))
@@ -68,12 +70,12 @@ class App extends Component {
     return (
       <div className="App">
         <div className="flex-box">
-          <Sidebar themeResponse={themeResponse} itemClicked={this.onChemoClick} addChemo={this.resetForm} actionFunc={this.fetchChemo}/>
+          <Sidebar actionFunc={this.fetchChemo}/>
           <div className="form-component">
             <div id="Topbar">
               <span className="KEMOS">KEMOS</span><span className="CARE">.CARE</span>
             </div>
-            <Panes selectedProtocol={selectedProtocol} />
+            <Panes selectedProtocol={selectedProtocol} submit={this.submit} />
           </div>
         </div>
       </div>
