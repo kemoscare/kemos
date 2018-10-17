@@ -32,10 +32,31 @@ def workTree(elements):
 
 db = get_database()
 
-tree = [e for e in db.protocoles.aggregate(queries.GET_TREE)]
-pprint(workTree(tree))
+# tree = [e for e in db.protocoles.aggregate(queries.GET_TREE)]
+# pprint(workTree(tree))
 
-db = get_database()
+# db = get_database()
 
-tree = [e for e in db.protocoles.aggregate(queries.GET_TREE)]
-pprint(workTree(tree))
+# tree = [e for e in db.protocoles.aggregate(queries.GET_TREE)]
+# pprint(workTree(tree))
+
+from app.protocols.models import Protocol
+import json
+from app.protocols.coders import FormEncoder, FormDecoder
+from bson.objectid import ObjectId
+from flask import jsonify
+# form_protocol_json = open('form_protocol.json', 'r')
+# mongo_protocol = json.load(form_protocol_json, cls=FormDecoder)
+
+# pprint(mongo_protocol)
+
+document = [e for e in db.protocoles.find({'_id': ObjectId('5bb0e04bcf4fb86664d63f2e')})][0]
+document = FormEncoder.encode_formio(document)
+# print(document)
+print(json.dumps(document, cls=FormEncoder))
+
+# pprint(json.dumps())
+# form_protocol = json.load(open('mongo_protocol.json', 'r'), cls=FormDecoder)
+
+# pprint(form_protocol)
+
