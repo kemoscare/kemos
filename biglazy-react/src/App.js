@@ -34,6 +34,7 @@ class App extends Component {
   }
 
   submit = (payload) => {
+    console.log(payload.data)
     delete payload.data["data"]
     fetch(api.server + 'new', {
       method: 'POST',

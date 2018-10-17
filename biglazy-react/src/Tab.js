@@ -37,6 +37,10 @@ class Panes extends Component {
     //     console.log("here)")
     // }
 
+    onSubmitDone = (objectt) => {
+        
+    }
+
     render() {
         const { selectedProtocol, submit } = this.props;
 
