@@ -1,39 +1,30 @@
 {
-    "_id": {
-        "timestamp": 1538316279,
-        "machineIdentifier": 13586360,
-        "processIdentifier": 26212,
-        "counter": 13944542,
-        "time": 1538316279000,
-        "date": 1538316279000,
-        "timeSecond": 1538316279
-    },
-    "dayOneEquals": 22,
-    "days": [
-        {
-            "careGalenic": "IntraVeinous",
-            "careMode": "DayCare",
-            "day": "1",
-            "products": [
-                "Taxotère"
-            ]
-        }
-    ],
-    "evaluations": [
-        {
-            "consultation": true,
-            "dayAfter": 3,
-            "imagery": false
-        },
-        {
-            "consultation": true,
-            "dayAfter": 6,
-            "imagery": true
-        }
-    ],
-    "name": "Taxotère 75",
-    "organ": "prostate",
-    "radio_radiochimiottt": "Chimiotherapie",
+    "hexId": "5bb0e04bcf4fb86664d63f2e",
     "theme": "urologie",
-    "hexId": "5bb0d7f7cf4fb86664d4c6de"
-}
+    "radio_radiochimiottt": "chimiotherapie",
+    "evaluations": [
+      {
+        "dayAfter": 1,
+        "delay": 20,
+        "content": {
+          "imagery": true,
+          "consultation": true
+        }
+      }
+    ],
+    "days": [
+      {
+        "products": [
+          "oasdoasijd"
+        ],
+        "day": "1",
+        "careMode": "Admission",
+        "careGalenic": "IntraVeinous"
+      }
+    ],
+    "organ": "prostate",
+    "name": "Taxotere",
+    "dayOneEquals": 22,
+    "submit": true,
+    "category": ""
+  }
