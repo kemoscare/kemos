@@ -16,11 +16,6 @@ class Day:
         self.careMode = CareMode(0)
 
 
-
-
-
-
-
 class CareMode(Enum):
     Admission = "hospitalisation",
     DayCare = "hdj"
