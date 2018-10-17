@@ -59,6 +59,12 @@
             "request": "launch",
             "program": "${file}",
             "console": "externalTerminal"
+        },
+        {
+            "name": "Python : Run",
+            "type": "python", 
+            "request": "launch",
+            "program": "${workspaceFolder}/run.py"
         }
     ]
 }
