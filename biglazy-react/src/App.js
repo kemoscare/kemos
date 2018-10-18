@@ -14,7 +14,9 @@ class App extends Component {
       tree: [],
       chemotherapies: [],
       selectedProtocol: {},
-      themes: []
+      themes: [],
+      chemoLoading: true,
+      newChemo: false
     }
     console.log(process.env)
   }
@@ -30,7 +32,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.fetchThemes()
+    this.fetchNames()
   }
 
   submit = (payload) => {
@@ -51,32 +53,46 @@ class App extends Component {
     
   }
 
+  fetchNames() {
+    this.setState({namesLoading: true})
+    fetch(api.server + "names/")
+        .then(response => response.json())
+        .then(json => this.setState({contentTree: json, namesLoading: false}))
+  }
+
   fetchChemo = (id) => {
-    const url = api.server + id
-    console.log(url)
-    fetch(url)
-      .then(response => response.json())
-      .then(data => this.setState({selectedProtocol: data}))
+    this.setState({chemoLoading: true})
+    
+    const f = () => {
+        const url = api.server + id
+        console.log(url)
+        fetch(url)
+          .then(response => response.json())
+          .then(data => this.setState({selectedProtocol: data, chemoLoading: false}))
+      }
+    setTimeout(f, 0)
   }
 
   resetForm = () => {
     this.setState({
-      selectedProtocol: {}
+      selectedProtocol: {},
+      chemoLoading: false,
+      newChemo: true
     })
   }
 
   render() {
 
-    const { selectedProtocol, themeResponse } = this.state
+    const { selectedProtocol, contentTree, chemoLoading, newChemo } = this.state
     return (
       <div className="App">
         <div className="flex-box">
-          <Sidebar actionFunc={this.fetchChemo}/>
+          <Sidebar actionFunc={this.fetchChemo} contentTree={contentTree} reset={this.resetForm}/>
           <div className="form-component">
             <div id="Topbar">
               <span className="KEMOS">KEMOS</span><span className="CARE">.CARE</span>
             </div>
-            <Panes selectedProtocol={selectedProtocol} submit={this.submit} />
+            <Panes selectedProtocol={selectedProtocol} submit={this.submit} loading={chemoLoading} newChemo={newChemo}/>
           </div>
         </div>
       </div>
