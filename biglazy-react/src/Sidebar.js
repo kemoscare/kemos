@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {TreeBranch, TreeNode} from './Treenode'
 import Searchbar from './Searchbar'
-import { Tree } from '@blueprintjs/core';
+import { Tree, Button, Intent } from '@blueprintjs/core';
 
 // const ApiListComponent = (category, items, itemClicked) => {
 //     const apiItems = items.map((item, index) => {
@@ -25,9 +25,7 @@ class Sidebar extends Component {
 
     constructor() {
         super()
-        this.state = {
-            contentTree: []
-        }
+        this.state = {}
     }
 
     // themeClicked = (theme) => {
@@ -41,50 +39,57 @@ class Sidebar extends Component {
     //         .then(response => console.log(response))
     // }
 
-    componentDidMount() {
-        this.fetchNames()
-    }
-
-    workTree(tree) {
-
-    }
-
-    fetchNames() {
-        fetch("http://localhost:3001/protocols/names/")
-            .then(response => response.json())
-            .then(json => this.setState({contentTree: json}))
-            .then(json => console.log(json))
-    }
-
     onNodeClick = (node, mouseEvent) => {
         const { actionFunc } = this.props
+        this.forEachNode(this.props.contentTree, (node) => node.isSelected = false)
+
         if(node.category == "protocol") {
             console.log(node.id)
+            node.isSelected = true
+            this.setState(this.state)
             actionFunc(node.id)
         } else if(node.isExpanded == true) {
             this.onCollapse(node, mouseEvent)
         } else {
+
             this.onExpand(node, mouseEvent)
         }
     }
 
     onCollapse = (node, mouseEvent) => {
         node.isExpanded = false
+        node.isSelected = false
+
         this.setState(this.state)
         
     }
 
     onExpand = (node, mouseEvent) => {
         node.isExpanded = true
+        node.isSelected = true
         this.setState(this.state)
+    }
+
+    forEachNode(nodes, callback) {
+        if (nodes == null) {
+            return;
+        }
+
+        for (const node of nodes) {
+            callback(node);
+            this.forEachNode(node.childNodes, callback);
+        }
     }
 
 
     render() {
 
-        const { contentTree } = this.state
+        const { contentTree, reset } = this.props
         return (
             <div className="Sidebar bp3-dark">
+                <div className='Searchbar'>
+                    <Button className="add-button" intent={Intent.SUCCESS} large={true} icon="plus" onClick={() => reset()}>Ajouter</Button>
+                </div>
                 <Tree contents={contentTree} onNodeCollapse={this.onCollapse} onNodeExpand={this.onExpand} onNodeClick={this.onNodeClick} />
             </div>
         )
