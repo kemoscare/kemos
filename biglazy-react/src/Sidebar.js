@@ -23,21 +23,13 @@ import { Tree, Button, Intent } from '@blueprintjs/core';
 
 class Sidebar extends Component {
 
+
     constructor() {
         super()
+        this.shouldRenderLastInserted = true
         this.state = {}
     }
 
-    // themeClicked = (theme) => {
-    //     this.fetchOrgans(theme)
-    // }
-
-    // fetchOrgans(theme) {
-    //     fetch("http://localhost:8080/biglazy/organ?theme="+theme)
-    //         .then(response => response.json())
-    //         .then(response => this.setState({themes: themes[theme] = response}))
-    //         .then(response => console.log(response))
-    // }
 
     onNodeClick = (node, mouseEvent) => {
         const { actionFunc } = this.props
@@ -81,10 +73,38 @@ class Sidebar extends Component {
         }
     }
 
+    selectChemo(nodes, id) {
+        if(nodes == null) return
+        for(const node of nodes) {
+            if(node.id == id) {
+                node.isSelected = true
+                return true
+            }
+            if(this.selectChemo(node.childNodes, id) == true) {
+                node.isExpanded = true
+                return true
+            }
+        }
+    }
+
+    checkId(id) {
+        if(id == this.lastInsertedId) { 
+            console.log("FALSE + " + id + " == " + this.lastInsertedId)
+            return false 
+        } else { 
+            console.log("TRUE + " + id + " != " + this.lastInsertedId)
+            this.lastInsertedId = id
+            return true
+        }
+    }
+
 
     render() {
 
-        const { contentTree, reset } = this.props
+        const { contentTree, reset, shouldSelect } = this.props
+        if(shouldSelect && this.checkId(shouldSelect)) {
+            this.selectChemo(contentTree, shouldSelect)
+        }
         return (
             <div className="Sidebar bp3-dark">
                 <div className='Searchbar'>

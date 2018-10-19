@@ -36,8 +36,8 @@ class App extends Component {
   }
 
   submit = (payload) => {
-    console.log(payload.data)
     delete payload.data["data"]
+    this.setState({ chemoLoading: true})
     fetch(api.server + 'new', {
       method: 'POST',
       headers: {
@@ -45,19 +45,20 @@ class App extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload.data)
-    }).then(o => {
-      console.log(o)
-      this.fetchThemes()
-      this.setState({selectedProtocol: payload})
+    }).then(response => response.json())
+      .then(json => {
+        this.setState({selectedProtocol: json, chemoLoading: false})
+        this.fetchNames(json.hexId)
     })
+
     
   }
 
-  fetchNames() {
+  fetchNames(lastInsertedId) {
     this.setState({namesLoading: true})
     fetch(api.server + "names/")
         .then(response => response.json())
-        .then(json => this.setState({contentTree: json, namesLoading: false}))
+        .then(json => this.setState({contentTree: json, namesLoading: false, shouldSelect: lastInsertedId}))
   }
 
   fetchChemo = (id) => {
@@ -79,15 +80,16 @@ class App extends Component {
       chemoLoading: false,
       newChemo: true
     })
+    
   }
 
   render() {
 
-    const { selectedProtocol, contentTree, chemoLoading, newChemo } = this.state
+    const { selectedProtocol, contentTree, chemoLoading, newChemo, shouldSelect } = this.state
     return (
       <div className="App">
         <div className="flex-box">
-          <Sidebar actionFunc={this.fetchChemo} contentTree={contentTree} reset={this.resetForm}/>
+          <Sidebar actionFunc={this.fetchChemo} contentTree={contentTree} reset={this.resetForm} shouldSelect={shouldSelect}/>
           <div className="form-component">
             <div id="Topbar">
               <span className="KEMOS">KEMOS</span><span className="CARE">.CARE</span>
