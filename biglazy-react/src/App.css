@@ -61,56 +61,6 @@ span.CARE {
   font-size: 40px;
   color: #FF6565;
 }
-li.theme {
-  display: block;
-  width: 120%;
-  letter-spacing: 0.7px;
-  height: 40px;
-  background-color: rgba(0, 0, 0, 0.3);
-  font-family: 'Source Sans Pro', sans-serif;
-  font-size: 20px;
-  color: rgba(255, 255, 255, 0.75);
-  text-transform: uppercase;
-  list-style-type: none;
-  padding: 5px;
-  padding-left: 15px;
-  border-bottom: solid 0.5px #707070;
-  cursor: pointer;
-}
-
-li.organ {
-  display: block;
-  color: rgba(255, 255, 255, 0.75);
-  list-style-type: none;
-  padding: 2px;
-  padding-left: 15px;
-  margin: 0;
-  font-family: 'Source Sans Pro', sans-serif;
-  text-transform: uppercase;
-  font-size: 15px;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.829);
-  background-color: rgba(0, 0, 0, 0.1);
-  height: 25px;
-  cursor: pointer;
-}
-
-li.protocol {
-  display: block;
-  background-color: rgba(0, 0, 0, 0.05);
-  height: 40px;
-  border-bottom: dotted 0.5px #707070;
-  padding: 13px;
-  padding-left: 15px;
-  cursor: pointer;
-  color: rgba(255, 255, 255, 0.75);
-  font-family: 'Source Sans Pro', sans-serif;
-  line-height: 0.67;
-  letter-spacing: 0.5px;
-  font-size: 17px;
-
-}
-
 
 .Searchbar {
   margin: 0;
@@ -125,10 +75,6 @@ li.protocol {
   text-align: center;
 }
 
-.Sidebar h3.main-title {
-  color: #222;
-
-}
 .form-component {
   margin: auto;
   padding: 5px;
@@ -138,14 +84,3 @@ li.protocol {
   overflow-y: auto;
 }
 
-.unfold-node {
-  font-weight: bold
-}
-
-.fold-node {
-  font-weight: bold
-}
-
-.isClicked {
-  font-weight: bold
-}
