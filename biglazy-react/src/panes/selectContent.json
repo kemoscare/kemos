@@ -1,0 +1,16 @@
+{
+    "themes": [
+        {"label": "Urologie", "value": "urologie"},
+        {"label": "Général", "value": "general"},
+        {"label": "Immunothérapie", "value": "immunotherapie"},
+        {"label": "Sein", "value": "sein"},
+        {"label": "Neurologie", "value": "neurologie"}
+    ], 
+    "organs": [
+        {"label": "Rein", "value": "rein"},
+        {"label": "Vessie", "value": "vessie"},
+        {"label": "Prostate", "value": "prostate"},
+        {"label": "Penis", "value": "penis"},
+        {"label": "", "value": ""}
+    ]
+}

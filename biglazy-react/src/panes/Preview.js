@@ -7,8 +7,8 @@ const Preview = (props) => {
 
     if(!loading) {
         const cellRenderer = (rowIndex) => <Cell>À {protocol.evaluations[rowIndex].dayAfter} semaines</Cell>
-        const imagerieCellRenderer = (rowIndex) => <Cell>{protocol.evaluations[rowIndex].content.imagery ? "Oui" : "Non" }</Cell>
-        const consultationCellRenderer = (rowIndex) => <Cell>{protocol.evaluations[rowIndex].content.consultation ? "Oui" : "Non" }</Cell>
+        const imagerieCellRenderer = (rowIndex) => <Cell>{protocol.evaluations[rowIndex].imagery ? "Oui" : "Non" }</Cell>
+        const consultationCellRenderer = (rowIndex) => <Cell>{protocol.evaluations[rowIndex].consultation ? "Oui" : "Non" }</Cell>
         
         return (
             <div>
