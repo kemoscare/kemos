@@ -3,14 +3,37 @@
         {"label": "Urologie", "value": "urologie"},
         {"label": "Général", "value": "general"},
         {"label": "Immunothérapie", "value": "immunotherapie"},
-        {"label": "Sein", "value": "sein"},
-        {"label": "Neurologie", "value": "neurologie"}
+        {"label": "Neurologie", "value": "neurologie"},
+        {"label": "Gynécologie", "value": "gynecologie"},
+        {"label": "ORL", "value": "orl"}
     ], 
-    "organs": [
-        {"label": "Rein", "value": "rein"},
-        {"label": "Vessie", "value": "vessie"},
-        {"label": "Prostate", "value": "prostate"},
-        {"label": "Penis", "value": "penis"},
-        {"label": "", "value": ""}
-    ]
+    "organs": {
+        "gynecologie": [
+            {"label": "", "value": ""},
+            {"label": "Ovaire", "value": "ovaire"},
+            {"label": "Col", "value": "col"},
+            {"label": "Endomètre", "value": "endomètre"},
+            {"label": "Sein", "value": "sein"}
+
+        ],
+        "urologie": [
+            {"label": "", "value": ""},
+            {"label": "Rein", "value": "rein"},
+            {"label": "Vessie", "value": "vessie"},
+            {"label": "Prostate", "value": "prostate"},
+            {"label": "Penis", "value": "penis"}
+        ],
+        "general": [
+            {"label": "", "value": ""}
+        ],
+        "immunotherapie": [
+            {"label": "", "value": ""}
+        ],
+        "neurologie": [
+            {"label": "", "value": ""}
+        ],
+        "orl": [
+            {"label": "", "value": ""}
+        ]
+    }
 }
