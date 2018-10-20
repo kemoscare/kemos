@@ -78,7 +78,7 @@ class FormDay extends Component {
                             <th>Produits</th>
                             <th>Galénique</th>
                             <th>Mode d'administration</th>
-                            <th><Icon icon="delete"/></th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>

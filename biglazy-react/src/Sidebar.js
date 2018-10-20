@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {TreeBranch, TreeNode} from './Treenode'
 import Searchbar from './Searchbar'
-import { Tree, Button, Intent } from '@blueprintjs/core';
+import { Tree, Button, Intent, Classes } from '@blueprintjs/core';
 
 // const ApiListComponent = (category, items, itemClicked) => {
 //     const apiItems = items.map((item, index) => {
@@ -98,18 +98,34 @@ class Sidebar extends Component {
 
     render() {
 
-        const { contentTree, reset, shouldSelect } = this.props
+        const { contentTree, reset, shouldSelect, namesLoading } = this.props
         if(shouldSelect && this.checkId(shouldSelect)) {
             this.selectChemo(contentTree, shouldSelect)
         }
-        return (
+
+        if(namesLoading) {
+            return (
             <div className="Sidebar bp3-dark">
                 <div className='Searchbar'>
                     <Button className="add-button" intent={Intent.SUCCESS} large={true} icon="plus" onClick={() => reset()}>Ajouter</Button>
                 </div>
-                <Tree contents={contentTree} onNodeCollapse={this.onCollapse} onNodeExpand={this.onExpand} onNodeClick={this.onNodeClick} />
+                <p className={Classes.SKELETON}>Lorem Ipsum</p>
+                <p className={Classes.SKELETON}>Lorem Ipsum</p>
+                <p className={Classes.SKELETON}>Lorem Ipsum</p>
+                <p className={Classes.SKELETON}>Lorem Ipsum</p>
             </div>
-        )
+            )
+        } else {
+            return (
+                <div className="Sidebar bp3-dark">
+                    <div className='Searchbar'>
+                        <Button className="add-button" intent={Intent.SUCCESS} large={true} icon="plus" onClick={() => reset()}>Ajouter</Button>
+                    </div>
+                    <Tree contents={contentTree} onNodeCollapse={this.onCollapse} onNodeExpand={this.onExpand} onNodeClick={this.onNodeClick} />
+                </div>
+            )
+        }
+
     }
 }
 export default Sidebar;

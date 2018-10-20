@@ -38,7 +38,7 @@ class App extends Component {
 
   submit = (payload) => {
     console.log(payload)
-    this.setState({ chemoLoading: true})
+    this.setState({ sendingChemoLoading: true})
     fetch(api.server + 'new', {
       method: 'POST',
       headers: {
@@ -48,8 +48,11 @@ class App extends Component {
       body: JSON.stringify(payload)
     }).then(response => response.json())
       .then(json => {
-        this.setState({formContent: json, chemoLoading: false, newChemo: false})
-        this.fetchNames(json._id)
+        const f = () => { 
+          this.setState({formContent: json, sendingChemoLoading: false, newChemo: false})
+          this.fetchNames(json._id)
+        }
+        setTimeout(f, 0)
     })
 
     
@@ -57,9 +60,10 @@ class App extends Component {
 
   fetchNames(lastInsertedId) {
     this.setState({namesLoading: true})
-    fetch(api.server + "names/")
+    const f = () => {fetch(api.server + "names/")
         .then(response => response.json())
-        .then(json => this.setState({contentTree: json, namesLoading: false, shouldSelect: lastInsertedId}))
+        .then(json => this.setState({contentTree: json, namesLoading: false, shouldSelect: lastInsertedId}))}
+    setTimeout(f, 0)
   }
 
   fetchChemo = (id) => {
@@ -69,7 +73,7 @@ class App extends Component {
         const url = api.server + id
         fetch(url)
           .then(response => response.json())
-          .then(data => this.setState({formContent: data, chemoLoading: false}))
+          .then(data => this.setState({formContent: data, chemoLoading: false, sendingChemoLoading: false}))
       }
     setTimeout(f, 0)
   }
@@ -90,6 +94,7 @@ class App extends Component {
         ]
       },
       chemoLoading: false,
+      sendingChemoLoading: false,
       newChemo: true
     })
     
@@ -97,16 +102,16 @@ class App extends Component {
 
   render() {
 
-    const { formContent, contentTree, chemoLoading, newChemo, shouldSelect } = this.state
+    const { formContent, contentTree, chemoLoading, newChemo, shouldSelect, sendingChemoLoading, namesLoading } = this.state
     return (
       <div className="App">
         <div className="flex-box">
-          <Sidebar actionFunc={this.fetchChemo} contentTree={contentTree} reset={this.resetForm} shouldSelect={shouldSelect}/>
+          <Sidebar actionFunc={this.fetchChemo} contentTree={contentTree} reset={this.resetForm} shouldSelect={shouldSelect} namesLoading={namesLoading}/>
           <div className="form-component">
             <div id="Topbar">
               <span className="KEMOS">KEMOS</span><span className="CARE">.CARE</span>
             </div>
-            <Panes formContent={formContent} submit={this.submit} loading={chemoLoading} newChemo={newChemo}/>
+            <Panes formContent={formContent} submit={this.submit} chemoLoading={chemoLoading} newChemo={newChemo} sendingChemoLoading={sendingChemoLoading}/>
           </div>
         </div>
       </div>
