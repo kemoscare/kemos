@@ -7,19 +7,6 @@ class FormEncoder(JSONEncoder):
         if isinstance(object, ObjectId):
             return str(object)
 
-    
-    @staticmethod
-    def encode_formio(object):
-        for evaluation in object['evaluations']:
-            content = { 'imagery': evaluation['imagery'], 'consultation': evaluation['consultation']}
-            evaluation['content'] = content
-            del evaluation['imagery']
-            del evaluation['consultation']
-
-        object['hexId'] = str(ObjectId(object['_id']))
-        del object['_id']
-        return object
-
     @staticmethod
     def level_up_empty_elements(elements):
         newElements = []
@@ -56,8 +43,7 @@ class FormDecoder(JSONDecoder): # From forms to mongo database
             object['imagery'] = object['content']['imagery']
             object['consultation'] = object['content']['consultation']
             del object['content']
-        
-        if 'hexId' in object:
-            object['_id'] = ObjectId(object['hexId'])
-            del object['hexId']
+        if '_id' in object:
+            object['_id'] = ObjectId(object['_id'])
+
         return object
