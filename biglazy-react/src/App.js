@@ -16,27 +16,28 @@ class App extends Component {
       selectedProtocol: {},
       themes: [],
       chemoLoading: true,
-      newChemo: false
+      newChemo: false,
+      formContent: {
+        theme: "urologie",
+        organ: "prostate",
+        name: "",
+        dayOneEquals: 0,
+        radio_radiochimiottt: "chimiotherapie",
+        evaluations: [
+            {dayAfter: 0, delay:0, imagery: false, consultation: false}
+        ],
+        days: [
+            {day: "", products: [""], careMode: "DayCare", careGalenic: "IntraVeinous"}
+        ]
     }
-    console.log(process.env)
+    }
   }
-
-  fetchThemes() {
-    // fetch(api.server + 'themes')
-    // .then(response => response.json())
-    // .then(data => {
-    //     console.log(data)
-    //     this.setState({ themeResponse: data})
-        
-    //   })
-  }
-
   componentDidMount() {
     this.fetchNames()
   }
 
   submit = (payload) => {
-    delete payload.data["data"]
+    console.log(payload)
     this.setState({ chemoLoading: true})
     fetch(api.server + 'new', {
       method: 'POST',
@@ -44,11 +45,11 @@ class App extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(payload.data)
+      body: JSON.stringify(payload)
     }).then(response => response.json())
       .then(json => {
-        this.setState({selectedProtocol: json, chemoLoading: false})
-        this.fetchNames(json.hexId)
+        this.setState({formContent: json, chemoLoading: false, newChemo: false})
+        this.fetchNames(json._id)
     })
 
     
@@ -66,17 +67,28 @@ class App extends Component {
     
     const f = () => {
         const url = api.server + id
-        console.log(url)
         fetch(url)
           .then(response => response.json())
-          .then(data => this.setState({selectedProtocol: data, chemoLoading: false}))
+          .then(data => this.setState({formContent: data, chemoLoading: false}))
       }
     setTimeout(f, 0)
   }
 
   resetForm = () => {
     this.setState({
-      selectedProtocol: {},
+      formContent: {
+        theme: "urologie",
+        organ: "prostate",
+        name: "",
+        dayOneEquals: 0,
+        radio_radiochimiottt: "chimiotherapie",
+        evaluations: [
+            {dayAfter: null, delay:0, imagery: false, consultation: false}
+        ],
+        days: [
+            {day: "", products: [""], careMode: "DayCare", careGalenic: "IntraVeinous"}
+        ]
+      },
       chemoLoading: false,
       newChemo: true
     })
@@ -85,7 +97,7 @@ class App extends Component {
 
   render() {
 
-    const { selectedProtocol, contentTree, chemoLoading, newChemo, shouldSelect } = this.state
+    const { formContent, contentTree, chemoLoading, newChemo, shouldSelect } = this.state
     return (
       <div className="App">
         <div className="flex-box">
@@ -94,7 +106,7 @@ class App extends Component {
             <div id="Topbar">
               <span className="KEMOS">KEMOS</span><span className="CARE">.CARE</span>
             </div>
-            <Panes selectedProtocol={selectedProtocol} submit={this.submit} loading={chemoLoading} newChemo={newChemo}/>
+            <Panes formContent={formContent} submit={this.submit} loading={chemoLoading} newChemo={newChemo}/>
           </div>
         </div>
       </div>

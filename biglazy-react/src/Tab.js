@@ -10,16 +10,16 @@ const Patient = () => {
 }
 
 class Panes extends Component {
-    
+
     render() {
-        const { selectedProtocol, submit, loading, newChemo } = this.props;
+        const { formContent, submit, loading, newChemo } = this.props;
         return (
             <Tabs id="TabsExample" onChange={this.handleTabChange} large={true} defaultSelectedTabId="modifier">
-                <Tab id="apercu" title="Aperçu" disabled={newChemo} panel={newChemo ? "" : <Preview protocol={selectedProtocol} loading={loading} />} />
+                <Tab id="apercu" title="Aperçu" disabled={newChemo} panel={newChemo ? "" : <Preview protocol={formContent} loading={loading} />} />
                 <Tab id="patient" title="Patient" disabled={newChemo} panel={newChemo ? "" : <Patient />} loading={loading}/>
                 <Tab id="infirmerie" title="Infirmerie" disabled={true} loading={loading}/>
                 <Tab id="medecin" title="Médecin" disabled={true} loading={loading}/>
-                <Tab id="modifier" title="Modifier" panel={<Form selectedProtocol={selectedProtocol}/>}/>
+                <Tab id="modifier" title="Modifier" panel={<Form formContent={formContent} loading={loading} onSubmit={submit}/>}/>
             </Tabs>
         )
     }

@@ -40,7 +40,6 @@ class FormDay extends Component {
     }
 
     dayComponent = (day, id) => {
-        console.log(day)
         return (
             <tr key={id}>
                 <td><InputGroup name="day" value={day.day} onChange={(event) => this.handleInputChange(event, id)} placeholder="1 - 1,8"/></td>
