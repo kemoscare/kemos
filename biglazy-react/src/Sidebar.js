@@ -36,7 +36,6 @@ class Sidebar extends Component {
         this.forEachNode(this.props.contentTree, (node) => node.isSelected = false)
 
         if(node.category == "protocol") {
-            console.log(node.id)
             node.isSelected = true
             this.setState(this.state)
             actionFunc(node.id)
@@ -89,10 +88,8 @@ class Sidebar extends Component {
 
     checkId(id) {
         if(id == this.lastInsertedId) { 
-            console.log("FALSE + " + id + " == " + this.lastInsertedId)
             return false 
         } else { 
-            console.log("TRUE + " + id + " != " + this.lastInsertedId)
             this.lastInsertedId = id
             return true
         }

@@ -12,7 +12,6 @@ export class TreeNode extends Component {
 
         const {nodeName, linksTo, linksFrom, resourceType} = this.props
         const url = api.server+linksTo+'s?'+resourceType + '=' + nodeName
-        console.log(url)
         fetch(url)
             .then(response => response.json())
             .then(data => {
