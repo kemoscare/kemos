@@ -4,8 +4,7 @@ import {Radio,
         InputGroup, 
         Button, 
         Intent, 
-        HTMLTable, 
-        Icon} from "@blueprintjs/core"
+        HTMLTable} from "@blueprintjs/core"
 import ProductAdder from './FormProductAdder'
 import { remove } from 'lodash'
 
@@ -57,6 +56,7 @@ class FormDay extends Component {
                     <RadioGroup name={"careMode-"+id} onChange={(event) => this.handleRadioChange(event, id)} selectedValue={day.careMode}>
                         <Radio label="HdJ" value="DayCare"/>
                         <Radio label="Hopital" value="Admission"/>
+                        <Radio label="Domicile" value="Home" />
                     </RadioGroup>
                 </td>
                 <td><Button icon="minus" intent={Intent.DANGER} onClick={() => this.deleteDay(id)} id={id}/></td>
