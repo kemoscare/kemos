@@ -6,6 +6,10 @@
   height: 100%;
 }
 
+body {
+  background-color: white;
+}
+
 .App {
   height: 100%;
   width: 100%;

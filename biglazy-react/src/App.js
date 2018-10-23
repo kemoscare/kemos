@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Topbar from './Topbar';
 import Sidebar from './Sidebar';
 import Panes from './Tab'
 const api = require('./api-' + process.env.NODE_ENV)
@@ -39,7 +38,7 @@ class App extends Component {
   submit = (payload) => {
     console.log(payload)
     this.setState({ sendingChemoLoading: true})
-    fetch(api.server + 'new', {
+    fetch(api.server + 'protocols/new', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -60,7 +59,7 @@ class App extends Component {
 
   fetchNames(lastInsertedId) {
     this.setState({namesLoading: true})
-    const f = () => {fetch(api.server + "names/")
+    const f = () => {fetch(api.server + "protocols/names/")
         .then(response => response.json())
         .then(json => this.setState({contentTree: json, namesLoading: false, shouldSelect: lastInsertedId}))}
     setTimeout(f, 0)
@@ -70,7 +69,7 @@ class App extends Component {
     this.setState({chemoLoading: true})
     
     const f = () => {
-        const url = api.server + id
+        const url = api.server + 'protocols/' + id
         fetch(url)
           .then(response => response.json())
           .then(data => this.setState({formContent: data, chemoLoading: false, sendingChemoLoading: false}))
@@ -109,7 +108,7 @@ class App extends Component {
           <Sidebar actionFunc={this.fetchChemo} contentTree={contentTree} reset={this.resetForm} shouldSelect={shouldSelect} namesLoading={namesLoading}/>
           <div className="form-component">
             <div id="Topbar">
-              <span className="KEMOS">KEMOS</span><span className="CARE">.CARE</span>
+              <span className="KEMOS">KEMOS</span><span className="CARE">CARE</span>
             </div>
             <Panes formContent={formContent} submit={this.submit} chemoLoading={chemoLoading} newChemo={newChemo} sendingChemoLoading={sendingChemoLoading}/>
           </div>
