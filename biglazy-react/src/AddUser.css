@@ -1,0 +1,19 @@
+.monoPageWrapper {
+    background-color: #43425d;
+    height: 100%;
+    padding-top: 100px;
+}
+.addUser {
+    margin: auto;
+    background-color: white;
+    width: 360px;
+    padding: 30px;
+    padding-bottom: 40px;
+    border-radius: 10px;
+
+}
+
+.center-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
