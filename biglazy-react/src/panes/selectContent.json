@@ -5,7 +5,9 @@
         {"label": "Immunothérapie", "value": "immunotherapie"},
         {"label": "Neurologie", "value": "neurologie"},
         {"label": "Gynécologie", "value": "gynecologie"},
-        {"label": "ORL", "value": "orl"}
+        {"label": "ORL", "value": "orl"},
+        {"label": "Poumon", "value": "poumon"},
+        {"label": "Système Digestif", "value": "systeme digestif"}
     ], 
     "organs": {
         "gynecologie": [
@@ -34,6 +36,12 @@
         ],
         "orl": [
             {"label": "", "value": ""}
+        ],
+        "poumon": [
+            {"label": "", "value": ""},
+            {"label": "CBPC", "value": "CBPC"},
+            {"label": "CBNPC", "value": "CBNPC"},
+            {"label": "Mésothéliome", "value": "mesotheliome"}
         ]
     }
 }

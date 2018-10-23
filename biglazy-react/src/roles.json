@@ -1,0 +1,15 @@
+{
+    "roles": [
+        {"label": "Interne"},
+        {"label": "Externe"},
+        {"label": "Praticien Hospitalier"},
+        {"label": "Professeur des universités - Praticien Hospitalier"},
+        {"label": "IDE"}
+    ],
+
+    "rights": [
+        "Ajouter un protocole",
+        "Modifier un protocole",
+        "Utiliser l'application"
+    ]
+}
