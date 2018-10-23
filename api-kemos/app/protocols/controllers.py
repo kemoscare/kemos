@@ -3,7 +3,7 @@ from pprint import pprint
 from app import MONGODB_CONNECTION, MONGODB_DATABASE_NAME, database
 from . import queries
 from bson.objectid import ObjectId
-from .coders import FormDecoder, FormEncoder
+from app.coders import FormDecoder, FormEncoder
 from pymongo import ReturnDocument
 
 protocols = Blueprint('protocols', __name__, url_prefix='/protocols')
