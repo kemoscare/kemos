@@ -31,7 +31,7 @@ class Form extends Component {
 
     handleRadioChange = (event) => {
         this.props.formContent[event.target.name] = event.target.value
-        if(event.target.name == "theme") {
+        if(event.target.name === "theme") {
             this.props.formContent.organ = ""
         }
         this.setState(this.state)
@@ -71,7 +71,7 @@ class Form extends Component {
             return (
                 <div className="bp3-ui-text">
                     <FormGroup label="Thème" labelFor="select-theme">
-                        <HTMLSelect id="theme" name="theme" onChange={this.handleSelectChange} value={formContent.theme} id="select-theme" options={selectContent.themes} fill={true}/>
+                        <HTMLSelect name="theme" onChange={this.handleSelectChange} value={formContent.theme} id="select-theme" options={selectContent.themes} fill={true}/>
                     </FormGroup>
                     <FormGroup label="Organe" labelFor="select-organ">
                         <HTMLSelect name="organ" id="organ" options={selectContent.organs[formContent.theme]} value={formContent.organ} onChange={this.handleSelectChange} fill={true}/>
