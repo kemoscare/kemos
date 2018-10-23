@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import {TreeBranch, TreeNode} from './Treenode'
-import Searchbar from './Searchbar'
 import { Tree, Button, Intent, Classes } from '@blueprintjs/core';
 
 // const ApiListComponent = (category, items, itemClicked) => {
@@ -35,7 +33,7 @@ class Sidebar extends Component {
         const { actionFunc } = this.props
         this.forEachNode(this.props.contentTree, (node) => node.isSelected = false)
 
-        if(node.category == "protocol") {
+        if(node.category === "protocol") {
             node.isSelected = true
             this.setState(this.state)
             actionFunc(node.id)
@@ -75,7 +73,7 @@ class Sidebar extends Component {
     selectChemo(nodes, id) {
         if(nodes == null) return
         for(const node of nodes) {
-            if(node.id == id) {
+            if(node.id === id) {
                 node.isSelected = true
                 return true
             }
@@ -87,7 +85,7 @@ class Sidebar extends Component {
     }
 
     checkId(id) {
-        if(id == this.lastInsertedId) { 
+        if(id === this.lastInsertedId) { 
             return false 
         } else { 
             this.lastInsertedId = id
