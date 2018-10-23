@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Classes } from '@blueprintjs/core';
 import { Cell, Table, Column, SelectionModes } from '@blueprintjs/table'
 
