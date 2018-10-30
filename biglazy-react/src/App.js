@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Sidebar from './Sidebar';
-import Panes from './Tab'
+import Panes from './Tabs'
+import { DISCONNECTED } from './flashes'
+import {headersWithToken} from './authentication'
+import Topbar from './Topbar';
+
 const api = require('./api-' + process.env.NODE_ENV)
 
 class App extends Component {
@@ -33,6 +37,7 @@ class App extends Component {
   }
   componentDidMount() {
     this.fetchNames()
+    this.fetchUser()
   }
 
   submit = (payload) => {
@@ -42,8 +47,7 @@ class App extends Component {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
+        'Content-Type': 'application/json'      },
       body: JSON.stringify(payload)
     }).then(response => response.json())
       .then(json => {
@@ -59,10 +63,22 @@ class App extends Component {
 
   fetchNames(lastInsertedId) {
     this.setState({namesLoading: true})
-    const f = () => {fetch(api.server + "protocols/names/")
-        .then(response => response.json())
-        .then(json => this.setState({contentTree: json, namesLoading: false, shouldSelect: lastInsertedId}))}
+    const f = () => {
+      fetch(api.server + "protocols/names/", {
+        headers: headersWithToken(sessionStorage.token)
+      })
+        .then(response => response.ok ? response.json() : Promise.reject(response))
+        .then(json => this.setState({contentTree: json, namesLoading: false, shouldSelect: lastInsertedId}))
+        .catch(response => {console.log(this.props.token);this.props.handleDisconnection(DISCONNECTED)})}
     setTimeout(f, 0)
+  }
+
+  fetchUser() {
+    fetch(api.server + "users/", {
+      headers: headersWithToken(sessionStorage.token)
+    })
+    .then(response => response.ok ? response.json() : Promise.reject(response))
+    .then(data => this.setState({user: data}))
   }
 
   fetchChemo = (id) => {
@@ -70,9 +86,10 @@ class App extends Component {
     
     const f = () => {
         const url = api.server + 'protocols/' + id
-        fetch(url)
-          .then(response => response.json())
+        fetch(url, {credentials: 'include'})
+          .then(response => response.ok ? response.json() : Promise.reject(response))
           .then(data => this.setState({formContent: data, chemoLoading: false, sendingChemoLoading: false}))
+          .catch(response => console.log(response))
       }
     setTimeout(f, 0)
   }
@@ -101,16 +118,21 @@ class App extends Component {
 
   render() {
 
-    const { formContent, contentTree, chemoLoading, newChemo, shouldSelect, sendingChemoLoading, namesLoading } = this.state
+    const { formContent, 
+            contentTree, 
+            chemoLoading, 
+            newChemo, 
+            shouldSelect, 
+            sendingChemoLoading, 
+            namesLoading,
+            user } = this.state
     return (
       <div className="App">
         <div className="flex-box">
           <Sidebar actionFunc={this.fetchChemo} contentTree={contentTree} reset={this.resetForm} shouldSelect={shouldSelect} namesLoading={namesLoading}/>
-          <div className="form-component">
-            <div id="Topbar">
-              <span className="KEMOS">KEMOS</span><span className="CARE">CARE</span>
-            </div>
-            <Panes formContent={formContent} submit={this.submit} chemoLoading={chemoLoading} newChemo={newChemo} sendingChemoLoading={sendingChemoLoading}/>
+          <div className="page-right">
+            <Topbar user={user }/>
+            <Panes className="form-component" formContent={formContent} submit={this.submit} chemoLoading={chemoLoading} newChemo={newChemo} sendingChemoLoading={sendingChemoLoading}/>
           </div>
         </div>
       </div>
