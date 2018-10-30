@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Navbar, Alignment, ProgressBar, Button } from '@blueprintjs/core'
+import {hasPermission } from './authentication'
 import Logo from './Logo';
 import './Topbar.css'
 
@@ -17,7 +18,8 @@ class Topbar extends Component {
                     </div>
                     <div className="right">
                         {this.props.user.first_name} {this.props.user.last_name}
-                        <Button minimal large icon="cog" />
+                        { hasPermission('admin', this.props.user) && <Button minimal large icon="cog" />}
+                        { <Button onClick={this.props.logout} minimal large icon="power" />}
                     </div>
                 </div>
             )

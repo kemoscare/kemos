@@ -8,6 +8,7 @@
     ],
 
     "rights": [
+        {"label": "Administrateur", "value": "admin"},
         {"label": "Ajouter un protocole", "value": "add-protocol"},
         {"label": "Modifier un protocole", "value": "edit-protocol"},
         {"label": "Utiliser l'application", "value": "use-app"}

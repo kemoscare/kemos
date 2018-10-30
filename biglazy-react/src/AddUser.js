@@ -49,7 +49,7 @@ class AddUser extends Component {
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${btoa(sessionStorage.token)}`
+              Authorization: `Bearer ${sessionStorage.token}`
             },
             body: JSON.stringify(this.state.user)
           }).then(response => response.ok ? response.json() : Promise.reject(response))

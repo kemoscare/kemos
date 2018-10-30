@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Tree, Button, Intent, Classes } from '@blueprintjs/core';
+import { hasPermission } from './authentication'
 
 // const ApiListComponent = (category, items, itemClicked) => {
 //     const apiItems = items.map((item, index) => {
@@ -105,7 +106,7 @@ class Sidebar extends Component {
             return (
             <div className="Sidebar bp3-dark">
                 <div className='Searchbar'>
-                    <Button className="add-button" intent={Intent.SUCCESS} large={true} icon="plus" onClick={() => reset()}>Ajouter</Button>
+                { hasPermission('admin', this.props.user) && <Button className="add-button" intent={Intent.SUCCESS} large={true} icon="plus" onClick={() => reset()}>Ajouter</Button> }
                 </div>
                 <p className={Classes.SKELETON}>Lorem Ipsum</p>
                 <p className={Classes.SKELETON}>Lorem Ipsum</p>
@@ -117,7 +118,7 @@ class Sidebar extends Component {
             return (
                 <div className="Sidebar bp3-dark">
                     <div className='Searchbar'>
-                        <Button className="add-button" intent={Intent.SUCCESS} large={true} icon="plus" onClick={() => reset()}>Ajouter</Button>
+                    { hasPermission('admin', this.props.user) && <Button className="add-button" intent={Intent.SUCCESS} large={true} icon="plus" onClick={() => reset()}>Ajouter</Button>}
                     </div>
                     <Tree contents={contentTree} onNodeCollapse={this.onCollapse} onNodeExpand={this.onExpand} onNodeClick={this.onNodeClick} />
                 </div>

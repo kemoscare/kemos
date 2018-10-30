@@ -4,6 +4,7 @@ import { Tabs, Tab } from '@blueprintjs/core'
 import Preview from './panes/Preview'
 import Form from './panes/Form'
 import PPS from './panes/PPS'
+import { hasPermission } from './authentication'
 import './Tabs.css'
 
 const Patient = () => {
@@ -22,7 +23,7 @@ class Panes extends Component {
                     <Tab id="patient" title="Patient" disabled={newChemo} panel={newChemo ? "" : <Patient />} loading={chemoLoading}/>
                     <Tab id="infirmerie" title="Infirmerie" disabled={true} loading={chemoLoading}/>
                     <Tab id="medecin" title="Médecin" disabled={true} loading={chemoLoading}/>
-                    <Tab id="modifier" title="Modifier" panel={<Form formContent={formContent} chemoLoading={chemoLoading} sendingChemoLoading={sendingChemoLoading} onSubmit={submit}/>}/>
+                    { hasPermission('admin', this.props.user) && <Tab id="modifier" title="Modifier" panel={<Form formContent={formContent} chemoLoading={chemoLoading} sendingChemoLoading={sendingChemoLoading} onSubmit={submit}/>}/> }
                 </Tabs>
             </div>
         )

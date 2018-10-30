@@ -40,6 +40,10 @@ class App extends Component {
     this.fetchUser()
   }
 
+  logout = () => {
+    this.props.handleDisconnection(DISCONNECTED)
+  }
+
   submit = (payload) => {
     console.log(payload)
     this.setState({ sendingChemoLoading: true})
@@ -47,16 +51,18 @@ class App extends Component {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'      },
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.token}`      
+      },
       body: JSON.stringify(payload)
-    }).then(response => response.json())
+    }).then(response => response.ok ? response.json() : Promise.reject(response))
       .then(json => {
         const f = () => { 
           this.setState({formContent: json, sendingChemoLoading: false, newChemo: false})
           this.fetchNames(json._id)
         }
         setTimeout(f, 0)
-    })
+    }).catch(response => this.setState({sendingChemoLoading: false}))
 
     
   }
@@ -129,10 +135,10 @@ class App extends Component {
     return (
       <div className="App">
         <div className="flex-box">
-          <Sidebar actionFunc={this.fetchChemo} contentTree={contentTree} reset={this.resetForm} shouldSelect={shouldSelect} namesLoading={namesLoading}/>
+          <Sidebar user={user} actionFunc={this.fetchChemo} contentTree={contentTree} reset={this.resetForm} shouldSelect={shouldSelect} namesLoading={namesLoading}/>
           <div className="page-right">
-            <Topbar user={user }/>
-            <Panes className="form-component" formContent={formContent} submit={this.submit} chemoLoading={chemoLoading} newChemo={newChemo} sendingChemoLoading={sendingChemoLoading}/>
+            <Topbar user={user} logout={this.logout}/>
+            <Panes user={user} className="form-component" formContent={formContent} submit={this.submit} chemoLoading={chemoLoading} newChemo={newChemo} sendingChemoLoading={sendingChemoLoading}/>
           </div>
         </div>
       </div>
