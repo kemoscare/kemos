@@ -1,36 +1,45 @@
 from flask import Blueprint, request, jsonify, Response, redirect, url_for
 from pprint import pprint
-from app import MONGODB_CONNECTION, MONGODB_DATABASE_NAME, database
 from . import queries
+from app.database import get_database
 from bson.objectid import ObjectId
 from app.coders import FormDecoder, FormEncoder
 from pymongo import ReturnDocument
+from flask_login import login_required, current_user
+from flask_cors import CORS
 
 protocols = Blueprint('protocols', __name__, url_prefix='/protocols')
 protocols.json_encoder = FormEncoder
 protocols.json_decoder = FormDecoder
 
+CORS(protocols, supports_credentials=True)
+
 @protocols.route('/<id>', methods=['GET'])
+@login_required
 def get_protocol(id):
+    print(current_user)
     if id == 'themes':
         return 'API Does not support "theme" requests anymore'
-    db = database.get_database()
+    db = get_database()
     protocol_id = ObjectId(id)
     res = db.protocoles.find_one({ "_id": protocol_id})
     return jsonify(res)
 
+
 @protocols.route('/names/')
 def get_names():
-    db = database.get_database()
+    db = get_database()
     results = [e for e in db.protocoles.aggregate(queries.GET_TREE)]
     response = FormEncoder.level_up_empty_elements(results)
     return jsonify(response)
 
 
+
 @protocols.route('/new', methods=['POST'])
+@login_required
 def post():
     form_json = request.get_json()
-    db = database.get_database()
+    db = get_database()
     object_id = 0
     if '_id' in form_json:
         document = db.protocoles.find_one_and_replace({'_id': form_json['_id']}, form_json, return_document=ReturnDocument.AFTER)
