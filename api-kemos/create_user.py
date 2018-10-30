@@ -10,6 +10,7 @@ DEFAULT_USERS = {
         "first_name" : "Adrien",
         "last_name" : "Canterot",
         "rights" : [
+            "admin",
             "add-protocol",
             "edit-protocol",
             "use-app"
