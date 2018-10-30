@@ -68,10 +68,15 @@ class User(UserMixin):
         if self.is_registered(): return None
         db = get_database()
         password = random_fake_password()
+        pprint(self.email)
         pprint(password)
         self.password = password_context.hash(password)
-        res = db.users.insert_one(vars(self))
-        return res.inserted_id
+        user = db.users.find_one({'email': self.email})
+        if not user:
+            res = db.users.insert_one(vars(self))
+            return res.inserted_id
+        else:
+            print("User already exists !")
 
     
     def check_password(self, password):
