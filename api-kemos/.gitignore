@@ -5,3 +5,4 @@ app/protocols/__pycache__
 *.pyc
 dump/
 dist/
+.idea/
