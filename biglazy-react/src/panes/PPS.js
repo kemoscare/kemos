@@ -34,11 +34,13 @@ class PPS extends Component {
                 return {...dayElement, day: parseInt(day, 10)}
             }
         })
-        let rdv = days.map((day) => {
+        let rdv = days
+        .filter((day) => {console.log(day.careMode); return day.careMode != "Home"})
+        .map((day) => {
             if(day.day === 1 || day.day === 0) {
                 return { date: moment(date).format("dddd, Do MMMM YYYY"), type: "Traitement", ...day}
             } else {
-                return { date: moment(date).add(day.day, 'days').format("dddd, Do MMMM YYYY"), type: "Traitement", ...day}
+                return { date: moment(date).add(day.day - 1, 'days').format("dddd, Do MMMM YYYY"), type: "Traitement", ...day}
             }
             
         })
