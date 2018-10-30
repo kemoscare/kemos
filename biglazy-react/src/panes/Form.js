@@ -8,7 +8,8 @@ import { FormGroup,
          Button,
          Intent,
          Divider,
-         Classes
+         Classes,
+         Checkbox
         } from '@blueprintjs/core'
 import selectContent from './selectContent'
 import FormEvaluation from './FormComponents/FormEvaluation'
@@ -79,6 +80,7 @@ class Form extends Component {
                     <RadioGroup onChange={this.handleRadioChange} name="radio_radiochimiottt" label="Catégorie" inline selectedValue={formContent.radio_radiochimiottt}>
                         <Radio label="Chimiothérapie" value="Chimiotherapie"/>
                         <Radio label="Radio-Chimiothérapie" value="Radiochimiotherapie" />
+                        <Checkbox inline id="clinicalTrial" name="clinicalTrial" >Essai thérapeutique</Checkbox>
                     </RadioGroup>
                     <ControlGroup>
                         <FormGroup inline label="Protocole de chimiothérapie" labelFor="protocol-name">

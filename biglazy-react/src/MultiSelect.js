@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { MultiSelect } from '@blueprintjs/select'
-import { MenuItem, TagInput } from '@blueprintjs/core'
+import { MenuItem, TagInput, Intent } from '@blueprintjs/core'
 import '@blueprintjs/select/lib/css/blueprint-select.css'
-import { __values } from 'tslib';
 
 
 class SimpleMultiSelect extends Component {
@@ -15,7 +14,7 @@ class SimpleMultiSelect extends Component {
         return (
             <MenuItem key={item.key}
                       icon={item.isSelected ? "tick" : "blank"}
-                      text={item.name}
+                      text={item.name.label}
                       onClick={handleClick}
                       shouldDismissPopover={false} />
 
@@ -23,11 +22,15 @@ class SimpleMultiSelect extends Component {
     }
 
     itemTagRenderer = (item) => {
-        return <TagInput inputValue={item.name} />
+        return item.name
     }
 
     handleClick = (item) => {
         item.isSelected = !item.isSelected
+        this.props.selectedItemsChanged(this.props.items
+                                                    .filter(item => item.isSelected)
+                                                    .map(item => item.name.value)
+                                                    )
         this.setState(this.state)
     }
 
@@ -39,6 +42,7 @@ class SimpleMultiSelect extends Component {
                              itemRenderer={this.itemRenderer}
                              tagRenderer={this.itemTagRenderer}
                              onItemSelect={this.handleClick}
+                             tagInputProps={{ tagProps: {intent: Intent.PRIMARY, interactive: true}, onRemove: () => console.log("remove") }}
                               />
             )
         } else {
