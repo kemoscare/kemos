@@ -42,11 +42,11 @@ class User(UserMixin):
     @staticmethod
     def get(user_id):
         db = get_database()
-        return db.users.find_one({'_id': ObjectId(user_id)})
+        return User(db.users.find_one({'_id': ObjectId(user_id)}))
 
     @staticmethod
     def sanitize(user):
-        sanitized_user = user
+        sanitized_user = vars(user)
         del sanitized_user['_id']
         del sanitized_user['password']
         del sanitized_user['email']
