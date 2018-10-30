@@ -16,7 +16,7 @@ class Topbar extends Component {
                         <Logo />
                     </div>
                     <div className="right">
-                        {this.props.user.firstname} {this.props.user.surname}
+                        {this.props.user.first_name} {this.props.user.last_name}
                         <Button minimal large icon="cog" />
                     </div>
                 </div>

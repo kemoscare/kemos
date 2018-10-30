@@ -22,13 +22,11 @@ def add_user():
     last_inserted_id = user.register()
     return redirect(url_for('users.get_user', id=last_inserted_id))
 
-@users.route("/<user_id>")
-def get_user(user_id):
-    try:
-        user = User.get(user_id)
-        return jsonify(user)
-    except:
-        abort(404)
+@users.route("/")
+@token_auth.login_required
+def current_user():
+    user = User.sanitize(g.user)
+    return jsonify(user)
 
 @users.route('/token', methods=['POST'])
 @http_auth.login_required

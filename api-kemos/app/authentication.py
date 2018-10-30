@@ -24,4 +24,10 @@ def verify_password(email, password):
 
 @token_auth.verify_token
 def verify_token(token):
-    return User.verify_token(token)
+    user = User.verify_token(token)
+    if not user:
+        return False
+    else:
+        g.user = user
+        return True
+

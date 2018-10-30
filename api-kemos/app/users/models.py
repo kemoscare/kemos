@@ -44,6 +44,14 @@ class User(UserMixin):
         db = get_database()
         return db.users.find_one({'_id': ObjectId(user_id)})
 
+    @staticmethod
+    def sanitize(user):
+        sanitized_user = user
+        del sanitized_user['_id']
+        del sanitized_user['password']
+        del sanitized_user['email']
+        return sanitized_user
+
     def generate_auth_token(self):
         if not hasattr(self, '_id'):
             return None
