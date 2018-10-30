@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, Response, redirect, url_for
+from flask import Blueprint, request, jsonify, Response, redirect, url_for, g
 from pprint import pprint
 from . import queries
 from app.database import get_database
@@ -6,7 +6,7 @@ from bson.objectid import ObjectId
 from app.coders import FormDecoder, FormEncoder
 from pymongo import ReturnDocument
 from flask_cors import CORS
-from app.authentication import token_auth
+from app.authentication import token_auth, needs_permissions
 
 protocols = Blueprint('protocols', __name__, url_prefix='/protocols')
 protocols.json_encoder = FormEncoder
@@ -26,6 +26,7 @@ def get_protocol(id):
 
 
 @protocols.route('/names/')
+@token_auth.login_required
 def get_names():
     db = get_database()
     results = [e for e in db.protocoles.aggregate(queries.GET_TREE)]
@@ -33,10 +34,10 @@ def get_names():
     return jsonify(response)
 
 
-
 @protocols.route('/new', methods=['POST'])
 @token_auth.login_required
 def post():
+    needs_permissions(g.user, 'admin')
     form_json = request.get_json()
     db = get_database()
     object_id = 0

@@ -1,4 +1,4 @@
-from flask import g
+from flask import g, abort
 from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth
 from itsdangerous import TimedJSONWebSignatureSerializer as JSONSerializer
 from app.users.models import User
@@ -31,3 +31,6 @@ def verify_token(token):
         g.user = user
         return True
 
+def needs_permissions(user, permission):
+    if not permission in user.rights:
+        abort(403)
