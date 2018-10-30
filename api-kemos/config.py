@@ -15,7 +15,7 @@ THREADS_PER_PAGE = 2
 CSRF_ENABLED     = True
 
 MONGODB_HOST = "mongodb://localhost/"
-MONGODB_DATABASE_NAME = "biglazy"
+MONGODB_DATABASE_NAME = "kemosdb"
 MONGODB_CONNECTION = MONGODB_HOST + MONGODB_DATABASE_NAME
 
 # Use a secure, unique and absolutely secret key for
@@ -23,4 +23,4 @@ MONGODB_CONNECTION = MONGODB_HOST + MONGODB_DATABASE_NAME
 CSRF_SESSION_KEY = "OAIJDjoasi038iadjn92382&(*n2o8nd2i38"
 
 # Secret key for signing cookies
-SECRET_KEY = "secret"
+SECRET_KEY = "jsoaidaoisjfoiqwjefsoakmc82398urjdpwoicm09wejr928"
