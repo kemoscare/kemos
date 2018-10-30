@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import {makeTokenHeaders} from './utils'
 import Sidebar from './Sidebar';
 import Panes from './Tabs'
 import { DISCONNECTED } from './flashes'
-import {headersWithToken} from './authentication'
 import Topbar from './Topbar';
 
 const api = require('./api-' + process.env.NODE_ENV)
@@ -65,7 +65,7 @@ class App extends Component {
     this.setState({namesLoading: true})
     const f = () => {
       fetch(api.server + "protocols/names/", {
-        headers: headersWithToken(sessionStorage.token)
+        headers: makeTokenHeaders(sessionStorage.token)
       })
         .then(response => response.ok ? response.json() : Promise.reject(response))
         .then(json => this.setState({contentTree: json, namesLoading: false, shouldSelect: lastInsertedId}))
@@ -75,7 +75,7 @@ class App extends Component {
 
   fetchUser() {
     fetch(api.server + "users/", {
-      headers: headersWithToken(sessionStorage.token)
+      headers: makeTokenHeaders(sessionStorage.token)
     })
     .then(response => response.ok ? response.json() : Promise.reject(response))
     .then(data => this.setState({user: data}))
@@ -86,7 +86,7 @@ class App extends Component {
     
     const f = () => {
         const url = api.server + 'protocols/' + id
-        fetch(url, {credentials: 'include'})
+        fetch(url, {headers: makeTokenHeaders(sessionStorage.token)})
           .then(response => response.ok ? response.json() : Promise.reject(response))
           .then(data => this.setState({formContent: data, chemoLoading: false, sendingChemoLoading: false}))
           .catch(response => console.log(response))

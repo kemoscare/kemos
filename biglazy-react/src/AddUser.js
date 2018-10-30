@@ -6,7 +6,7 @@ import MultiSelect from './MultiSelect'
 import './AddUser.css'
 import subscribe from './roles'
 import themes from './panes/selectContent'
-import {headersWithToken} from './authentication'
+import {makeTokenHeaders} from './utils'
 import { DISCONNECTED } from './flashes';
 import Logo from './Logo';
 const api = require('./api-' + process.env.NODE_ENV)
@@ -49,7 +49,7 @@ class AddUser extends Component {
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
-              Authorization: headersWithToken(sessionStorage.token)
+              Authorization: `Bearer ${btoa(sessionStorage.token)}`
             },
             body: JSON.stringify(this.state.user)
           }).then(response => response.ok ? response.json() : Promise.reject(response))

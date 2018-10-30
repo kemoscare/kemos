@@ -5,19 +5,18 @@ from app.database import get_database
 from bson.objectid import ObjectId
 from app.coders import FormDecoder, FormEncoder
 from pymongo import ReturnDocument
-from flask_login import login_required, current_user
 from flask_cors import CORS
+from app.authentication import token_auth
 
 protocols = Blueprint('protocols', __name__, url_prefix='/protocols')
 protocols.json_encoder = FormEncoder
 protocols.json_decoder = FormDecoder
 
-CORS(protocols, supports_credentials=True)
+CORS(protocols)
 
 @protocols.route('/<id>', methods=['GET'])
-@login_required
+@token_auth.login_required
 def get_protocol(id):
-    print(current_user)
     if id == 'themes':
         return 'API Does not support "theme" requests anymore'
     db = get_database()
@@ -36,7 +35,7 @@ def get_names():
 
 
 @protocols.route('/new', methods=['POST'])
-@login_required
+@token_auth.login_required
 def post():
     form_json = request.get_json()
     db = get_database()

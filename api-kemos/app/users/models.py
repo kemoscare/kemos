@@ -5,6 +5,10 @@ from flask_login import UserMixin
 from app.database import get_database
 from bson.objectid import ObjectId
 from pprint import pprint
+from itsdangerous import TimedJSONWebSignatureSerializer as JSONSerializer
+from itsdangerous import BadSignature, SignatureExpired
+from config import SECRET_KEY
+from json import loads
 
 
 def random_fake_password():
@@ -38,7 +42,27 @@ class User(UserMixin):
     @staticmethod
     def get(user_id):
         db = get_database()
-        return db.users.findOne({'_id': ObjectId(user_id)})
+        return db.users.find_one({'_id': ObjectId(user_id)})
+
+    def generate_auth_token(self):
+        if not hasattr(self, '_id'):
+            return None
+
+        serializer = JSONSerializer(SECRET_KEY, expires_in=12*60*60)
+        return serializer.dumps({'user_id': self._id})
+
+    @staticmethod
+    def verify_token(token):
+        serializer = JSONSerializer(SECRET_KEY)
+        try:
+            data = serializer.loads(token)
+
+        except SignatureExpired:
+            return None
+
+
+        user = User.get(data["user_id"])
+        return user
         
     def register(self):
         if self.is_registered(): return None
@@ -49,10 +73,9 @@ class User(UserMixin):
         res = db.users.insert_one(vars(self))
         return res.inserted_id
 
-    def is_authenticated():
-        return True
     
     def check_password(self, password):
-        if not self.password: return False
+        if not hasattr(self, 'password'): 
+            return False
         return password_context.verify(password, self.password)
     

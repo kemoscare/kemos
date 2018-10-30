@@ -19,25 +19,19 @@ class Router extends Component {
 
     handleLogin = () => {
         const { credentials } = this.state
+        console.log(credentials)
         this.setState({connecting: true})
-        fetch(api.server + 'users/login', {
+        fetch(api.server + 'users/token', {
             method: 'POST',
-            credentials: 'include',
             headers: new Headers({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Basic ${btoa(credentials.email + ':' + credentials.password)}`
             }),
             body: JSON.stringify(credentials)
         })
-        .then(response => {
-                    if(response.ok){
-                        console.log(response.headers.get('set-cookie'))
-                        response.json()
-                    } else {
-                        Promise.reject(response)
-                    }
-                }
-            )
+        .then(response => response.ok ? response.json() : Promise.reject(response))
         .then(data => {
+            sessionStorage.token = data['token']
             this.setState({connecting: false, connected: true})
             
         })
@@ -61,7 +55,7 @@ class Router extends Component {
     }
 
     isAuthenticated = () => {
-        return this.state.connected
+        return sessionStorage.token
         // return true
     }
     
