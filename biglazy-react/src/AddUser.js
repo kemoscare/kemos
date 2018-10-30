@@ -6,6 +6,9 @@ import MultiSelect from './MultiSelect'
 import './AddUser.css'
 import subscribe from './roles'
 import themes from './panes/selectContent'
+import {headersWithToken} from './authentication'
+import { DISCONNECTED } from './flashes';
+import Logo from './Logo';
 const api = require('./api-' + process.env.NODE_ENV)
 
 
@@ -21,7 +24,7 @@ class AddUser extends Component {
 
         this.state = {
             rights: subscribe.rights.map((right, index) => { return {name: right, isSelected: false, key: index}}),
-            accessibleThemes: themes.themes.map((theme, index) => { return {name: theme.value, isSelected: false, key: index}}),
+            accessibleThemes: themes.themes.map((theme, index) => { return {name: {label: theme.value, value: theme.value}, isSelected: false, key: index}}),
             user: this.DEFAULT,
             loading: false
         }
@@ -33,28 +36,31 @@ class AddUser extends Component {
     }
 
     handleInputChange = (event) => {
-        this.state[event.target.name] = event.target.value
+        this.state.user[event.target.name] = event.target.value
         this.setState(this.state)
     }
 
     handleSubmit = (event) => {
         let { user } = this.state
+        console.log(sessionStorage.token)
         this.setState({loading: true})
         fetch(api.server + 'users/add', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              Authorization: headersWithToken(sessionStorage.token)
             },
             body: JSON.stringify(this.state.user)
-          }).then(response => response.json())
+          }).then(response => response.ok ? response.json() : Promise.reject(response))
             .then(json => {
               const f = () => { 
                 this.setState({loading: false})
-                
+                console.log(json)
               }
               setTimeout(f, 1000)
           })
+          .catch(response => this.props.handleDisconnection(DISCONNECTED))
     }
     
 
@@ -63,19 +69,19 @@ class AddUser extends Component {
         return (
             <div className="monoPageWrapper">
                 <div className="addUser">
-                    <div className="center-title"><span className="KEMOS">KEMOS</span><span className="CARE">CARE</span></div>
+                    <Logo />
                     <H4>Ajouter un utilisateur</H4>
                     <FormGroup label="E-mail" label-for="email">
                         <InputGroup id="email" name="email" placeholder="email@chu-bordeaux.fr" onChange={this.handleInputChange} value={user.email}/>
                     </FormGroup>
-                    <FormGroup label="Prenom" label-for="email">
-                        <InputGroup id="firstname" name="firstname" placeholder="Jean" onChange={this.handleInputChange} value={user.firstname} />
+                    <FormGroup label="Prenom" label-for="first_name">
+                        <InputGroup id="first_name" name="first_name" placeholder="Jean" onChange={this.handleInputChange} value={user.firstname} />
                     </FormGroup>
-                    <FormGroup label="Nom" label-for="email">
-                        <InputGroup id="surname" name="surname" placeholder="Dupond" onChange={this.handleInputChange} value={user.surname} />
+                    <FormGroup label="Nom" label-for="last_name">
+                        <InputGroup id="last_name" name="last_name" placeholder="Dupond" onChange={this.handleInputChange} value={user.surname} />
                     </FormGroup>
                     <FormGroup label="Qualité" label-for="role">
-                        <HTMLSelect id="role" name="role" options={subscribe.roles} onChange={this.handleInputChange} value={user.role} />
+                        <HTMLSelect id="role" name="role" options={subscribe.roles.map(role => role.label)} onChange={this.handleInputChange} value={user.role.label} />
                     </FormGroup>
                     <FormGroup label="Droits" label-for="rights">
                         <MultiSelect name="rights" items={this.state.rights} selectedItemsChanged={(items) => user.rights = items} />

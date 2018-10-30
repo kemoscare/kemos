@@ -1,15 +1,15 @@
 {
     "roles": [
-        {"label": "Interne"},
-        {"label": "Externe"},
-        {"label": "Praticien Hospitalier"},
-        {"label": "Professeur des universités - Praticien Hospitalier"},
-        {"label": "IDE"}
+        {"label": "Interne", "value": "interne"},
+        {"label": "Externe", "value": "externe"},
+        {"label": "Praticien Hospitalier", "value": "ph"},
+        {"label": "Professeur des universités - Praticien Hospitalier", "value": "pu-ph"},
+        {"label": "IDE", "value": "ide"}
     ],
 
     "rights": [
-        "Ajouter un protocole",
-        "Modifier un protocole",
-        "Utiliser l'application"
+        {"label": "Ajouter un protocole", "value": "add-protocol"},
+        {"label": "Modifier un protocole", "value": "edit-protocol"},
+        {"label": "Utiliser l'application", "value": "use-app"}
     ]
 }

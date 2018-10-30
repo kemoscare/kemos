@@ -1,22 +1,37 @@
 import React, { Component } from 'react'
 import {
-    FormGroup, InputGroup, ControlGroup, Button, H4
+    FormGroup, InputGroup, ControlGroup, Button, H4, Callout
 } from '@blueprintjs/core';
 import './AddUser.css'
+import Logo from './Logo';
 
 class Login extends Component {
+
+    constructor() {
+        super()
+        this.state = { credentials: {}, connecting: false}
+    }
     
 
+    handleInputChange = (event) => {
+        this.props.credentials[event.target.name] = event.target.value
+        this.setState(this.state)
+    }
+
     render() {
+
+        const { connecting, handleLogin, flash} = this.props
+
         return (
             <div className="monoPageWrapper">
                 <div className="addUser">
-                    <div className="center-title"><span className="KEMOS">KEMOS</span><span className="CARE">CARE</span></div>
+                    <Logo />
+                    {flash && <div><Callout intent={flash.intent} title={flash.title}>{flash.content}</Callout><br /></div>}
                     <H4>Se Connecter</H4>
                     <ControlGroup vertical>
-                        <InputGroup placeholder="email@chu-bordeaux.fr" />
-                        <InputGroup placeholder="Mot de passe" type="password" />
-                        <Button text="Se Connecter" rightIcon="log-in" />
+                        <InputGroup name="email" onChange={this.handleInputChange} placeholder="email@chu-bordeaux.fr" />
+                        <InputGroup name="password" onChange={this.handleInputChange} placeholder="Mot de passe" type="password" />
+                        <Button onClick={handleLogin} text="Se Connecter" rightIcon="log-in" loading={connecting} />
                     </ControlGroup>
                 </div>
             </div>
