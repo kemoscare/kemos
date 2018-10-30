@@ -1,0 +1,26 @@
+.Topbar {
+    width: 100%;
+    margin-top: 0;
+    padding: auto;
+    height: 60px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Topbar > .center {
+    padding-top: 25px;
+    padding-right: -20px;
+    align-self: center;
+    text-align: center;
+}
+
+.Topbar > .right {
+    padding-top: 10px;
+    height: 100%;
+    align-self: flex-end;
+    padding-right: 20px;
+}
+

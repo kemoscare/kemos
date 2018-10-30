@@ -22,15 +22,6 @@ body {
   flex-wrap: nowrap;
   height: 100%;
 }
-
-.Topbar {
-  position: absolute;
-  width: 100%;
-  margin-top: 0;
-  padding: auto;
-  height: 60px;
-  background-color: #222;
-}
 h1.main-title {
   color: white;
   padding-bottom: 10px;
@@ -53,19 +44,6 @@ h1.main-title {
 
 }
 
-span.KEMOS {
-  font-family: 'K2D', sans-serif;
-  letter-spacing: 5px;
-  font-size: 40px;
-  color: #43425d;
-}
-span.CARE {
-  font-family: 'Montserrat', sans-serif;
-  letter-spacing: 3px;
-  font-size: 40px;
-  color: #FF6565;
-}
-
 .Searchbar {
   margin: 0;
   width: 100%;
@@ -79,12 +57,10 @@ span.CARE {
   text-align: center;
 }
 
-.form-component {
-  margin: auto;
-  padding: 5px;
-  height: 100%;
-  max-width: 900px;
+.page-right {
+  width: 100%;
+  margin: 0;
   flex-grow: 1;
   overflow-y: auto;
+  height: 100%;
 }
-
