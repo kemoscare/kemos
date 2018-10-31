@@ -1,5 +1,4 @@
 from flask import request, Blueprint, jsonify, redirect, url_for, abort, Response, make_response, g
-from flask_login import login_user
 from flask_cors import CORS, cross_origin
 from bson.objectid import ObjectId
 from app.coders import FormDecoder, FormEncoder
@@ -28,6 +27,13 @@ def add_user():
 @token_auth.login_required
 def current_user():
     user = User.sanitize(g.user)
+    return jsonify(user)
+
+@users.route("/user/<user_id>")
+@token_auth.login_required
+def get_user(user_id):
+    needs_permissions(g.user, 'admin')
+    user = User.get(user_id)
     return jsonify(user)
 
 @users.route('/token', methods=['POST'])
