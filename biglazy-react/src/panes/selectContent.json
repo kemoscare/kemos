@@ -42,6 +42,14 @@
             {"label": "CBPC", "value": "CBPC"},
             {"label": "CBNPC", "value": "CBNPC"},
             {"label": "Mésothéliome", "value": "mesotheliome"}
+        ],
+        "systeme digestif": [
+            {"label": "Anus", "value": "anus"},
+            {"label": "Rectum", "value": "rectum"},
+            {"label": "Colon", "value": "colon"},
+            {"label": "Estomac", "value": "estomac"},
+            {"label": "Oesophage", "value": "oesophage"}
+
         ]
     }
 }
