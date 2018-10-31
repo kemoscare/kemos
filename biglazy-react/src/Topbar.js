@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Navbar, Alignment, ProgressBar, Button } from '@blueprintjs/core'
+import { ProgressBar, Button, Intent } from '@blueprintjs/core'
 import {hasPermission } from './authentication'
 import Logo from './Logo';
 import './Topbar.css'
@@ -17,9 +17,10 @@ class Topbar extends Component {
                         <Logo />
                     </div>
                     <div className="right">
-                        {this.props.user.first_name} {this.props.user.last_name}
-                        { hasPermission('admin', this.props.user) && <Button minimal large icon="cog" />}
-                        { <Button onClick={this.props.logout} minimal large icon="power" />}
+                        {this.props.user.first_name} {this.props.user.last_name}&nbsp;&nbsp;
+                        { hasPermission('admin', this.props.user) && <Button intent={Intent.PRIMARY} minimal large={true} icon="plus" onClick={this.props.reset}>Ajouter</Button>}&nbsp;&nbsp;
+                        { hasPermission('admin', this.props.user) && <Button minimal large icon="cog" />}&nbsp;&nbsp;
+                        { <Button onClick={this.props.logout} minimal large icon="power" />}&nbsp;&nbsp;
                     </div>
                 </div>
             )

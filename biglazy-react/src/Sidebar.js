@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Tree, Button, Intent, Classes } from '@blueprintjs/core';
+import { Tree, Button, Intent, Classes, InputGroup } from '@blueprintjs/core';
 import { hasPermission } from './authentication'
+import './Sidebar.css'
 
 // const ApiListComponent = (category, items, itemClicked) => {
 //     const apiItems = items.map((item, index) => {
@@ -118,7 +119,7 @@ class Sidebar extends Component {
             return (
                 <div className="Sidebar bp3-dark">
                     <div className='Searchbar'>
-                    { hasPermission('admin', this.props.user) && <Button className="add-button" intent={Intent.SUCCESS} large={true} icon="plus" onClick={() => reset()}>Ajouter</Button>}
+                        <InputGroup large leftIcon="search" placeholder="Recherche..." />
                     </div>
                     <Tree contents={contentTree} onNodeCollapse={this.onCollapse} onNodeExpand={this.onExpand} onNodeClick={this.onNodeClick} />
                 </div>
