@@ -104,7 +104,7 @@ class App extends Component {
     this.setState({
       formContent: {
         theme: "urologie",
-        organ: "prostate",
+        organ: "",
         name: "",
         dayOneEquals: 0,
         radio_radiochimiottt: "chimiotherapie",
@@ -135,9 +135,9 @@ class App extends Component {
     return (
       <div className="App">
         <div className="flex-box">
-          <Sidebar user={user} actionFunc={this.fetchChemo} contentTree={contentTree} reset={this.resetForm} shouldSelect={shouldSelect} namesLoading={namesLoading}/>
+          <Sidebar user={user} actionFunc={this.fetchChemo} contentTree={contentTree} shouldSelect={shouldSelect} namesLoading={namesLoading}/>
           <div className="page-right">
-            <Topbar user={user} logout={this.logout}/>
+            <Topbar user={user} logout={this.logout} reset={this.resetForm}/>
             <Panes user={user} className="form-component" formContent={formContent} submit={this.submit} chemoLoading={chemoLoading} newChemo={newChemo} sendingChemoLoading={sendingChemoLoading}/>
           </div>
         </div>
