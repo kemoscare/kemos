@@ -7,7 +7,8 @@
         {"label": "Gynécologie", "value": "gynecologie"},
         {"label": "ORL", "value": "orl"},
         {"label": "Poumon", "value": "poumon"},
-        {"label": "Système Digestif", "value": "systeme digestif"}
+        {"label": "Système Digestif", "value": "systeme digestif"},
+        {"label": "Sein", "value": "sein"}
     ], 
     "organs": {
         "gynecologie": [
@@ -44,12 +45,18 @@
             {"label": "Mésothéliome", "value": "mesotheliome"}
         ],
         "systeme digestif": [
+            {"label": "", "value": ""},
             {"label": "Anus", "value": "anus"},
             {"label": "Rectum", "value": "rectum"},
             {"label": "Colon", "value": "colon"},
             {"label": "Estomac", "value": "estomac"},
             {"label": "Oesophage", "value": "oesophage"}
-
+        ],
+        "sein": [
+            {"label": "", "value": ""},
+            {"label": "Adjuvant", "value": "adjuvant"},
+            {"label": "Néoadjuvant", "value": "neoadjuvant"},
+            {"label": "Métastatique", "value": "metastatique"}
         ]
     }
 }
