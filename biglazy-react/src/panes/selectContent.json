@@ -47,10 +47,8 @@
         "systeme digestif": [
             {"label": "", "value": ""},
             {"label": "Anus", "value": "anus"},
-            {"label": "Rectum", "value": "rectum"},
-            {"label": "Colon", "value": "colon"},
+            {"label": "Colon / Rectum / Oesophage", "value": "colonrectumoesophage"},
             {"label": "Estomac", "value": "estomac"},
-            {"label": "Oesophage", "value": "oesophage"}
         ],
         "sein": [
             {"label": "", "value": ""},
