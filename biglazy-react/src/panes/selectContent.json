@@ -48,12 +48,11 @@
             {"label": "", "value": ""},
             {"label": "Anus", "value": "anus"},
             {"label": "Colon / Rectum / Oesophage", "value": "colonrectumoesophage"},
-            {"label": "Estomac", "value": "estomac"},
+            {"label": "Estomac", "value": "estomac"}
         ],
         "sein": [
             {"label": "", "value": ""},
-            {"label": "Adjuvant", "value": "adjuvant"},
-            {"label": "Néoadjuvant", "value": "neoadjuvant"},
+            {"label": "Adjuvant/Néoadjuvant", "value": "adjuvant neoadjuvant"},
             {"label": "Métastatique", "value": "metastatique"}
         ]
     }
