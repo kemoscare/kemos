@@ -137,6 +137,10 @@ class App extends Component {
               {day: "", products: [""], careMode: "DayCare", careGalenic: "IntraVeinous"}
           ]
         },
+        pps: {
+          days: [],
+          startDate: moment(new Date())
+        },
         chemoLoading: false,
         sendingChemoLoading: false,
         newChemo: true
