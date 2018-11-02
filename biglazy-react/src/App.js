@@ -6,6 +6,8 @@ import Sidebar from './Sidebar';
 import Panes from './Tabs'
 import { DISCONNECTED } from './flashes'
 import Topbar from './Topbar';
+import moment from 'moment';
+import { calculatePlanning } from './panes/calculatePlanning';
 
 const api = require('./api-' + process.env.NODE_ENV)
 
@@ -18,21 +20,27 @@ class App extends Component {
       chemotherapies: [],
       selectedProtocol: {},
       themes: [],
-      chemoLoading: true,
-      newChemo: false,
-      formContent: {
-        theme: "urologie",
-        organ: "prostate",
-        name: "",
-        dayOneEquals: 0,
-        radio_radiochimiottt: "chimiotherapie",
-        evaluations: [
-            {dayAfter: 0, delay:0, imagery: false, consultation: false}
-        ],
-        days: [
-            {day: "", products: [""], careMode: "DayCare", careGalenic: "IntraVeinous"}
-        ]
-    }
+      panes: {
+        chemoLoading: true,
+        newChemo: false,
+        pps: {
+          days: [],
+          startDate: moment(new Date())
+        },
+        formContent: {
+          theme: "general",
+          organ: "",
+          name: "",
+          dayOneEquals: 0,
+          radio_radiochimiottt: "chimiotherapie",
+          evaluations: [
+              {dayAfter: 0, delay:0, imagery: false, consultation: false}
+          ],
+          days: [
+              {day: "", products: [""], careMode: "DayCare", careGalenic: "IntraVeinous"}
+          ],
+        }
+      }
     }
   }
   componentDidMount() {
@@ -46,7 +54,7 @@ class App extends Component {
 
   submit = (payload) => {
     console.log(payload)
-    this.setState({ sendingChemoLoading: true})
+    this.setState({ panes: {sendingChemoLoading: true, ...this.state.panes}})
     fetch(api.server + 'protocols/new', {
       method: 'POST',
       headers: {
@@ -58,11 +66,11 @@ class App extends Component {
     }).then(response => response.ok ? response.json() : Promise.reject(response))
       .then(json => {
         const f = () => { 
-          this.setState({formContent: json, sendingChemoLoading: false, newChemo: false})
+          this.setState({panes: {formContent: json, sendingChemoLoading: false, newChemo: false, ...this.state.panes}})
           this.fetchNames(json._id)
         }
         setTimeout(f, 0)
-    }).catch(response => this.setState({sendingChemoLoading: false}))
+    }).catch(response => this.setState({panes: {sendingChemoLoading: false, ...this.state.panes}}))
 
     
   }
@@ -88,13 +96,26 @@ class App extends Component {
   }
 
   fetchChemo = (id) => {
-    this.setState({chemoLoading: true})
+    this.setState({panes: {chemoLoading: true, ...this.state.panes}})
     
     const f = () => {
         const url = api.server + 'protocols/' + id
         fetch(url, {headers: makeTokenHeaders(sessionStorage.token)})
           .then(response => response.ok ? response.json() : Promise.reject(response))
-          .then(data => this.setState({formContent: data, chemoLoading: false, sendingChemoLoading: false}))
+          .then(data => { 
+            const startDate = moment(new Date())
+            this.setState({
+              panes: {
+                formContent: data, 
+                chemoLoading: false, 
+                sendingChemoLoading: false, 
+                pps: {
+                  days: calculatePlanning(data, startDate),
+                  startDate: startDate
+                },
+                 
+              }})
+            })
           .catch(response => console.log(response))
       }
     setTimeout(f, 0)
@@ -102,43 +123,43 @@ class App extends Component {
 
   resetForm = () => {
     this.setState({
-      formContent: {
-        theme: "urologie",
-        organ: "",
-        name: "",
-        dayOneEquals: 0,
-        radio_radiochimiottt: "chimiotherapie",
-        evaluations: [
-            {dayAfter: null, delay:0, imagery: false, consultation: false}
-        ],
-        days: [
-            {day: "", products: [""], careMode: "DayCare", careGalenic: "IntraVeinous"}
-        ]
-      },
-      chemoLoading: false,
-      sendingChemoLoading: false,
-      newChemo: true
+      panes: {
+        formContent: {
+          theme: "general",
+          organ: "",
+          name: "",
+          dayOneEquals: 0,
+          radio_radiochimiottt: "chimiotherapie",
+          evaluations: [
+              {dayAfter: null, delay:0, imagery: false, consultation: false}
+          ],
+          days: [
+              {day: "", products: [""], careMode: "DayCare", careGalenic: "IntraVeinous"}
+          ]
+        },
+        chemoLoading: false,
+        sendingChemoLoading: false,
+        newChemo: true
+      }
     })
     
   }
 
   render() {
 
-    const { formContent, 
+    const { 
             contentTree, 
-            chemoLoading, 
-            newChemo, 
             shouldSelect, 
-            sendingChemoLoading, 
             namesLoading,
             user } = this.state
+
     return (
       <div className="App">
         <div className="flex-box">
           <Sidebar user={user} actionFunc={this.fetchChemo} contentTree={contentTree} shouldSelect={shouldSelect} namesLoading={namesLoading}/>
           <div className="page-right">
             <Topbar user={user} logout={this.logout} reset={this.resetForm}/>
-            <Panes user={user} className="form-component" formContent={formContent} submit={this.submit} chemoLoading={chemoLoading} newChemo={newChemo} sendingChemoLoading={sendingChemoLoading}/>
+            <Panes className="form-component" user={user} pps={this.state.panes.pps} formContent={this.state.panes.formContent} submit={this.submit}/>
           </div>
         </div>
       </div>
