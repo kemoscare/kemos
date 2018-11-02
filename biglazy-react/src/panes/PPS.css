@@ -40,3 +40,9 @@ div.pps-grid {
     padding: 40px;
     grid-column: 1 / span 2
 }
+
+.evaluation {
+    font-weight: bold;
+    background-color: #B1ECB5;
+    color: #0A6640;
+}
