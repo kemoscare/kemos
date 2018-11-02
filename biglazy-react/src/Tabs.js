@@ -15,7 +15,6 @@ class Panes extends Component {
 
     render() {
         let { formContent, submit, chemoLoading, sendingChemoLoading, newChemo, pps } = this.props;
-        console.log(pps)
         return (
             <div className="tabs-box">
                 <Tabs className="form-component" id="TabsExample" onChange={this.handleTabChange} large={true} defaultSelectedTabId="pps">
