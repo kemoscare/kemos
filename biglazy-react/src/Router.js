@@ -19,7 +19,6 @@ class Router extends Component {
 
     handleLogin = () => {
         const { credentials } = this.state
-        console.log(credentials)
         this.setState({connecting: true})
         fetch(api.server + 'users/token', {
             method: 'POST',

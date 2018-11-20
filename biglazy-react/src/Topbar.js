@@ -8,7 +8,6 @@ class Topbar extends Component {
     render() {
 
         if(this.props.user) {
-            console.log(this.props.user)
             return (
                 <div className="Topbar">
                     <div className="left">
