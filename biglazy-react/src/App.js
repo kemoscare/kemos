@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-
-import {makeTokenHeaders} from './utils'
 import Sidebar from './Sidebar';
 import Panes from './Tabs'
 import { DISCONNECTED } from './flashes'
 import Topbar from './Topbar';
 import moment from 'moment';
 import { calculatePlanning } from './panes/calculatePlanning';
+import { makeTokenHeaders, forEachNode, mapLabel} from './utils'
 
 const api = require('./api-' + process.env.NODE_ENV)
 
@@ -82,7 +81,10 @@ class App extends Component {
         headers: makeTokenHeaders(sessionStorage.token)
       })
         .then(response => response.ok ? response.json() : Promise.reject(response))
-        .then(json => this.setState({contentTree: json, namesLoading: false, shouldSelect: lastInsertedId}))
+        .then(json => {
+              forEachNode(json, mapLabel)
+              this.setState({contentTree: json, namesLoading: false, shouldSelect: lastInsertedId})
+          })
         .catch(response => {console.log(this.props.token);this.props.handleDisconnection(DISCONNECTED)})}
     setTimeout(f, 0)
   }
@@ -110,7 +112,7 @@ class App extends Component {
                 chemoLoading: false, 
                 sendingChemoLoading: false, 
                 pps: {
-                  days: calculatePlanning(data, startDate),
+                  days: calculatePlanning(data, startDate, 1),
                   startDate: startDate
                 },
                  

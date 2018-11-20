@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Tree, Button, Intent, Classes, InputGroup } from '@blueprintjs/core';
 import { hasPermission } from './authentication'
+import {mapLabel, forEachNode} from './utils'
+import content from './panes/selectContent'
 import './Sidebar.css'
 
 // const ApiListComponent = (category, items, itemClicked) => {
@@ -33,7 +35,7 @@ class Sidebar extends Component {
 
     onNodeClick = (node, mouseEvent) => {
         const { actionFunc } = this.props
-        this.forEachNode(this.props.contentTree, (node) => node.isSelected = false)
+        forEachNode(this.props.contentTree, (node) => node.isSelected = false)
 
         if(node.category === "protocol") {
             node.isSelected = true
@@ -61,17 +63,6 @@ class Sidebar extends Component {
         this.setState(this.state)
     }
 
-    forEachNode(nodes, callback) {
-        if (nodes == null) {
-            return;
-        }
-
-        for (const node of nodes) {
-            callback(node);
-            this.forEachNode(node.childNodes, callback);
-        }
-    }
-
     selectChemo(nodes, id) {
         if(nodes == null) return
         for(const node of nodes) {
@@ -95,10 +86,10 @@ class Sidebar extends Component {
         }
     }
 
-
     render() {
 
         const { contentTree, reset, shouldSelect, namesLoading } = this.props
+
         if(shouldSelect && this.checkId(shouldSelect)) {
             this.selectChemo(contentTree, shouldSelect)
         }
