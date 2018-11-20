@@ -30,30 +30,26 @@ function calculateDays(days, startDate) {
     return rdv
 }
 
-export function calculatePlanning(protocol, startDate) {
+export function calculatePlanning(protocol, startDate, cycleCount) {
     if(!protocol) return []
     let total = []
     let reevaluations = []
     for(const evaluation of protocol.evaluations) {
-        const reevaluationDate = moment(startDate).add((protocol.dayOneEquals*evaluation.dayAfter), 'days').startOf('day')
-        reevaluations.push(reevaluationDate.unix())
+        const dayAfter = evaluation.dayAfter || 1
+        const reevaluationDate = moment(startDate).add(((protocol.dayOneEquals-1)*dayAfter), 'days').startOf('day')
+        total.push({date: reevaluationDate, type: "Reevaluation", ...evaluation})
     }  
-
-    let cycles = protocol.evaluations[protocol.evaluations.length-1].dayAfter ? protocol.evaluations[protocol.evaluations.length - 1].dayAfter*2 : 1
+    const evaluationLength = protocol.evaluations.length - 1
+    let cycles = protocol.evaluations[evaluationLength].dayAfter ? protocol.evaluations[evaluationLength].dayAfter * cycleCount : 1 * cycleCount
     for(let i=0;i<cycles;i++) {
-        let newDate = moment(startDate).add(i*protocol.dayOneEquals, 'days').startOf('day')
+        let newDate = moment(startDate).add(i*(protocol.dayOneEquals - 1), 'days').startOf('day')
         let days = calculateDays(protocol.days, newDate)
         total = total.concat(days)
     }
     total = total.map((day, index) => {
-        const reevaluationIndex = reevaluations.indexOf(day.date.unix())
-        if(reevaluationIndex != -1) {
-            day.type = "Reevaluation"
-            day.evaluation = protocol.evaluations[reevaluationIndex]
-        } 
         day.id = index
         return day
     })     
-    total = total.filter((day) => day.type === "Reevaluation" || day.careMode != "Home")
+    total = total.filter((day) => day.careMode != "Home")
     return total.sort((d1, d2) => d1.date.unix() - d2.date.unix())
 }

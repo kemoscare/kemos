@@ -22,7 +22,7 @@ class PPS extends Component {
     handleDateChange = (name, date) => {
         if(name === "startDate") {
             this.props.pps.startDate = moment(date).startOf('day')
-            this.props.pps.days = calculatePlanning(this.props.protocol, this.props.pps.startDate)
+            this.props.pps.days = calculatePlanning(this.props.protocol, this.props.pps.startDate, 1)
         } else {
             this.props.pps.days[name].date = moment(date).startOf('day')
         }
@@ -30,12 +30,12 @@ class PPS extends Component {
     }
 
     dayComponent = (day) => (
-        <tr className={day.evaluation && "evaluation"} intent={day.evaluation && Intent.SUCCESS} key={day.id}>
+        <tr className={day.type === "Reevaluation" && "evaluation"} intent={day.evaluation && Intent.SUCCESS} key={day.id}>
             <td>{day.type}</td>
-            <td>{day.products.join(", ")}</td>
+            <td>{day.products && day.products.join(", ")}</td>
             <td>{<DateInput name={day.id} onDateChange={this.handleDateChange} value={day.date.toDate()} />}</td>
             <td>{day.careMode === "Admission" ? "Hospitalisation" : "Hopital de jour"}</td>
-            <td>{day.evaluation && this.showEvaluation(day.evaluation)}</td>
+            <td>{day.type === "Reevaluation" && this.showEvaluation(day) }</td>
         </tr>
     )
 
