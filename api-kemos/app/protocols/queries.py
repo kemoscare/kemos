@@ -7,6 +7,7 @@ _GROUP_ORGANS_AND_THEMES = {
         'childNodes': {
             '$push': {
                 'category': 'protocol', 
+                'parent': '$theme',
                 'value': '$name', 
                 'label': '$name', 
                 'id': '$_id',
@@ -24,6 +25,7 @@ _PROJECT_ORGANS_AND_THEMES = {
         'organ.category': 'organ',
         'organ.value': '$_id.organ',
         'organ.label': '$_id.organ',
+        'organ.parent': '$_id.theme',
         'organ.childNodes': '$childNodes',
     }
 }
