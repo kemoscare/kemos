@@ -24,7 +24,8 @@ class App extends Component {
         newChemo: false,
         pps: {
           days: [],
-          startDate: moment(new Date())
+          startDate: moment(new Date()),
+          cycleCount: 1
         },
         formContent: {
           theme: "general",
@@ -113,7 +114,8 @@ class App extends Component {
                 sendingChemoLoading: false, 
                 pps: {
                   days: calculatePlanning(data, startDate, 1),
-                  startDate: startDate
+                  startDate: startDate,
+                  cycleCount: 1
                 },
                  
               }})
@@ -141,7 +143,8 @@ class App extends Component {
         },
         pps: {
           days: [],
-          startDate: moment(new Date())
+          startDate: moment(new Date()),
+          cycleCount: 1
         },
         chemoLoading: false,
         sendingChemoLoading: false,
