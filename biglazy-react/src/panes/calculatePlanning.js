@@ -45,11 +45,9 @@ export function calculatePlanning(protocol, startDate, cycleCount) {
         let newDate = moment(startDate).add(i*(protocol.dayOneEquals - 1), 'days').startOf('day')
         let days = calculateDays(protocol.days, newDate)
         total = total.concat(days)
-    }
-    total = total.map((day, index) => {
-        day.id = index
-        return day
-    })     
+    }  
     total = total.filter((day) => day.careMode != "Home")
-    return total.sort((d1, d2) => d1.date.unix() - d2.date.unix())
+    total = total.sort((d1, d2) => d1.date.unix() - d2.date.unix())
+    total = total.map((day, index) => {day.id = index;return day})  
+    return total; 
 }

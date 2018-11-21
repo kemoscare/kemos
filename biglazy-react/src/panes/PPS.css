@@ -1,35 +1,7 @@
-div.pps-grid {
-    display: grid;
-    grid-template-columns: [left] 40% [right] 40%;
-    grid-template-rows: [top] auto [diagnosisprotocol] auto [datetimepicker] auto [datetable] auto;
-    column-gap: 20%;
-    row-gap: 10px;
 
-}
-.patient-tag {
-    grid-row: top;
-    grid-column: left / span 1;
+.left-elements {
+    padding: 5px;
     text-align: center;
-    border: 1px dotted black;
-    padding: 15px;
-}
-.diagnosis {
-    grid-row: diagnosisprotocol;
-    grid-column: left / span 1
-}
-
-.protocol-name {
-    grid-row: diagnosisprotocol;
-    grid-column: right / span 1;
-}
-
-.prescription-date {
-    grid-row:  datetimepicker;
-}
-
-.appointments {
-    grid-column: left / span 2;
-    grid-row: datetable;
 }
 
 .etiquette-patient {
@@ -38,11 +10,25 @@ div.pps-grid {
     width: 200px;
     border: 1px solid black;
     padding: 40px;
-    grid-column: 1 / span 2
+}
+
+.right-elements {
+    margin-bottom: 160px;
+    padding-right: 200px;
+}
+
+.left-elements {
+    float: left;
+    width: 240px;
+    margin-right: 80px;
 }
 
 .evaluation {
     font-weight: bold;
     background-color: #B1ECB5;
     color: #0A6640;
+}
+
+.print-button {
+    float: right;
 }
