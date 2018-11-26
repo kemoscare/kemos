@@ -2,6 +2,7 @@ from app.database import get_database
 from app.users.models import User
 from passlib.apps import custom_app_context as custom_app_context
 import sys
+from app import app
 
 DEFAULT_USERS = {
     "adrien":
@@ -51,9 +52,10 @@ DEFAULT_USERS = {
 
 def create_user(default_users):
     for user_key in default_users:
-        user_document = DEFAULT_USERS[user_key]
-        user = User(user_document)
-        user.register()
+        with app.app_context():
+            user_document = DEFAULT_USERS[user_key]
+            user = User(user_document)
+            user.register()
 
 
 create_user(sys.argv[1:])
