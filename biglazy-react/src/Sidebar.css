@@ -1,3 +1,9 @@
 .Searchbar {
     padding: 15px;
 }
+
+@media print {
+    .Sidebar {
+        display: none;
+    }
+}

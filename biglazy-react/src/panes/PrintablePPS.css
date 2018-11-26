@@ -1,0 +1,43 @@
+@media print {
+
+    .Logo {
+        margin-top: 1px;
+    }
+
+    .patientTag {
+        float: left;
+        margin-top: 1px;
+        margin-right: 60px;
+        padding: 60px;
+        border: 1px dotted grey;
+    }
+
+    .referentMD {
+        margin-bottom: 20px;
+        text-align: right;
+        padding: 10px;
+        padding-top: 0;
+    }
+
+    .prescriptionDate {
+        text-align: right;
+        padding: 10px;
+    }
+
+    .floatBlock {
+        margin-bottom: 60px;
+    }
+
+    .PrintablePPS {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+
+    .protocol {
+        margin-bottom: 10px;
+    }
+
+    .diagnosis {
+        margin-bottom: 10px;
+    }
+}

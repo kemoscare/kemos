@@ -24,3 +24,9 @@
     padding-right: 20px;
 }
 
+@media print {
+    .Topbar {
+        display: none;
+    }
+}
+

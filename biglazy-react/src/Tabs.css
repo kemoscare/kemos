@@ -3,3 +3,9 @@
     height: 100%;
     margin: auto;
 }
+
+@media print {
+    .bp3-tab-list { 
+        display: none;
+    }
+}
