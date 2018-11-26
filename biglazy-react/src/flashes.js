@@ -11,3 +11,20 @@ export const WRONG_CREDENTIALS = {
     content: "Votre mot de passe ou nom d'utilisateur n'a pas permis de vous identifier",
     intent: Intent.DANGER
 }
+
+export const USER_ALREADY_EXISTS = {
+    title: "Erreur",
+    content: "L'utilisateur existe déjà",
+    intent: Intent.DANGER
+}
+
+export const USER_CREATED_SUCCESSFULLY = {
+    title: "L'utilisateur a bien été créé",
+    content: "Un e-mail avec ses identifiants et mot de passe lui a été envoyé",
+    intent: Intent.SUCCESS
+}
+export const INTERNAL_ERROR = {
+    title: "Une erreur interne s'est produite",
+    content: "Vous pouvez envoyer un e-mail à contact@kemos.care pour de plus ample informations",
+    intent: Intent.DANGER
+}
