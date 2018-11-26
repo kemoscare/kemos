@@ -1,41 +1,40 @@
 import React, { Component } from 'react'
 import {
-    FormGroup, InputGroup, Button, Intent, HTMLSelect, H4
+    FormGroup, InputGroup, Button, Intent, HTMLSelect, H4, Callout
 } from '@blueprintjs/core';
 import MultiSelect from './MultiSelect'
 import './AddUser.css'
 import subscribe from './roles'
 import themes from './panes/selectContent'
 import {makeTokenHeaders} from './utils'
-import { DISCONNECTED } from './flashes';
+import { DISCONNECTED, USER_ALREADY_EXISTS, USER_CREATED_SUCCESSFULLY, INTERNAL_ERROR } from './flashes';
 import Logo from './Logo';
 const api = require('./api-' + process.env.NODE_ENV)
-
-
 
 class AddUser extends Component {
 
     constructor() {
         super()
 
-        this.DEFAULT = {
-            role: "Interne"
+        this.DEFAULT_USER = {
+            email: "",
+            first_name: "",
+            last_name: "",
+            role: "Interne",
+            themes: ['urologie', 'general', 'immunotherapie', 'neurologie', 'gynecologie', 'orl', 'poumon', 'systeme digestif', 'sein'],
+            rights: ['use-app']
         }
 
         this.state = {
             rights: subscribe.rights.map((right, index) => { return {name: right, isSelected: false, key: index}}),
             accessibleThemes: themes.themes.map((theme, index) => { return {name: {label: theme.value, value: theme.value}, isSelected: false, key: index}}),
-            user: this.DEFAULT,
+            user: this.DEFAULT_USER,
             loading: false
         }
-        this.setState(this.state)
-    }
-
-    DEFAULT = {
-        role: "Interne"
     }
 
     handleInputChange = (event) => {
+        console.log(this.state)
         this.state.user[event.target.name] = event.target.value
         this.setState(this.state)
     }
@@ -55,21 +54,30 @@ class AddUser extends Component {
           }).then(response => response.ok ? response.json() : Promise.reject(response))
             .then(json => {
               const f = () => { 
-                this.setState({loading: false})
+                this.setState({flash: USER_CREATED_SUCCESSFULLY, loading: false})
                 console.log(json)
               }
-              setTimeout(f, 1000)
+              setTimeout(f, 0)
           })
-          .catch(response => this.props.handleDisconnection(DISCONNECTED))
+          .catch(response => {
+              if(response.status === 409) {
+                  this.setState({ flash: USER_ALREADY_EXISTS, user: this.DEFAULT_USER, loading: false})
+              } else if(response.status === 403) {
+                this.props.handleDisconnection(DISCONNECTED)
+              } else if(response.status === 500) {
+                  this.setState({ flash: INTERNAL_ERROR, user: this.DEFAULT_USER, loading: false})
+              }
+          })
     }
     
 
     render() {
-        const { user } = this.state
+        const { user, flash } = this.state
         return (
             <div className="monoPageWrapper">
                 <div className="addUser">
                     <Logo />
+                    {flash && <div><Callout intent={flash.intent} title={flash.title}>{flash.content}</Callout><br /></div>}
                     <H4>Ajouter un utilisateur</H4>
                     <FormGroup label="E-mail" label-for="email">
                         <InputGroup id="email" name="email" placeholder="email@chu-bordeaux.fr" onChange={this.handleInputChange} value={user.email}/>
