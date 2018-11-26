@@ -4955,6 +4955,11 @@ load-json-file@^2.0.0:
     pify "^2.0.0"
     strip-bom "^3.0.0"
 
+load-styles@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/load-styles/-/load-styles-2.0.0.tgz#a0901c8f80ef0c869454eb580b4efc2f0be48471"
+  integrity sha1-oJAcj4DvDIaUVOtYC078LwvkhHE=
+
 loader-fs-cache@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/loader-fs-cache/-/loader-fs-cache-1.0.1.tgz#56e0bf08bd9708b26a765b68509840c8dec9fdbc"
@@ -6583,6 +6588,13 @@ react-dom@^16.4.2:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^0.10.0"
+
+react-easy-print@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/react-easy-print/-/react-easy-print-0.6.0.tgz#62209c72df4f0c16d9144fc2187b22d7df35844e"
+  integrity sha512-WJnNQCcFYyEMWl0ORfwEHq0Szu8c6TN9jPuxfevwhE4JOFozdi4gK4MN612a2k6jwS4bZOj847xOEyN+FW7oJQ==
+  dependencies:
+    load-styles "^2.0.0"
 
 react-error-overlay@^4.0.1:
   version "4.0.1"

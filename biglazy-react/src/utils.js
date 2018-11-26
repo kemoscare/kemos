@@ -31,3 +31,10 @@ export function forEachNode(nodes, callback) {
         forEachNode(node.childNodes, callback);
     }
 }
+export function forEachNodeReturn(nodes, callback) {
+    if (nodes == null) return;
+    for (const node of nodes) {
+        callback(node);
+        return forEachNode(node.childNodes, callback);
+    }
+}
