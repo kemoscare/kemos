@@ -2,7 +2,7 @@ from flask import request, Blueprint, jsonify, redirect, url_for, abort, Respons
 from flask_cors import CORS, cross_origin
 from bson.objectid import ObjectId
 from app.coders import FormDecoder, FormEncoder
-from .models import User
+from .models import User, UserAlreadyExists
 from app.database import get_database
 from pprint import pprint
 from app.authentication import token_auth, http_auth, needs_permissions
@@ -19,9 +19,11 @@ def add_user():
     needs_permissions(g.user, 'admin')
     user_json = request.get_json()
     user = User(user_json)
-    pprint(user)
-    last_inserted_id = user.register()
-    return redirect(url_for('users.get_user', id=last_inserted_id))
+    try:
+        last_inserted_id = user.register()
+        return redirect(url_for('users.get_user', user_id=last_inserted_id))
+    except UserAlreadyExists:
+        abort(409)
 
 @users.route("/")
 @token_auth.login_required
