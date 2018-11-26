@@ -8,11 +8,16 @@ from itsdangerous import TimedJSONWebSignatureSerializer as JSONSerializer
 from itsdangerous import BadSignature, SignatureExpired
 from config import SECRET_KEY
 from json import loads
+from app.mail import send_subscription_mail
 
 
 def random_fake_password():
     max = len(FAKE_PASSWORDS) - 1
-    return FAKE_PASSWORDS[randint(0, max)]
+    return FAKE_PASSWORDS[randint(0, max)] + str(randint(0, 99))
+
+class UserAlreadyExists(Exception):
+    def __init__(self, *args, **kwargs):
+        Exception.__init__(self, *args, **kwargs)
 
 class User():
 
@@ -75,15 +80,14 @@ class User():
         if self.is_registered(): return None
         db = get_database()
         password = random_fake_password()
-        pprint(self.email)
-        pprint(password)
         self.password = password_context.hash(password)
         user = db.users.find_one({'email': self.email})
         if not user:
+            send_subscription_mail(self, password)
             res = db.users.insert_one(vars(self))
             return res.inserted_id
         else:
-            print("User already exists !")
+            raise UserAlreadyExists
 
     
     def check_password(self, password):

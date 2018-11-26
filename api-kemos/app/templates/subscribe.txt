@@ -1,0 +1,11 @@
+Bienvenue {{ user.first_name }} {{user.last_name}},
+Vous avez été inscrit sur kemos.care, à ce titre, voici vos identifiants de connection : 
+
+E-mail : {{ user.email }}
+Mot de passe : {{ password }}
+
+Pour toute question concernant votre compte, n'hésitez pas à nous contacter à l'adresse
+contact@kemos.care
+
+Bien cordialement,
+Adrien & Guillaume de l'équipe KEMOS
