@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './PPS.css'
-import { InputGroup, FormGroup, HTMLTable, Classes, Intent, NumericInput, Icon, Button } from '@blueprintjs/core';
+import { InputGroup, FormGroup, HTMLTable, Classes, Intent, NumericInput, Icon, Button, Switch } from '@blueprintjs/core';
 import moment from 'moment'
 import 'moment/locale/fr'
 import DateInput from './NamedDateInput'
@@ -8,7 +8,6 @@ import { calculatePlanning } from './calculatePlanning'
 import { DatePicker } from '@blueprintjs/datetime';
 import '@blueprintjs/datetime/lib/css/blueprint-datetime.css'
 import PrintablePPS from './PrintablePPS'
-import ReactToPrint from 'react-to-print'
 import {PrintProvider, Print, NoPrint} from 'react-easy-print'
 
 class PPS extends Component {
@@ -24,9 +23,9 @@ class PPS extends Component {
         this.setState(this.state)
     }
 
-    handleCycleChange = (value) => {
-        this.props.pps.cycleCount = value
-        this.props.pps.days = calculatePlanning(this.props.protocol, this.props.pps.startDate, value);
+    handleHomeChange = (event) => {
+        this.props.pps.showAtHomeTreaments = event.target.checked
+        this.props.pps.days = calculatePlanning(this.props.protocol, this.props.pps.startDate, event.target.checked)
         this.setState(this.state)
     }
 
@@ -52,7 +51,9 @@ class PPS extends Component {
             <td>{day.type}</td>
             <td>{day.products && day.products.join(", ")}</td>
             <td>{<DateInput name={day.id} onDateChange={this.handleDateChange} value={day.date.toDate()} />}</td>
-            <td>{day.careMode === "Admission" ? "Hospitalisation" : "Hopital de jour"}</td>
+            <td>{day.careMode === "Admission" && "Hospitalisation"}
+                {day.careMode === "Home" && "À Domicile"}
+                {day.careMode === "DayCare" && "Hopital de jour"}</td>
             <td>{day.type === "Reevaluation" && this.showEvaluation(day) }</td>
         </tr>
     )
@@ -93,9 +94,9 @@ class PPS extends Component {
                             <FormGroup label="Protocole" label-for="protocol" className="protocol-name">
                                 {protocol.name}
                             </FormGroup>
-                            <FormGroup label="Nombre de cycle" label-for="cycleCount">
+                            <FormGroup label="Afficher les traitements à domicile" label-for="cycleCount">
                                 <Button className="print-button" intent={Intent.PRIMARY} text="Imprimer" icon="print" onClick={() => window.print()} />
-                                <NumericInput name="cycleCount" disabled onValueChange={this.handleCycleChange} value={this.props.pps.cycleCount}/>
+                                <Switch inline large name="showAtHomeTreaments" onChange={this.handleHomeChange} checked={this.props.pps.showAtHomeTreaments} label=""/>
                             </FormGroup>
                         </div> 
 

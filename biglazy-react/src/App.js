@@ -113,7 +113,8 @@ class App extends Component {
                 chemoLoading: false, 
                 sendingChemoLoading: false, 
                 pps: {
-                  days: calculatePlanning(data, startDate, 1),
+                  showAtHomeTreatments: false,
+                  days: calculatePlanning(data, startDate, false),
                   startDate: startDate,
                   cycleCount: 1
                 },
@@ -142,6 +143,7 @@ class App extends Component {
           ]
         },
         pps: {
+          showAtHomeTreatments: false,
           days: [],
           startDate: moment(new Date()),
           cycleCount: 1

@@ -10,7 +10,9 @@ class PrintablePPS extends Component {
             <td>{day.type}</td>
             <td>{day.products && day.products.join(", ")}</td>
             <td>{day.date.format("Do MMMM YYYY")}</td>
-            <td>{day.careMode === "Admission" ? "Hospitalisation" : "Hopital de jour"}</td>
+            <td>{day.careMode === "Admission" && "Hospitalisation"}
+                {day.careMode === "Home" && "À Domicile"}
+                {day.careMode === "DayCare" && "Hopital de jour"}</td>
             <td>{day.type === "Reevaluation" && this.showEvaluation(day) }</td>
         </tr>
     )

@@ -30,7 +30,7 @@ function calculateDays(days, startDate) {
     return rdv
 }
 
-function evaluationSpan(protocol, cycleCount) {
+function evaluationSpan(protocol) {
     const span = Math.round((protocol.dayOneEquals - lastDay(protocol).day) / 2)
     if(span > 7) {
         return 7
@@ -39,9 +39,9 @@ function evaluationSpan(protocol, cycleCount) {
     }
 }
 
-function lastEvaluation(protocol, cycleCount) {
+function lastEvaluation(protocol) {
     const evaluationLength = protocol.evaluations.length - 1
-    const evaluation = protocol.evaluations[evaluationLength].dayAfter ? protocol.evaluations[evaluationLength].dayAfter * cycleCount : 1 * cycleCount
+    const evaluation = protocol.evaluations[evaluationLength].dayAfter ? protocol.evaluations[evaluationLength].dayAfter : 1
     return evaluation
 }
 
@@ -51,18 +51,20 @@ function lastDay(protocol) {
     return sorted
 }
 
-export function calculatePlanning(protocol, startDate, cycleCount) {
+export function calculatePlanning(protocol, startDate, showAtHomeTreatments) {
     if(!protocol) return []
     let total = []
     let reevaluations = []
-    for(const evaluation of protocol.evaluations) {
-        const dayAfter = evaluation.dayAfter || 1
-        const span = evaluationSpan(protocol, cycleCount)
-        const reevaluationDate = moment(startDate).add(((protocol.dayOneEquals-1)*dayAfter - span), 'days').startOf('day')
-        total.push({date: reevaluationDate, type: "Reevaluation", ...evaluation})
+    if(protocol.radio_radiochimiottt !== "Radiochimiotherapie") {
+        for(const evaluation of protocol.evaluations) {
+            const dayAfter = evaluation.dayAfter || 1
+            const span = evaluationSpan(protocol)
+            const reevaluationDate = moment(startDate).add(((protocol.dayOneEquals-1)*dayAfter - span), 'days').startOf('day')
+            total.push({date: reevaluationDate, type: "Reevaluation", ...evaluation})
+        }
     }
 
-    const cycles = lastEvaluation(protocol, cycleCount)
+    const cycles = lastEvaluation(protocol)
 
     for(let i=0;i<cycles;i++) {
         let newDate = moment(startDate).add(i*(protocol.dayOneEquals - 1), 'days').startOf('day')
@@ -71,9 +73,9 @@ export function calculatePlanning(protocol, startDate, cycleCount) {
     }  
 
     const theoreticalCureDate = moment(startDate).add((protocol.dayOneEquals - 1)*cycles, 'days')
-    total.push({date: theoreticalCureDate, type: "Traitement Suivant", ...protocol.days[0]})
 
-    total = total.filter((day) => day.careMode != "Home")
+    if(!showAtHomeTreatments) total = total.filter((day) => day.careMode != "Home")
+    total.push({date: theoreticalCureDate, type: "Traitement Suivant", ...protocol.days[0]})
     total = total.sort((d1, d2) => d1.date.unix() - d2.date.unix())
     total = total.map((day, index) => {day.id = index;return day})  
     return total; 
