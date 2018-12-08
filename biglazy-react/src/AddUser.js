@@ -62,9 +62,9 @@ class AddUser extends Component {
           .catch(response => {
               if(response.status === 409) {
                   this.setState({ flash: USER_ALREADY_EXISTS, user: this.DEFAULT_USER, loading: false})
-              } else if(response.status === 403) {
+              } else if(response.status === 403 || response.status === 401) {
                 this.props.handleDisconnection(DISCONNECTED)
-              } else if(response.status === 500) {
+              } else {
                   this.setState({ flash: INTERNAL_ERROR, user: this.DEFAULT_USER, loading: false})
               }
           })
