@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Tree, Button, Intent, Classes, InputGroup } from '@blueprintjs/core';
 import { hasPermission } from './authentication'
-import {mapLabel, forEachNode} from './utils'
+import {mapLabel, forEachNode, search} from './utils'
 import content from './panes/selectContent'
 import './Sidebar.css'
 
@@ -29,13 +29,24 @@ class Sidebar extends Component {
     constructor() {
         super()
         this.shouldRenderLastInserted = true
-        this.state = {}
+        this.state = {
+            filteredContent: [],
+            query: "",
+            timeOut: 0
+        }
     }
 
 
     onNodeClick = (node, mouseEvent) => {
-        const { actionFunc } = this.props
-        forEachNode(this.props.contentTree, (node) => node.isSelected = false)
+        const { actionFunc, contentTree } = this.props
+        let { query, filteredContent } = this.state
+        if(query === "") {
+            forEachNode(contentTree, (node) => node.isSelected = false)
+        } else {
+            forEachNode(filteredContent, (node) => {
+                node.isSelected = false;
+            })
+        }
 
         if(node.category === "protocol") {
             node.isSelected = true
@@ -63,6 +74,7 @@ class Sidebar extends Component {
         this.setState(this.state)
     }
 
+
     selectChemo(nodes, id) {
         if(nodes == null) return
         for(const node of nodes) {
@@ -86,9 +98,25 @@ class Sidebar extends Component {
         }
     }
 
+    filter = (event) => {
+
+        this.state.query = event.target.value
+        if(this.state.timeOut) { clearTimeout(this.timeOut)}
+        let tree = search(this.state.query, this.props.contentTree)
+        this.state.filteredContent = tree
+
+        this.state.timeOut = setTimeout(() => {
+            forEachNode(this.state.filteredContent, (node) => node.isExpanded = true)
+            this.setState(this.state)
+        }, 500)
+        this.setState(this.state)
+
+    }
+
     render() {
 
         const { contentTree, reset, shouldSelect, namesLoading } = this.props
+        const { filteredContent, query} = this.state
 
         if(shouldSelect && this.checkId(shouldSelect)) {
             this.selectChemo(contentTree, shouldSelect)
@@ -98,7 +126,7 @@ class Sidebar extends Component {
             return (
             <div className="Sidebar bp3-dark">
                 <div className='Searchbar'>
-                { hasPermission('admin', this.props.user) && <Button className="add-button" intent={Intent.SUCCESS} large={true} icon="plus" onClick={() => reset()}>Ajouter</Button> }
+                    <InputGroup large leftIcon="search" placeholder="Recherche..." />
                 </div>
                 <p className={Classes.SKELETON}>Lorem Ipsum</p>
                 <p className={Classes.SKELETON}>Lorem Ipsum</p>
@@ -110,9 +138,9 @@ class Sidebar extends Component {
             return (
                 <div className="Sidebar bp3-dark">
                     <div className='Searchbar'>
-                        <InputGroup large leftIcon="search" placeholder="Recherche..." />
+                        <InputGroup large leftIcon="search" placeholder="Recherche..." onChange={this.filter}/>
                     </div>
-                    <Tree contents={contentTree} onNodeCollapse={this.onCollapse} onNodeExpand={this.onExpand} onNodeClick={this.onNodeClick} />
+                    <Tree contents={query === "" ? contentTree : filteredContent} onNodeCollapse={this.onCollapse} onNodeExpand={this.onExpand} onNodeClick={this.onNodeClick} />
                 </div>
             )
         }

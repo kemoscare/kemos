@@ -38,3 +38,20 @@ export function forEachNodeReturn(nodes, callback) {
         return forEachNode(node.childNodes, callback);
     }
 }
+
+export function search(query, initialTree) {
+    let resultTree = []
+    for(let node of initialTree) {
+        if(node.category !== "protocol") {
+            let branch = search(query, node.childNodes)
+            if(branch.length !== 0) {
+                resultTree.push({...node, childNodes: branch})
+            }
+        } else {
+            if(node.label.toLowerCase().includes(query.toLowerCase())) {
+                resultTree.push(node)
+            }
+        }
+    }
+    return resultTree;
+}
