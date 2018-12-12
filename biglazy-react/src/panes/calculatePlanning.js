@@ -4,13 +4,18 @@ function parseDays(dayElements) {
     let days = dayElements.flatMap((dayElement) => {
         let { day } = dayElement
         if(day.length > 2) {
-            let firstDay = parseInt(day.split("-")[0], 10)
-            let lastDay = parseInt(day.split("-")[1], 10)
-            let days = []
-            for(let i = firstDay;i<lastDay+1;i++) {
-                days.push({...dayElement, day: i})
+            if(day.includes('-')) {
+                let firstDay = parseInt(day.split("-")[0], 10)
+                let lastDay = parseInt(day.split("-")[1], 10)
+                let days = []
+                for(let i = firstDay;i<lastDay+1;i++) {
+                    days.push({...dayElement, day: i})
+                }
+                return days;
+            } else if(day.includes(',')) {
+                let ids = day.split(',').map(str => parseInt(str, 10))
+                return ids.map(id => { return {...dayElement, day: id}})
             }
-            return days;
         } else {
             return {...dayElement, day: parseInt(day, 10)}
         }
