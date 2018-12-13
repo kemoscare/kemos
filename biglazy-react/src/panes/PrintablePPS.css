@@ -1,7 +1,32 @@
 @media print {
 
+    body { height: 100% }
+
+    .displayComponent {
+        display: none;
+    }
+
+    .printComponent {
+        display: block;
+    }
+
     .Logo {
-        margin-top: 1px;
+        position: absolute;
+    }
+
+    .correctHeigth {
+        width: 90%;
+        table-layout: fixed;
+        position: absolute;
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    tr, td {
+        border: 1px dotted black;
+    }
+    th {
+        border: 1px solid black;
     }
 
     .patientTag {
@@ -39,5 +64,17 @@
 
     .diagnosis {
         margin-bottom: 10px;
+    }
+
+    .page-break {
+        page-break-after: always;
+    }
+
+    .PrintablePPS {
+        page-break-after: auto;
+    }
+
+    .break-inside {
+        break-inside: auto;
     }
 }

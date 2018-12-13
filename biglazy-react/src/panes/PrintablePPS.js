@@ -52,9 +52,8 @@ class PrintablePPS extends Component {
                     <strong>Diagnostic posé : </strong>
                     {pps.diagnosis}
                 </div>
-
                 <div className="appointments">
-                            <HTMLTable>
+                            <HTMLTable className="correctHeigth">
                                 <thead>
                                     <tr>
                                         <th>Rendez vous</th>
@@ -64,7 +63,7 @@ class PrintablePPS extends Component {
                                         <th>Réévaluation</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody className="break-inside">
                                     { pps.days.map(day => this.dayComponent(day)) }
                                 </tbody>
                             </HTMLTable>

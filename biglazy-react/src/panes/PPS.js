@@ -76,10 +76,10 @@ class PPS extends Component {
             moment.locale("fr")
             return (
             <div>
-                <Print printOnly>
+                <div className="printComponent">
                     <PrintablePPS pps={this.props.pps} protocol={protocol} />
-                </Print>
-                <NoPrint>
+                </div>
+                <div className="displayComponent">
                     <div>
                         <div className="right-elements">
                             <FormGroup className="left-elements" label="Date de prescription">
@@ -117,7 +117,7 @@ class PPS extends Component {
                             </HTMLTable>
                         </div>
                     </div>
-                </NoPrint>
+                </div>
             </div>
                 
             )
