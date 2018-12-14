@@ -64,3 +64,8 @@ h1.main-title {
   overflow-y: auto;
   height: 100%;
 }
+
+.nonIdealState {
+  padding-top: 15%;
+  margin: auto;
+}
