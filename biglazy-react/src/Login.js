@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import {
-    FormGroup, InputGroup, ControlGroup, Button, H4, Callout
+    FormGroup, InputGroup, ControlGroup, Button, H4, H3, Callout, Intent
 } from '@blueprintjs/core';
-import './AddUser.css'
+import './Login.css'
 import Logo from './Logo';
 
 class Login extends Component {
@@ -24,9 +24,20 @@ class Login extends Component {
 
         return (
             <div className="monoPageWrapper">
-                <div className="addUser">
+                <div className="description bp3-text-large">
                     <Logo />
+                    <H4>Quoi ?</H4>
+                    <p>Kemos rend les consultations en oncologie dans les hopitaux plus efficace tout en améliorant la relation médecin-malade. </p>
+                    <H4>Pour qui ?</H4>
+                    <p>Kemos est destiné à tous les professionnels de santé travaillant dans le domaine de l'oncologie, médecin, infirmier·e, secrétaires.</p>
+                    <H4>Comment ?</H4>
+                    <p>Kemos repose sur une  <strong>base de donnée exhaustive</strong> de protocoles de chimiothérapie utilisés en France.</p>
+                </div>
+                <div className="login">
                     {flash && <div><Callout intent={flash.intent} title={flash.title}>{flash.content}</Callout><br /></div>}
+                    <H3>Inscription</H3>
+                    <Button text="S'inscrire" large fill icon="form" intent={Intent.SUCCESS}/><br />
+
                     <H4>Se Connecter</H4>
                     <ControlGroup vertical>
                         <InputGroup name="email" onChange={this.handleInputChange} placeholder="email@chu-bordeaux.fr" />
