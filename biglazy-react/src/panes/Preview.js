@@ -1,11 +1,22 @@
 import React from 'react'
-import { Classes } from '@blueprintjs/core';
+import { Classes,NonIdealState } from '@blueprintjs/core';
 import { Cell, Table, Column, SelectionModes } from '@blueprintjs/table'
 
 const Preview = (props) => {
-    const { protocol, loading } = props
+    const { protocol, loading, nonIdeal } = props
 
-    if(!loading) {
+    if(loading) {
+
+    } 
+    else if(nonIdeal) {
+        return (
+            <NonIdealState
+                icon="search"
+                title="Chimiothérapie"
+                description="Selectionnez un protocole dans la liste de gauche"
+                />
+        )
+    } else {
         const cellRenderer = (rowIndex) => <Cell>À {protocol.evaluations[rowIndex].dayAfter} semaines</Cell>
         const imagerieCellRenderer = (rowIndex) => <Cell>{protocol.evaluations[rowIndex].imagery ? "Oui" : "Non" }</Cell>
         const consultationCellRenderer = (rowIndex) => <Cell>{protocol.evaluations[rowIndex].consultation ? "Oui" : "Non" }</Cell>
@@ -23,21 +34,8 @@ const Preview = (props) => {
             </div>
             
         )
-    } else {
-        return (
-            // MOCK
-            <div>
-                <h4 className={Classes.SKELETON}>XXXXXXX</h4>
-                <p className={Classes.SKELETON}>J1 = JX</p>
-                <h5 className={Classes.SKELETON}>Réévaluations</h5>
-                <Table enableRowHeader={false} numRows={5} selectionModes={SelectionModes.NONE} className={Classes.SKELETON}>
-                    <Column name="Reevaluations"/>
-                    <Column name="Imagerie" />
-                    <Column name="Consultation" />
-                </Table>
-            </div>
             
-            )
+            
     }
     
 }

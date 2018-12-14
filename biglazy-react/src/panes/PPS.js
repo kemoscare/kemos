@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './PPS.css'
-import { InputGroup, FormGroup, HTMLTable, Classes, Intent, NumericInput, Icon, Button, Switch } from '@blueprintjs/core';
+import { InputGroup, FormGroup, HTMLTable, Classes, Intent, NumericInput, Icon, Button, Switch, NonIdealState } from '@blueprintjs/core';
 import moment from 'moment'
 import 'moment/locale/fr'
 import DateInput from './NamedDateInput'
@@ -68,10 +68,18 @@ class PPS extends Component {
     }
     
     render() {
-        const {protocol, chemoLoading} = this.props
+        const {protocol, chemoLoading, nonIdeal} = this.props
         const { days } = this.props.pps
         if(chemoLoading) {
             return "loading"
+        } else if(nonIdeal) {
+            return (
+                <NonIdealState
+                    icon="search"
+                    title="Plan personnalisé de soin"
+                    description="Selectionnez un protocole dans la liste de gauche"
+                    />
+            )
         } else {
             moment.locale("fr")
             return (

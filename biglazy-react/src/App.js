@@ -20,6 +20,7 @@ class App extends Component {
       selectedProtocol: {},
       themes: [],
       panes: {
+        nonIdeal: true,
         chemoLoading: true,
         newChemo: false,
         pps: {
@@ -109,10 +110,12 @@ class App extends Component {
             const startDate = moment(new Date())
             this.setState({
               panes: {
+                nonIdeal: false,
                 formContent: data, 
                 chemoLoading: false, 
                 sendingChemoLoading: false, 
                 pps: {
+                  nonIdeal: false,
                   showAtHomeTreatments: false,
                   days: calculatePlanning(data, startDate, false),
                   startDate: startDate,
@@ -129,6 +132,7 @@ class App extends Component {
   resetForm = () => {
     this.setState({
       panes: {
+        nonIdeal: false,
         formContent: {
           theme: "general",
           organ: "",
@@ -170,7 +174,7 @@ class App extends Component {
           <Sidebar user={user} actionFunc={this.fetchChemo} contentTree={contentTree} shouldSelect={shouldSelect} namesLoading={namesLoading}/>
           <div className="page-right">
             <Topbar user={user} logout={this.logout} reset={this.resetForm}/>
-            <Panes className="form-component" user={user} pps={this.state.panes.pps} formContent={this.state.panes.formContent} submit={this.submit}/>
+            <Panes className="form-component" user={user} pps={this.state.panes.pps} formContent={this.state.panes.formContent} submit={this.submit} nonIdeal={this.state.panes.nonIdeal}/>
           </div>
         </div>
       </div>
