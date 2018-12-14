@@ -9,6 +9,7 @@ import { DatePicker } from '@blueprintjs/datetime';
 import '@blueprintjs/datetime/lib/css/blueprint-datetime.css'
 import PrintablePPS from './PrintablePPS'
 import {PrintProvider, Print, NoPrint} from 'react-easy-print'
+import SkeletonProtocol from './SkeletonProtocol'
 
 class PPS extends Component {
 
@@ -48,6 +49,7 @@ class PPS extends Component {
 
     dayComponent = (day) => (
         <tr className={day.type === "Reevaluation" && "evaluation"} intent={day.evaluation && Intent.SUCCESS} key={day.id}>
+            <td>{day.type !== "Reevaluation" && <span className="day">J{day.day}</span>}</td>
             <td>{day.type}</td>
             <td>{day.products && day.products.join(", ")}</td>
             <td>{<DateInput name={day.id} onDateChange={this.handleDateChange} value={day.date.toDate()} />}</td>
@@ -71,10 +73,11 @@ class PPS extends Component {
         const {protocol, chemoLoading, nonIdeal} = this.props
         const { days } = this.props.pps
         if(chemoLoading) {
-            return "loading"
+            return SkeletonProtocol
         } else if(nonIdeal) {
             return (
                 <NonIdealState
+                    className="nonIdealState"
                     icon="search"
                     title="Plan personnalisé de soin"
                     description="Selectionnez un protocole dans la liste de gauche"
@@ -112,6 +115,7 @@ class PPS extends Component {
                             <HTMLTable>
                                 <thead>
                                     <tr>
+                                        <th></th>
                                         <th>Rendez vous</th>
                                         <th>Produits</th>
                                         <th>Date</th>

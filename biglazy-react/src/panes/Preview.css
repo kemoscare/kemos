@@ -1,0 +1,58 @@
+.Preview {
+    width: 80%;
+}
+
+.firstLine {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.firstLine > .protocolName {
+    align-self: flex-start;
+}
+
+.firstLine > .dayOneEquals {
+    align-self: flex-end;
+}
+
+.delivered {
+    display: inline-block;
+    padding: auto;
+    text-align: center;
+    min-width: 30px;
+    padding-top: 5px;
+    height: 30px;
+    border-radius: 4px;
+    font-weight: bold;
+    background-color: #B3CFFF;
+    color: #1F4B99;
+    margin: 3px;
+}
+.notDelivered {
+    display: inline-block;
+    padding: auto;
+    color: rgba(0, 0, 0 ,0);
+    border: 1px solid grey;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    margin:6px;
+}
+.productLine {
+    padding: 10px;
+}
+
+.dayOneEquals {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #B3CFFF;
+    font-weight: bold;
+    color: #1F4B99;
+    font-size: 14pt;
+    text-align: center;
+    padding-top: 5px;
+    padding: 10px;
+}

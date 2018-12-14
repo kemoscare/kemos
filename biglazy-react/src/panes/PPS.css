@@ -36,3 +36,17 @@
 .printComponent {
     display: none;
 }
+
+.day {
+    display: inline-block;
+    padding: auto;
+    text-align: center;
+    min-width: 30px;
+    padding-top: 5px;
+    height: 30px;
+    border-radius: 4px;
+    font-weight: bold;
+    background-color: #B3CFFF;
+    color: #1F4B99;
+
+}
