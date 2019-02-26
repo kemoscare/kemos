@@ -9,6 +9,7 @@ import themes from './panes/selectContent'
 import {makeTokenHeaders} from './utils'
 import { DISCONNECTED, USER_ALREADY_EXISTS, USER_CREATED_SUCCESSFULLY, INTERNAL_ERROR } from './flashes';
 import Logo from './Logo';
+import { HospitalSelect } from './MultiSelectHospitals';
 const api = require('./api-' + process.env.NODE_ENV)
 
 class AddUser extends Component {
@@ -29,7 +30,7 @@ class AddUser extends Component {
             rights: subscribe.rights.map((right, index) => { return {name: right, isSelected: false, key: index}}),
             accessibleThemes: themes.themes.map((theme, index) => { return {name: {label: theme.value, value: theme.value}, isSelected: false, key: index}}),
             user: this.DEFAULT_USER,
-            loading: false
+            loading: false,
         }
     }
 
@@ -38,6 +39,13 @@ class AddUser extends Component {
         this.state.user[event.target.name] = event.target.value
         this.setState(this.state)
     }
+
+    componentDidMount() {
+        fetch(api.server + 'hospitals/')
+        .then(response => response.ok ? response.json() : Promise.reject(response))
+        .then(data => this.setState({hospitalList: data}))
+    }
+
 
     handleSubmit = (event) => {
         let { user } = this.state
@@ -87,6 +95,9 @@ class AddUser extends Component {
                     </FormGroup>
                     <FormGroup label="Nom" label-for="last_name">
                         <InputGroup id="last_name" name="last_name" placeholder="Dupond" onChange={this.handleInputChange} value={user.surname} />
+                    </FormGroup>
+                    <FormGroup label="Hôpital actuel">
+                        <HospitalSelect hospitals={this.state.hospitalList} user={this.state.user}/>
                     </FormGroup>
                     <FormGroup label="Qualité" label-for="role">
                         <HTMLSelect id="role" name="role" options={subscribe.roles.map(role => role.label)} onChange={this.handleInputChange} value={user.role.label} />
