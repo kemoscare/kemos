@@ -7,6 +7,7 @@ import Topbar from './Topbar';
 import moment from 'moment';
 import { calculatePlanning } from './panes/calculatePlanning';
 import { makeTokenHeaders, forEachNode, mapLabel} from './utils'
+import ReactGA from 'react-ga'
 
 const api = require('./api-' + process.env.NODE_ENV)
 
@@ -86,6 +87,7 @@ class App extends Component {
         .then(json => {
               forEachNode(json, mapLabel)
               this.setState({contentTree: json, namesLoading: false, shouldSelect: lastInsertedId})
+              ReactGA.pageview('protocols/names/')
           })
         .catch(response => {console.log(this.props.token);this.props.handleDisconnection(DISCONNECTED)})}
     setTimeout(f, 0)
@@ -96,7 +98,11 @@ class App extends Component {
       headers: makeTokenHeaders(sessionStorage.token)
     })
     .then(response => response.ok ? response.json() : Promise.reject(response))
-    .then(data => this.setState({user: data}))
+    .then(data => {
+      this.setState({user: data})
+      ReactGA.pageview('users/')
+      ReactGA.event({category: 'User', action: 'Logged in', value: data.first_name + " " + data.last_name})
+    })
   }
 
   fetchChemo = (id) => {
@@ -104,10 +110,12 @@ class App extends Component {
     
     const f = () => {
         const url = api.server + 'protocols/' + id
+        ReactGA.pageview('protocols/'+id)
         fetch(url, {headers: makeTokenHeaders(sessionStorage.token)})
           .then(response => response.ok ? response.json() : Promise.reject(response))
           .then(data => { 
             const startDate = moment(new Date())
+            ReactGA.event({categoery: 'User', action: 'Loaded chemo', value: {chemoId: id, chemoName:data.name}})
             this.setState({
               chemoLoading: false,
               panes: {

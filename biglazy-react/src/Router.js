@@ -4,12 +4,16 @@ import App from './App'
 import AddUser from './AddUser'
 import Login from './Login'
 import {DISCONNECTED, WRONG_CREDENTIALS} from './flashes'
+import ReactGA from 'react-ga';
+
 const api = require('./api-' + process.env.NODE_ENV)
 
 class Router extends Component {
 
     constructor() {
         super()
+        ReactGA.initialize('UA-131354895-1');
+        ReactGA.pageview(window.location.pathname + window.location.search);
         this.state = {
             connected: false,
             credentials: {},
