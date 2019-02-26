@@ -5,9 +5,8 @@
 .firstLine {
     display: flex;
     width: 100%;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
-    padding: 10px;
 }
 
 .firstLine > .protocolName {
@@ -42,7 +41,7 @@
     margin:6px;
 }
 .productLine {
-    padding: 10px;
+    padding: 5px 0px 0px 5px;
 }
 
 .dayOneEquals {
@@ -55,4 +54,34 @@
     text-align: center;
     padding-top: 5px;
     padding: 10px;
+}
+
+.evaluationBox {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid green;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.flexLine {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.evaluationContent {
+    margin-left: 20px;
+}
+
+.evaluation {
+    padding-top: 5px;
+    margin-right: 1000px;
+    padding: 9px;
+    margin: 5px;
+    height: 40px;
+    width: 15%;
+    text-align: center;
+    font-size: 12pt;
+    border-radius: 4px;
 }

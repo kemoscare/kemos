@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Classes,NonIdealState, H5, H3 } from '@blueprintjs/core';
+import { Classes,NonIdealState, H5, H3, H2 } from '@blueprintjs/core';
 import { Cell, Table, Column, SelectionModes } from '@blueprintjs/table'
 import SkeletonProtocol from './SkeletonProtocol';
 import { getProducts, getWrappedForProduct } from './protocolUtils'
@@ -10,7 +10,7 @@ class Preview extends Component{
 
     productLine = (protocol, product) => (
         <div className="productLine">
-            <strong>{product} : </strong><br />{
+            <strong>{product}</strong><br />{
                 getWrappedForProduct(protocol, product).map(wrapped => 
                 <span className={wrapped.isDelivered ? "delivered" : "notDelivered"}>
                     J{wrapped.day}
@@ -31,7 +31,7 @@ class Preview extends Component{
     }
 
     getFormattedCycles = (protocol) => {
-        protocol.evaluations.map(e => e.dayAfter).reduce((d1, d2) => d1 + (d2 && ", " + d2))
+        protocol.evaluations.map(e => e.dayAfter).reduce((d1, d2) => d1 + (d2 && (", " + d2)))
     }
 
     render() {
@@ -55,10 +55,18 @@ class Preview extends Component{
             return (
                 <div className="Preview">
                     <div className="firstLine">
-                        <H3 className="protocolName">{protocol.name}</H3>
-                        <div className="dayOneEquals">J0 = J{protocol.dayOneEquals}</div>
+                        <H2 className="protocolName">{protocol.name}</H2>
+                        <div className="dayOneEquals">J1 = J{protocol.dayOneEquals}</div>
                     </div>
-                    <p>Chimiothérapie comprenant <strong>{this.getFormattedProducts(products)}</strong>. réévaluée tous les N cycles avec ...</p>
+                    <br/>
+                    <p>Chimiothérapie comprenant <strong>{this.getFormattedProducts(products)}</strong>. réévaluée tous les <strong>{this.getFormattedCycles(protocol)}</strong> cycles avec ...</p>
+                    <br/>
+                    <div className="evaluations">
+                        <H5>Réévaluations : </H5>
+            <div className="evaluationBox">{protocol.evaluations.map(e => <div className="flexLine"><div className="evaluation">{e.dayAfter} cycles</div> <div className="evaluationContent">{e.consultation && <strong>Consultation</strong>}{e.imagery && <span>&nbsp;et <strong>Imagerie</strong></span>}</div></div>)}</div>
+                    </div>
+                    <br/><br/>
+                    <H5>Produits : </H5>
                     {this.dayList(protocol, products)}
                 </div>
                 
