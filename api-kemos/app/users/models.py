@@ -9,6 +9,7 @@ from itsdangerous import BadSignature, SignatureExpired
 from config import SECRET_KEY
 from json import loads
 from app.mail import send_subscription_mail
+from flask import render_template
 
 
 def random_fake_password():
@@ -35,6 +36,8 @@ class User():
         self.last_name = document["last_name"]
         self.rights = document["rights"]
         self.themes = document["themes"]
+        if "hospital" in document:
+            self.hospital = document["hospital"]
         
     def is_registered(self):
         return hasattr(self, "_id")
@@ -83,7 +86,8 @@ class User():
         self.password = password_context.hash(password)
         user = db.users.find_one({'email': self.email})
         if not user:
-            send_subscription_mail(self, password)
+            print(render_template("subscribe.txt", user=self.email, password=self.password))
+            # send_subscription_mail(self, password)
             res = db.users.insert_one(vars(self))
             return res.inserted_id
         else:

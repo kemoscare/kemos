@@ -4,8 +4,7 @@ from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth
 from flask_mail import Mail
 from app.protocols.controllers import protocols
 from app.users.controllers import users
-from app.users.models import User
-
+from app.hospitals.controllers import hospitals
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -17,4 +16,5 @@ CORS(app)
 
 app.register_blueprint(protocols)
 app.register_blueprint(users)
+app.register_blueprint(hospitals)
 
