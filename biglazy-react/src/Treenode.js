@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import 'polyfill-array-includes'
 const api = require('./api-' + process.env.NODE_ENV)
 
 export class TreeNode extends Component {

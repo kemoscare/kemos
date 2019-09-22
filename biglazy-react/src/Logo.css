@@ -2,15 +2,6 @@ div.center-title {
     text-align: center;
 }
 
-span.KEMOS {
-    font-family: 'K2D', sans-serif;
-    letter-spacing: 5px;
-    font-size: 40px;
-    color: #43425d;
-  }
-  span.CARE {
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 3px;
-    font-size: 40px;
-    color: #FF6565;
-  }
+.logo-topbar {
+  padding-left : 80%;
+}

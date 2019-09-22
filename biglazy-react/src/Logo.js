@@ -1,9 +1,10 @@
 import React from 'react'
 import './Logo.css'
+import { ReactComponent as LogoSVG} from './logo.svg'
 
 const Logo = () => (
-    <div className="center-title">
-        <span className="KEMOS">KEMOS</span><span className="CARE">.CARE</span>
+    <div className="center-title logo-topbar">
+        <LogoSVG />
     </div>
 )
 

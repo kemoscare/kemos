@@ -1,4 +1,5 @@
 import moment from 'moment'
+import 'polyfill-array-includes'
 
 function parseDays(dayElements) {
     let days = dayElements.flatMap((dayElement) => {

@@ -24,3 +24,7 @@ CSRF_SESSION_KEY = "OAIJDjoasi038iadjn92382&(*n2o8nd2i38"
 
 # Secret key for signing cookies
 SECRET_KEY = "jsoaidaoisjfoiqwjefsoakmc82398urjdpwoicm09wejr928"
+MAIL_SERVER = "email-smtp.eu-west-1.amazonaws.com"
+MAIL_USERNAME = "AKIAI6EFLTUJOFJHEDFQ"
+MAIL_PASSWORD = "An3+Df96X2eZ9iVrUFqhT7Z2CVVM7ka9ht4S5gmm7oet"
+MAIL_USE_TLS = True
