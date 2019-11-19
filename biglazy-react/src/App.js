@@ -97,13 +97,16 @@ class App extends Component {
     })
     .then(response => response.ok ? response.json() : Promise.reject(response))
     .then(data => {
+      console.log(data)
+      window._paq.push(['setUserId', data.first_name+" "+data.last_name]);
+      window._paq.push(['trackPageView']);
       this.setState({user: data})
     })
   }
 
   fetchChemo = (id) => {
     this.setState({...this.state, chemoLoading: true})
-    
+    window._paq.push(['trackEvent', 'Chemo', id])
     const f = () => {
         const url = api.server + 'protocols/' + id
         fetch(url, {headers: makeTokenHeaders(sessionStorage.token)})
@@ -177,7 +180,7 @@ class App extends Component {
           <Sidebar user={user} actionFunc={this.fetchChemo} contentTree={contentTree} shouldSelect={shouldSelect} namesLoading={namesLoading}/>
           <div className="page-right">
             <Topbar user={user} logout={this.logout} reset={this.resetForm}/>
-            <Panes className="form-component" chemoLoading={chemoLoading} user={user} pps={this.state.panes.pps} formContent={this.state.panes.formContent} submit={this.submit} nonIdeal={this.state.panes.nonIdeal}/>
+            <Panes className="form-component" chemoLoading={chemoLoading} user={user} pps={this.state.panes.pps} formContent={this.state.panes.formContent} submit={this.submit} nonIdeal={this.state.panes.nonIdeal} newChemo={this.state.panes.newChemo}/>
           </div>
         </div>
       </div>
