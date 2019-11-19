@@ -86,7 +86,7 @@ class User():
         self.password = password_context.hash(password)
         user = db.users.find_one({'email': self.email})
         if not user:
-            print(render_template("subscribe.txt", user=self.email, password=self.password))
+            print(render_template("subscribe.txt", user=self.email, password=password))
             # send_subscription_mail(self, password)
             res = db.users.insert_one(vars(self))
             return res.inserted_id
