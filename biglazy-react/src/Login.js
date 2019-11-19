@@ -12,6 +12,9 @@ class Login extends Component {
         this.state = { credentials: {}, connecting: false}
     }
     
+    componentDidMount() {
+        window._paq.push(['trackPageView'])
+    }
 
     handleInputChange = (event) => {
         this.props.credentials[event.target.name] = event.target.value
@@ -21,7 +24,6 @@ class Login extends Component {
     render() {
 
         const { connecting, handleLogin, flash} = this.props
-
         return (
             <div className="monoPageWrapper">
                 <div className="description bp3-text-large">
