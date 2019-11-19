@@ -31,6 +31,8 @@ def verify_token(token):
         g.user = user
         return True
 
-def needs_permissions(user, permission):
-    if not permission in user.rights:
-        abort(403)
+def has_right(user, rights):
+    for right in rights:
+        if right in user.rights:
+            return
+    abort(403)

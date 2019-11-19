@@ -6,7 +6,7 @@ from bson.objectid import ObjectId
 from app.coders import FormDecoder, FormEncoder
 from pymongo import ReturnDocument
 from flask_cors import CORS
-from app.authentication import token_auth, needs_permissions
+from app.authentication import token_auth, has_right
 
 protocols = Blueprint('protocols', __name__, url_prefix='/protocols')
 protocols.json_encoder = FormEncoder
@@ -37,7 +37,7 @@ def get_names():
 @protocols.route('/new', methods=['POST'])
 @token_auth.login_required
 def post():
-    needs_permissions(g.user, 'admin')
+    has_right(g.user, ['admin', 'add-protocol'])
     form_json = request.get_json()
     db = get_database()
     object_id = 0

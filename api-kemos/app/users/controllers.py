@@ -5,7 +5,7 @@ from app.coders import FormDecoder, FormEncoder
 from .models import User, UserAlreadyExists
 from app.database import get_database
 from pprint import pprint
-from app.authentication import token_auth, http_auth, needs_permissions
+from app.authentication import token_auth, http_auth, has_right
 
 users = Blueprint('users', __name__, url_prefix="/users")
 users.json_decoder = FormDecoder
@@ -16,7 +16,7 @@ CORS(users)
 @users.route("/add", methods=['POST'])
 @token_auth.login_required
 def add_user():
-    needs_permissions(g.user, 'admin')
+    has_right(g.user, 'admin')
     user_json = request.get_json()
     user = User(user_json)
     try:
@@ -34,7 +34,7 @@ def current_user():
 @users.route("/user/<user_id>")
 @token_auth.login_required
 def get_user(user_id):
-    needs_permissions(g.user, 'admin')
+    has_right(g.user, 'admin')
     user = User.get(user_id)
     return jsonify(user)
 
