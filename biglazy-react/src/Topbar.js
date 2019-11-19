@@ -17,7 +17,7 @@ class Topbar extends Component {
                     </div>
                     <div className="right">
                         {this.props.user.first_name} {this.props.user.last_name}&nbsp;&nbsp;
-                        { hasPermission('admin', this.props.user) && <Button intent={Intent.PRIMARY} minimal large={true} icon="plus" onClick={this.props.reset}>Ajouter</Button>}&nbsp;&nbsp;
+                        { hasPermission(['admin', 'add-protocol'], this.props.user) && <Button intent={Intent.PRIMARY} minimal large={true} icon="plus" onClick={this.props.reset}>Ajouter</Button>}&nbsp;&nbsp;
                         { hasPermission('admin', this.props.user) && (<Popover content={<Menu>
                                                                                             <MenuItem icon="plus" text="Ajouter un utilisateur" href="/users/add"/>
                                                                                         </Menu>} position={Position.RIGHT_TOP}>
