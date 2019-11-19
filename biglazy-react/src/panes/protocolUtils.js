@@ -42,7 +42,6 @@ export function getDaysForProduct(protocol, product) {
 export function getWrappedForProduct(protocol, product) {
     let wrapped = []
     let deliveredDays = getDaysForProduct(protocol, product)
-    console.log(deliveredDays)
     for(let day = 1; day <= protocol.dayOneEquals; day++) {
         wrapped.push(
             {
