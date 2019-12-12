@@ -1,6 +1,5 @@
 const path = require('path')
 const env = process.env.NODE_ENV
-const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
@@ -10,18 +9,11 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
     entry: "./src/index.js",
-    mode: env === 'development' ? 'development' : 'production',
-    devtool: 'source-map',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].[hash:8].js'
     },
     plugins: [
-        new MiniCSSExtractPlugin({
-            name: '[name].css',
-            chunkFileName: '[id].css',
-            ignoreOrder: false
-        }),
         new HtmlWebpackPlugin({
             title: "KEMOS",
             favicon: './public/favicon.ico',
@@ -43,18 +35,6 @@ module.exports = {
                 }
             },
             {
-                test: /\.css$/,
-                use: [
-                    {
-                        loader: MiniCSSExtractPlugin.loader,
-                        options: {
-                            hmr: env === 'development'
-                        }
-                    },
-                    'css-loader'
-                ]
-            },
-            {
                 test: /\.(svg)$/,
                 use: {
                     loader: '@svgr/webpack'
@@ -64,15 +44,5 @@ module.exports = {
     },
     resolve : {
         extensions: ['.js', '.jsx', '.json']
-    },
-    devServer: {
-        publicPath: '/',
-        contentBase: './public',
-        hot: true
-    },
-    optimization: {
-        splitChunks: {
-            chunks: 'all'
-        }
     }
 }
