@@ -1,6 +1,6 @@
 import React from 'react'
 import './Logo.css'
-import { ReactComponent as LogoSVG} from './logo.svg'
+import LogoSVG from './logo.svg'
 
 const Logo = () => (
     <div className="center-title logo-topbar">
@@ -9,3 +9,4 @@ const Logo = () => (
 )
 
 export default Logo
+

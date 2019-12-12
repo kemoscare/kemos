@@ -3,7 +3,6 @@ import { Select } from '@blueprintjs/select'
 import { Menu, MenuItem, Button } from '@blueprintjs/core';
 import hospitals from './hospitals'
 import '@blueprintjs/select/lib/css/blueprint-select.css'
-import 'string-includes-polyfill'
 
 export class HospitalSelect extends Component {
 
