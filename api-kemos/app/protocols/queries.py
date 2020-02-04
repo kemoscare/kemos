@@ -27,6 +27,7 @@ _PROJECT_ORGANS_AND_THEMES = {
         'organ.label': '$_id.organ',
         'organ.parent': '$_id.theme',
         'organ.childNodes': '$childNodes',
+        'organ.id': '$_id.organ'
     }
 }
 
