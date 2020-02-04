@@ -8,11 +8,21 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import thunkMiddleware from 'redux-thunk'
+import { createLogger } from 'redux-logger'
+import { rootReducer } from './reducers/reducers'
+
+const logger = createLogger({})
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger))
 
 ReactDOM.render((
-  <BrowserRouter>
-   <KemosRouter />
-  </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+       <KemosRouter />
+      </BrowserRouter>
+    </Provider>
  ), document.getElementById('root')
 );
 //registerServiceWorker();
