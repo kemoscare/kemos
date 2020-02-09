@@ -1,4 +1,4 @@
-const RECEIVED_PROTOCOL = 'RECEIVED_PROTOCOL'
+export const RECEIVED_PROTOCOL = 'RECEIVED_PROTOCOL'
 
 export function receivedProtocol(data) {
     return {

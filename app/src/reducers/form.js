@@ -1,13 +1,12 @@
 import { combineReducers } from 'redux'
 import { formInitialState } from '../panes/Form'
 import {
-    RECEIVED_PROTOCOL,
-    REQUEST_PROTOCOL,
     SUBMIT_PROTOCOL,
     ADD_FORM_ELEMENT,
     DELETE_FORM_ELEMENT,
     INPUT_CHANGED, RADIO_CHANGED, SELECT_CHANGED, CHECKBOX_CHANGED
 } from '../actions/form'
+import { RECEIVED_PROTOCOL } from '../actions/actions'
 
 /*
  * inpired from https://redux.js.org/recipes/structuring-reducers/reusing-reducer-logic/#customizing-behavior-with-higher-order-reducers
@@ -129,10 +128,12 @@ export const protocol = (state = {}, action) => {
 export const editForm = (state=formInitialState, action) => {
     switch(action.type) {
         case RECEIVED_PROTOCOL:
+            const { formData } = action
             return {
-                protocol: action.formData,
-                evaluations: action.formData.evaluations,
-                days: action.formData.days
+                protocol: formData,
+                //Creates new arrays with key values inside object.
+                evaluations: formData.evaluations.map((evaluation, key) => { return {...evaluation, id: key}}),
+                days: formData.days.map((day, key) => { return {...day, id: key}})
             }
             break
         default:
