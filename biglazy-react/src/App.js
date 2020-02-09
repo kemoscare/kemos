@@ -7,6 +7,9 @@ import Topbar from './Topbar';
 import moment from 'moment';
 import { calculatePlanning } from './panes/calculatePlanning';
 import { makeTokenHeaders, forEachNode, mapLabel} from './utils'
+import { dispatch } from 'redux'
+import { connect } from 'react-redux'
+import { receivedProtocol } from './actions/actions'
 
 const api = require('./api-' + process.env.NODE_ENV)
 
@@ -105,6 +108,7 @@ class App extends Component {
   }
 
   fetchChemo = (id) => {
+    const { dispatch } = this.props
     this.setState({...this.state, chemoLoading: true})
     window._paq.push(['trackEvent', 'Chemo', id])
     const f = () => {
@@ -126,8 +130,8 @@ class App extends Component {
                   startDate: startDate,
                   cycleCount: 1
                 },
-                 
               }})
+            dispatch(receivedProtocol(data))
             })
           .catch(response => console.log(response))
       }
@@ -188,4 +192,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect()(App);
