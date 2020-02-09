@@ -25,7 +25,7 @@ def get_protocol(id):
 
 
 @protocols.route('/names/')
-# @token_auth.login_required
+@token_auth.login_required
 def get_names():
     db = get_database()
     results = [e for e in db.protocoles.aggregate(queries.GET_TREE)]
