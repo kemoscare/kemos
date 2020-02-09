@@ -1,4 +1,7 @@
 import React from 'react'
+import { Preview } from './panes/Preview'
+import { PPS } from './panes/PPS'
+import { Form } from './panes/Form'
 
 export const Panes = ({dispatch}) => (
 
