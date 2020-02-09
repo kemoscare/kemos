@@ -15,7 +15,6 @@ protocols.json_decoder = FormDecoder
 CORS(protocols)
 
 @protocols.route('/<id>', methods=['GET'])
-@token_auth.login_required
 def get_protocol(id):
     if id == 'themes':
         return 'API Does not support "theme" requests anymore'
