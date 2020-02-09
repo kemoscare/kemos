@@ -1,4 +1,3 @@
-
 import content from './panes/selectContent'
 
 export function makeHTTPString(username, password="") {
@@ -11,7 +10,7 @@ export function makeHTTPString(username, password="") {
 
 export function makeTokenHeaders(token) {
     return new Headers({
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
     })
 }
 

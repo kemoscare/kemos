@@ -19,7 +19,7 @@ class Sidebar extends Component {
 
     componentDidMount() {
         const { dispatch } = this.props
-        dispatch(fetchTree(api.server + 'protocols/names'))
+        dispatch(fetchTree(api.server + 'protocols/names/'))
     }
 
     checkId(id) {

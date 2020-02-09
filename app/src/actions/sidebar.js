@@ -73,14 +73,17 @@ export function keyTypedFilterTree(query) {
         return timeout
     }
 }
+import { makeTokenHeaders } from '../utils'
 
 export function fetchTree(url) {
 
     return function(dispatch) {
         dispatch(requestTree(url))
-        return fetch(url).then(
+        return fetch(url, {
+            headers: makeTokenHeaders(sessionStorage.token)
+        }).then(
             response => response.json(),
-            error => console.log("Could not fetch")
+            error => console.log(error)
         )
         .then(
             json => dispatch(receivedTree(json))
