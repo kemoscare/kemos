@@ -16,11 +16,11 @@ export function makeTokenHeaders(token) {
 }
 
 export function mapLabel(node) {
-    if(node.category === 'protocol') return;
+    if(node.category === 'protocol') return node;
     if(node.category === 'theme') {
-        node.label = content['themes'].find(o => o.value === node.value).label
+        return { ...node, label: content['themes'].find(o => o.value === node.value).label }
     } else if(node.category === 'organ') {
-        node.label = content['organs'][node.parent].find(o => o.value === node.value).label
+        return { ...node, label:  content['organs'][node.parent].find(o => o.value === node.value).label }
     }
 }
 
