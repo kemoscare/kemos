@@ -6,7 +6,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 // No need, automatic in production
 // const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 // const TerserJSPlugin = require('terser-webpack-plugin')
-
 module.exports = {
     entry: "./src/index.js",
     output: {
