@@ -6,3 +6,11 @@ export function receivedProtocol(data) {
         formData: data
     }
 }
+
+export const SHOW_NEW_PROTOCOL_FORM = 'SHOW_NEW_PROTOCOL_FORM'
+
+export function showNewProtocolForm() {
+    return { 
+        type: SHOW_NEW_PROTOCOL_FORM
+    }
+}
