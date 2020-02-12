@@ -19,7 +19,6 @@ import { daysInitialState } from './FormComponents/DayForm'
 import { evaluationsInitialState } from './FormComponents/EvaluationForm'
 import { connect } from 'react-redux'
 
-console.log(evaluationsInitialState)
 export const formInitialState = {
     loading: false,
     protocol: protocolInitialState,

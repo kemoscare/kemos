@@ -1,7 +1,8 @@
 import { TAB_CHANGED } from '../actions/panes'
+import { SHOW_NEW_PROTOCOL_FORM } from '../actions/actions'
 
 const panesInitialState = {
-    tabId = "apercu"
+    selectedTab: "apercu"
 }
 
 export const panes = (state = panesInitialState, action) => {
@@ -9,12 +10,13 @@ export const panes = (state = panesInitialState, action) => {
         case TAB_CHANGED:
             return {
                 ...state,
-                tabId: action.newTabId
+                selectedTab: action.newTabId
             }
-        case ADD_NEW_PROTOCOL:
-            retrun {
+        case SHOW_NEW_PROTOCOL_FORM:
+            return {
                 ...state,
-                tabId: "modifier"
+                selectedTab: "modifier"
+            }
         default:
             return state
     }
