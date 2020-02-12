@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Sidebar from './Sidebar';
-import Panes from './Tabs'
+import Panes from './Panes'
 import { DISCONNECTED } from './flashes'
 import Topbar from './Topbar';
 import moment from 'moment';
@@ -184,7 +184,7 @@ class App extends Component {
           <Sidebar user={user} actionFunc={this.fetchChemo} contentTree={contentTree} shouldSelect={shouldSelect} namesLoading={namesLoading}/>
           <div className="page-right">
             <Topbar user={user} logout={this.logout} reset={this.resetForm}/>
-            <Panes className="form-component" chemoLoading={chemoLoading} user={user} pps={this.state.panes.pps} formContent={this.state.panes.formContent} submit={this.submit} nonIdeal={this.state.panes.nonIdeal} newChemo={this.state.panes.newChemo}/>
+            <Panes />
           </div>
         </div>
       </div>
