@@ -9,7 +9,8 @@ import { calculatePlanning } from './panes/calculatePlanning';
 import { makeTokenHeaders, forEachNode, mapLabel} from './utils'
 import { dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { receivedProtocol } from './actions/actions'
+import { receivedProtocol, requestProtocol } from './actions/actions'
+
 
 const api = require('./api-' + process.env.NODE_ENV)
 
@@ -111,6 +112,7 @@ class App extends Component {
     const { dispatch } = this.props
     this.setState({...this.state, chemoLoading: true})
     window._paq.push(['trackEvent', 'Chemo', id])
+    dispatch(requestProtocol())
     const f = () => {
         const url = api.server + 'protocols/' + id
         fetch(url, {headers: makeTokenHeaders(sessionStorage.token)})
