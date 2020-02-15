@@ -94,30 +94,6 @@ const formArrayReducer = (state, action) => {
     }
 }
 /*
- * A reducer that handles data from the view, and shares it with the edit reducer for editing the form.
- * @param {object} state The initial state being completed viewForm
- * @param {object} action The action
- * @returns the new state containing view and edit,
- */
-export const protocol = (state = {}, action) => {
-    switch(action.type) {
-        case RECEIVED_PROTOCOL:
-            return {
-                loading: false,
-                ...action.protocol
-            }
-        case SUBMIT_PROTOCOL:
-            return {
-                ...state,
-                view: action.formData
-            }
-        default:
-            return state
-    }
-}
-
-
-/*
  * A reducer that handles editing of a form.
  * Actions : 
  * @param state {object} The initial state being an empty formData
