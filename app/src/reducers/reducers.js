@@ -1,5 +1,6 @@
 import { sidebar } from './sidebar'
-import { editForm, protocol } from './form'
+import { editForm } from './form'
+import { protocol } from './protocol'
 import { panes } from './panes'
 import { combineReducers } from 'redux'
 
