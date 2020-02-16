@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Classes,NonIdealState, H5, H3, H2 } from '@blueprintjs/core';
 import { Cell, Table, Column, SelectionModes } from '@blueprintjs/table'
 import SkeletonProtocol from './SkeletonProtocol';
-import { getProducts, getWrappedForProduct } from './protocolUtils'
+import { getProducts, getWrappedForProduct, getFormattedProducts, getFormattedCycles } from './protocolUtils'
 import { connect } from 'react-redux'
 import './Preview.css'
 
@@ -23,8 +23,6 @@ const dayList = (protocol, products) => (
         </div>
     )
 
-const getFormattedProducts = (products) => products.reduce((p1, p2) => p1 + ", " + p2)
-const getFormattedCycles = (protocol) => protocol.evaluations.map(e => e.dayAfter).reduce((d1, d2) => d1 + (d2 && (", " + d2)))
     
 const Preview = ({ protocol, loading }) => {
         if(loading === "LOADING") return SkeletonProtocol
