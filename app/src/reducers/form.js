@@ -7,6 +7,7 @@ import {
     INPUT_CHANGED, RADIO_CHANGED, SELECT_CHANGED, CHECKBOX_CHANGED
 } from '../actions/form'
 import { RECEIVED_PROTOCOL } from '../actions/actions'
+import { products, extractProducts } from './products'
 
 /*
  * inpired from https://redux.js.org/recipes/structuring-reducers/reusing-reducer-logic/#customizing-behavior-with-higher-order-reducers
@@ -37,6 +38,7 @@ function createNamedWrapperReducer(reducerFunction, reducerName) {
   * @returns {object} The new state with the field modified accordingly.
   */
 const field = (state, action) => {
+        console.log(state)
         const { field } = action
         switch(action.type) {
             case INPUT_CHANGED:
@@ -66,7 +68,8 @@ const field = (state, action) => {
  * @params {object} action The action to pass down to reducers, must contain an `id` key.
  * @returns {object} the newly reduced state
  */
-const formArrayReducer = (state, action) => {
+export const formArrayReducer = (state, action) => {
+    console.log(state)
     switch(action.type) {
         case ADD_FORM_ELEMENT:
             // Sets a new Id for the new form object by looking at the id of last object
@@ -105,11 +108,13 @@ export const editForm = (state=formInitialState, action) => {
     switch(action.type) {
         case RECEIVED_PROTOCOL:
             const { formData } = action
+            const days = formData.days.map((day, key) => { return { ...day, id: key }})
             return {
                 protocol: formData,
                 //Creates new arrays with key values inside object.
                 evaluations: formData.evaluations.map((evaluation, key) => { return {...evaluation, id: key}}),
-                days: formData.days.map((day, key) => { return {...day, id: key}})
+                days: days,
+                products: extractProducts(days)
             }
             break
         default:
@@ -122,6 +127,8 @@ export const editForm = (state=formInitialState, action) => {
                     return { ...state, evaluations: createNamedWrapperReducer(formArrayReducer, 'evaluations')(state.evaluations, action)}
                 case 'days':
                     return { ...state, days: createNamedWrapperReducer(formArrayReducer, 'days')(state.days, action) }
+                case 'products':
+                    return { ...state, products: createNamedWrapperReducer(products, 'products')(state.products, action) }
                 default:
                     return state
             }
