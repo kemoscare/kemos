@@ -8,5 +8,5 @@ export const rootReducer = combineReducers({
     sidebar,
     editForm,
     protocol,
-    panes
+    panes,
 })
