@@ -35,6 +35,7 @@ class Form extends Component {
         const { protocol, evaluations, days, dispatch, loading } = this.props
         return (
             <AddProtocolForm protocol={protocol} days={days} evaluations={evaluations} dispatch={dispatch} loading={loading} />
+            <AddProtocolForm { ...this.props}/>
         )
     }
 }
