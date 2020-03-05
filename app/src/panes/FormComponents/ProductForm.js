@@ -7,25 +7,45 @@ import {
     Intent,
     Divider
 } from '@blueprintjs/core'
+import { connect } from 'react-redux'
+import { inputChanged, addFormElement, deleteFormElement, uniqueName } from '../../actions/form'
 
-const ProductForm = (props, dispatch) => (
+const ProductForm = ({ products, addProduct, deleteProduct, productInputChanged }) => (
             <FormGroup>
                 {
-                    props.products.map((product) => (
-                        <div vertical>
-                            <Product product={product} dispatch={dispatch}/> 
+                    products.map((product) => (
+                        <div>
+                            <Product product={product} productInputChanged={productInputChanged} deleteProduct={deleteProduct}/> 
                             <Divider />
                         </div> 
                     ))
                 }
 
-                <Button onClick={this.addProduct} icon="plus"/>
+                <Button onClick={addProduct} icon="plus"/>
             </FormGroup>
 )
 
-const Product = (product, dispatch) => (
+const Product = ({ product, productInputChanged, deleteProduct}) => (
             <ControlGroup key={product.id}>
-                <InputGroup id={product.id} placeholder="Produit" value={product} onChange={(e) => dispatch(inputChanged(e, product)}/>
-                <Button icon="minus" intent={Intent.DANGER} onClick={() => dispatch(productDeleted(product)} id={product.id} />
+                <InputGroup name={uniqueName('value', 0)} id={product.id} placeholder="Produit" value={product.value} onChange={(event) => productInputChanged(event, product.id)}/>
+                <Button icon="minus" intent={Intent.DANGER} onClick={() => deleteProduct(product)} id={product.id} />
             </ControlGroup>
 )
+
+function mapStateToProps(state, ownProps) {
+    const { products } = state.editForm
+    return {
+        products: products[ownProps.dayId]
+    }
+}
+
+function mapDispatchToProps(dispatch, ownProps) {
+    const { dayId } = ownProps
+    return {
+        addProduct: () =>  dispatch({ ...addFormElement('products', {}), dayId }),
+        deleteProduct: (product) => dispatch({ ...deleteFormElement('products', product), dayId }),
+        productInputChanged: (event, fieldId) => dispatch({ ...inputChanged('products', event, fieldId), dayId})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductForm)
