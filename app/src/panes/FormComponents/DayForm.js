@@ -42,8 +42,8 @@ export const DayForm = ({ day, dispatch }) => (
             <tr key={day.id}>
                 <td><InputGroup name={uniqueName('day', day)} value={day.day} onChange={(e) => dispatch(dayInputChanged(e, day))} placeholder="1 - 1,8"/></td>
                 <td>
-    Products here
-                </td>
+    { day.products && <ProductForm dayId={day.id} /> }
+                    </td>
                 <td>
                     <RadioGroup name={uniqueName('careGalenic', day)} onChange={(e) => dispatch(dayRadioChanged(e, day))} selectedValue={day.careGalenic}>
                         <Radio label="P.O" value="PerOs"/>
