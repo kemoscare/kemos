@@ -7,12 +7,9 @@ import {Radio,
         HTMLTable} from "@blueprintjs/core"
 
 import { inputChanged, radioChanged, addFormElement, deleteFormElement, uniqueName } from '../../actions/form'
+import { addDay, deleteDay, dayInputChanged, dayRadioChanged, dayInitialState } from '../../actions/days'
+import ProductForm from './ProductForm'
 
-export const dayInitialState = {id: 0, day: "1-8", careGalenic: "PerOs", careMode: "Admission", products: [] }
-export const daysInitialState = [dayInitialState]
-
-const addDay = () => addFormElement('days', dayInitialState)
-const deleteDay = (day) => deleteFormElement('days', day)
 
 export const DaysForm = ({ days, dispatch }) => (
             <div>
@@ -35,8 +32,6 @@ export const DaysForm = ({ days, dispatch }) => (
             </div>
 )
 
-const dayInputChanged = (event, day) => inputChanged('days', event, day.id)
-const dayRadioChanged = (event, day) => radioChanged('days', event, day.id)
 
 export const DayForm = ({ day, dispatch }) => (
             <tr key={day.id}>
