@@ -16,6 +16,7 @@ import DayForm from './FormComponents/DayForm'
 import FormLoading from './FormLoading'
 import AddProtocolForm, { protocolInitialState } from './FormComponents/AddProtocolForm'
 import { daysInitialState } from './FormComponents/DayForm'
+import { daysInitialState } from '../actions/days'
 import { evaluationsInitialState } from './FormComponents/EvaluationForm'
 import { connect } from 'react-redux'
 
@@ -24,6 +25,8 @@ export const formInitialState = {
     protocol: protocolInitialState,
     evaluations: evaluationsInitialState,
     days: daysInitialState
+    days: daysInitialState,
+    products: {}
 }
 
 
