@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid'
 export function uniqueName(name, formElement) {
     return name + uniqueString + formElement.id
 }
@@ -79,6 +80,7 @@ export const ADD_FORM_ELEMENT = 'ADD_FORM_ELEMENT'
 
 export function addFormElement(formName, formState) {
     return {
+        uuid: uuid(),
         type: ADD_FORM_ELEMENT,
         formName,
         formState
