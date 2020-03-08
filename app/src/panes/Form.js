@@ -15,7 +15,7 @@ import selectContent from './selectContent'
 import DayForm from './FormComponents/DayForm'
 import FormLoading from './FormLoading'
 import AddProtocolForm, { protocolInitialState } from './FormComponents/AddProtocolForm'
-import { daysInitialState } from '../actions/days'
+import { daysInitialState } from '../reducers/days'
 import { evaluationsInitialState } from './FormComponents/EvaluationForm'
 import { connect } from 'react-redux'
 
