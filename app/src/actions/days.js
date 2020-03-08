@@ -1,7 +1,5 @@
 import { addFormElement, deleteFormElement, inputChagned, radioChanged } from './form'
-
-export const dayInitialState = {id: 0, day: "1-8", products: [], careGalenic: "PerOs", careMode: "Admission"}
-export const daysInitialState = [dayInitialState]
+import { dayInitialState } from '../reducers/days'
 
 export const addDay = () => addFormElement('days', dayInitialState)
 export const deleteDay = (day) => deleteFormElement('days', day)
