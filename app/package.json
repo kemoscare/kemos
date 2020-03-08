@@ -23,7 +23,8 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "resolve": "1.10.0",
-    "semver": "6.0.0"
+    "semver": "6.0.0",
+    "uuid": "^7.0.2"
   },
   "scripts": {
     "start": "webpack-dev-server --config ./config/webpack.dev.js",
