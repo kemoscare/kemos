@@ -38,7 +38,6 @@ function createNamedWrapperReducer(reducerFunction, reducerName) {
   * @returns {object} The new state with the field modified accordingly.
   */
 const field = (state, action) => {
-        console.log(state)
         const { field } = action
         switch(action.type) {
             case INPUT_CHANGED:
@@ -69,7 +68,6 @@ const field = (state, action) => {
  * @returns {object} the newly reduced state
  */
 export const formArrayReducer = (state, action) => {
-    console.log(state)
     switch(action.type) {
         case ADD_FORM_ELEMENT:
             // Sets a new Id for the new form object by looking at the id of last object
