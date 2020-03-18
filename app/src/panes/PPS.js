@@ -11,6 +11,12 @@ import PrintablePPS from './PrintablePPS'
 import {PrintProvider, Print, NoPrint} from 'react-easy-print'
 import SkeletonProtocol from './SkeletonProtocol'
 
+export const Plan = ({ loading, dispatch }) => {
+    if(loading === "LOADING") { return <PlanLoading /> }
+    if(loading === "NON_IDEAL") { return <PlanNonIdeal /> }
+    return (
+
+
 class PPS extends Component {
 
     constructor() {
@@ -76,12 +82,6 @@ class PPS extends Component {
             return SkeletonProtocol
         } else if(nonIdeal) {
             return (
-                <NonIdealState
-                    className="nonIdealState"
-                    icon="search"
-                    title="Plan personnalisé de soin"
-                    description="Selectionnez un protocole dans la liste de gauche"
-                    />
             )
         } else {
             moment.locale("fr")
