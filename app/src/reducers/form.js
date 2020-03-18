@@ -4,7 +4,7 @@ import {
     SUBMIT_PROTOCOL,
     ADD_FORM_ELEMENT,
     DELETE_FORM_ELEMENT,
-    INPUT_CHANGED, RADIO_CHANGED, SELECT_CHANGED, CHECKBOX_CHANGED
+    INPUT_CHANGED, RADIO_CHANGED, SELECT_CHANGED, CHECKBOX_CHANGED, DATE_CHANGED
 } from '../actions/form'
 import { RECEIVED_PROTOCOL } from '../actions/actions'
 import { products, extractProducts } from './products'
@@ -16,7 +16,7 @@ import { v4 as uuid } from 'uuid'
  * @params {string} reducerName The name to reduce 
  * @returns {function} The reducer according to the proper reducerName
  */
-function createNamedWrapperReducer(reducerFunction, reducerName) {
+export function createNamedWrapperReducer(reducerFunction, reducerName) {
     /*
      * The reducer returned by createNamedWrapperReducer(reducerFunction, reducerName)`
      * @params {object} state The initial state, should be a slice of the initial state, and should, by convention
@@ -38,7 +38,7 @@ function createNamedWrapperReducer(reducerFunction, reducerName) {
   * @param {action} action The action of type : INPUT_CHANGED / RADIO_CHANGED / SELECT_CHANGED / CHECKBOX_CHANGED.
   * @returns {object} The new state with the field modified accordingly.
   */
-const field = (state, action) => {
+export const field = (state, action) => {
         const { field } = action
         switch(action.type) {
             case INPUT_CHANGED:
@@ -54,6 +54,12 @@ const field = (state, action) => {
                 return {
                     ...state,
                     [field.name]: !value
+                }
+                break
+            case DATE_CHANGED:
+                return {
+                    ...state,
+                    [field.name]: field.value
                 }
                 break
             default:
@@ -87,7 +93,9 @@ export const formArrayReducer = (state, action) => {
         case RADIO_CHANGED:
         case SELECT_CHANGED:
         case CHECKBOX_CHANGED:
+        case DATE_CHANGED:
             const idToChange = action.fieldId
+            console.log(state)
             return state.map(e => e.id === idToChange ? field(e, action) : e)
         default: 
             return state
