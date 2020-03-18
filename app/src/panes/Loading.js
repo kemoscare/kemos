@@ -1,10 +1,10 @@
 import React from 'react'
 import {
-    FormGroup, Classes, InputGroup, Button, Switch, Intent
+    FormGroup, Classes, InputGroup, Button, Switch, Intent, NonIdealState
 } from '@blueprintjs/core'
 import { DatePicker } from '@blueprintjs/datetime'
 
-const SkeletonProtocol = (
+export const ProtocolLoading = () => (
     <div>
         <div className="displayComponent">
             <div>
@@ -25,10 +25,19 @@ const SkeletonProtocol = (
                         <Button className="print-button" intent={Intent.PRIMARY} text="Imprimer" icon="print" />
                         <Switch inline large name="showAtHomeTreaments" label=""/>
                     </FormGroup>
-                </div> 
+                </div>
             </div>
         </div>
     </div>
     )
 
-    export default SkeletonProtocol
+export const PlanNonIdeal = () => (
+                <NonIdealState
+                    className="nonIdealState"
+                    icon="search"
+                    title="Plan personnalisé de soin"
+                    description="Selectionnez un protocole dans la liste de gauche"
+                    />
+)
+
+

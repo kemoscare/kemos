@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Classes,NonIdealState, H5, H3, H2 } from '@blueprintjs/core';
 import { Cell, Table, Column, SelectionModes } from '@blueprintjs/table'
-import SkeletonProtocol from './SkeletonProtocol';
+import { ProtocolLoading } from './Loading';
 import { getProducts, getWrappedForProduct, getFormattedProducts, getFormattedCycles } from './protocolUtils'
 import { connect } from 'react-redux'
 import './Preview.css'
@@ -25,7 +25,7 @@ const dayList = (protocol, products) => (
 
     
 const Preview = ({ protocol, loading }) => {
-        if(loading === "LOADING") return SkeletonProtocol
+        if(loading === "LOADING") return ProtocolLoading
         else if(loading === "NON_IDEAL") {
             return (
                 <NonIdealState
