@@ -1,4 +1,6 @@
 import { v4 as uuid } from 'uuid'
+import moment from 'moment'
+
 export function uniqueName(name, formElement) {
     return name + uniqueString + formElement.id
 }
@@ -45,6 +47,7 @@ export function selectChanged(formName, event, fieldId = 0) {
     }
 }
 
+
 export const RADIO_CHANGED = 'RADIO_CHANGED'
 
 export function radioChanged(formName, event, fieldId = 0) {
@@ -70,6 +73,22 @@ export function checkboxChanged(formName, event, fieldId = 0) {
     
     return {
         type: CHECKBOX_CHANGED,
+        fieldId,
+        formName,
+        field
+    }
+}
+
+export const DATE_CHANGED = 'DATE_CHANGED'
+
+export function dateChanged(formName, fieldName, date, fieldId = 0) {
+    const field = {
+        name: fieldName,
+        value: moment(date)
+    }
+
+    return {
+        type: DATE_CHANGED,
         fieldId,
         formName,
         field
