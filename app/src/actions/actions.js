@@ -1,8 +1,11 @@
+import moment from 'moment'
+
 export const RECEIVED_PROTOCOL = 'RECEIVED_PROTOCOL'
 
 export function receivedProtocol(data) {
     return {
         type: RECEIVED_PROTOCOL,
+        dateDispatched: moment(new Date()),
         formData: data
     }
 }

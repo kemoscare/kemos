@@ -23,10 +23,12 @@ export const plan = (state=planInitialState, action) => {
     switch(action.type) {
         case RECEIVED_PROTOCOL:
             const receivedProtocol = action.formData
+            const currentDate = action.dateDispatched
             return {
                 ...state,
                 protocol: receivedProtocol,
-                dates: calculatePlanning(receivedProtocol, state.startDate, false)
+                startDate: currentDate,
+                dates: calculatePlanning(receivedProtocol, currentDate,  false)
             }
         default:
             switch(action.formName) {
