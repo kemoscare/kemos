@@ -31,9 +31,18 @@ export const plan = (state=planInitialState, action) => {
         default:
             switch(action.formName) {
                 case 'plan':
-                    return {
-                        ...state,
-                        ...planWrapperReducer(field)(state, action)
+                    const { name } = action.field
+                    if(name === 'startDate') {
+                        const newState = planWrapperReducer(field)(state, action)
+                        return {
+                            ...newState,
+                            dates: calculatePlanning(state.protocol, newState.startDate, false)
+                        }
+                    } else {
+                        return {
+                            ...state,
+                            ...planWrapperReducer(field)(state, action)
+                        }
                     }
                 case 'datesPlan':
                     return {
