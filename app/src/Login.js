@@ -3,13 +3,14 @@ import {
     FormGroup, InputGroup, ControlGroup, Button, H4, H3, Callout, Intent
 } from '@blueprintjs/core';
 import './Login.css'
+import { loginUser } from './actions/users'
 import Logo from './Logo';
 
 class Login extends Component {
 
     constructor() {
         super()
-        this.state = { credentials: {}, connecting: false}
+        this.state = { credentials: {email: "", password: ""}, connecting: false}
     }
     
     componentDidMount() {
@@ -17,13 +18,14 @@ class Login extends Component {
     }
 
     handleInputChange = (event) => {
-        this.props.credentials[event.target.name] = event.target.value
+        this.state.credentials[event.target.name] = event.target.value
         this.setState(this.state)
     }
 
     render() {
 
-        const { connecting, handleLogin, flash} = this.props
+        const { connecting, flash, dispatch} = this.props
+        const { credentials } = this.state
         return (
             <div className="monoPageWrapper">
                 <div className="description bp3-text-large">
@@ -44,7 +46,7 @@ class Login extends Component {
                     <ControlGroup vertical>
                         <InputGroup name="email" onChange={this.handleInputChange} placeholder="email@chu-bordeaux.fr" />
                         <InputGroup name="password" onChange={this.handleInputChange} placeholder="Mot de passe" type="password" />
-                        <Button onClick={handleLogin} text="Se Connecter" rightIcon="log-in" loading={connecting} />
+                        <Button onClick={() => dispatch(loginUser(credentials))} text="Se Connecter" rightIcon="log-in" loading={connecting} />
                     </ControlGroup>
                 </div>
             </div>
