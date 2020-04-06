@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { ProgressBar, Button, Intent, Popover, Menu, Position, MenuItem } from '@blueprintjs/core'
-import {hasPermission } from './authentication'
+import { hasPermission } from './authentication'
+import { logoutUser } from './actions/users'
 import Logo from './Logo';
 import './Topbar.css'
-
+/*
 class Topbar extends Component {
     render() {
 
@@ -44,5 +46,27 @@ class Topbar extends Component {
         }    
     }
 }
+*/
+const Topbar = ({ connected, user, dispatch }) => (
+    <div className="Topbar">
+        <div className="left"></div>
+        <div className="center">
+            <Logo />
+        </div>
+        <div className="right">
+            {user.first_name}&nbsp;{user.last_name}
+            { hasPermission(['admin', 'add-protocol'], user) && <Button intent={Intent.PRIMARY} minimal large={true} icon="plus" onClick={() => console.log("new form")}>Ajouter</Button> } &nbsp;&nbsp;
+            <Button onClick={() => dispatch(logoutUser())} minimal large icon="power" />&nbsp;&nbsp;
+        </div>
+    </div>
+)
 
-export default Topbar;
+function mapStateToProps(state) {
+    const { connected, user } = state.users
+    return {
+        connected,
+        user
+    }
+}
+
+export default connect(mapStateToProps)(Topbar);

@@ -11,6 +11,7 @@ import { dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { receivedProtocol, requestProtocol } from './actions/actions'
 
+import { fetchUser } from './actions/users'
 
 const api = require('./api-' + process.env.NODE_ENV)
 
@@ -50,7 +51,8 @@ class App extends Component {
   }
   componentDidMount() {
     this.fetchNames()
-    this.fetchUser()
+    const { dispatch } = this.props
+    dispatch(fetchUser())
   }
 
   logout = () => {
@@ -185,7 +187,7 @@ class App extends Component {
         <div className="flex-box">
           <Sidebar user={user} actionFunc={this.fetchChemo} contentTree={contentTree} shouldSelect={shouldSelect} namesLoading={namesLoading}/>
           <div className="page-right">
-            <Topbar user={user} logout={this.logout} reset={this.resetForm}/>
+            <Topbar reset={this.resetForm}/>
             <Panes />
           </div>
         </div>
