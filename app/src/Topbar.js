@@ -5,6 +5,7 @@ import { hasPermission } from './authentication'
 import { logoutUser } from './actions/users'
 import Logo from './Logo';
 import './Topbar.css'
+import { Link } from 'react-router-dom'
 /*
 class Topbar extends Component {
     render() {
@@ -56,7 +57,7 @@ const Topbar = ({ connected, user, dispatch }) => (
         <div className="right">
             {user.first_name}&nbsp;{user.last_name}
             { hasPermission(['admin', 'add-protocol'], user) && <Button intent={Intent.PRIMARY} minimal large={true} icon="plus" onClick={() => console.log("new form")}>Ajouter</Button> } &nbsp;&nbsp;
-            <Button onClick={() => dispatch(logoutUser())} minimal large icon="power" />&nbsp;&nbsp;
+            <Link to="/logout">logout</Link>&nbsp;&nbsp;
         </div>
     </div>
 )

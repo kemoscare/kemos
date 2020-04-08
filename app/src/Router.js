@@ -61,13 +61,16 @@ class Router extends Component {
     }
 }
 */
-const Router = ({ connected, connecting, isAuthenticated, dispatch }) => {
-    const LoginComponent = (<Login dispatch={dispatch} connecting={connecting} />)
+const Router = ({ connected, connecting, isAuthenticated, flash, dispatch }) => {
+
+
+    const LoginComponent = (<Login dispatch={dispatch} connecting={connecting} flash={flash} />)
     console.log(isAuthenticated())
     return (
         <Switch>
             <Route exact path="/" render={() => isAuthenticated() ? <App /> : <Redirect to='/login' />} />
             <Route path="/login" render={() => !isAuthenticated() ? LoginComponent : <Redirect to="/" />} />
+            <Route path="/logout" render={() => logoutAndRedirect(dispatch)} />
         </Switch>
     )
 }
@@ -76,10 +79,14 @@ function isAuthenticated() {
     return sessionStorage.token
 }
 
+function logoutAndRedirect(dispatch) {
+    dispatch(logoutUser())
+    return <Redirect to="/login" />
+}
+
 
 function mapStateToProps(state) {
-    const { connected, connecting, token} = state.users
-    const { flash } = state
+    const { connected, connecting, token, flash} = state.users
     return {
         connected,
         connecting,

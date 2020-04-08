@@ -25,6 +25,7 @@ export function fetchUser() {
     dispatch(action);
     const url = api.server + action.route;
     const { users: { token }} = getState();
+    console.log(getState())
     fetch(url, {
       headers: makeTokenHeaders(token),
     })
@@ -36,6 +37,7 @@ export function fetchUser() {
   };
 }
 
+
 export const REQUEST_LOGIN = "REQUEST_LOGIN";
 
 export function requestLogin() {
@@ -43,6 +45,14 @@ export function requestLogin() {
     type: REQUEST_LOGIN,
     route: "users/token",
   };
+}
+
+export const LOGIN_FAILED = "LOGIN_FAILED"
+
+export function loginFailed() {
+    return {
+        type: LOGIN_FAILED
+    }
 }
 
 export const RECEIVED_LOGIN = "RECEIVED_LOGIN";
@@ -70,8 +80,9 @@ export function loginUser(credentials) {
       }),
       body: JSON.stringify(credentials),
     })
-      .then((res) => res.json())
-      .then((json) => dispatch(receivedLogin(json)));
+      .then((response) => response.ok ? response.json() : Promise.reject(response))
+      .then((json) => dispatch(receivedLogin(json)))
+      .catch((error) => dispatch(loginFailed()))
   };
 }
 
