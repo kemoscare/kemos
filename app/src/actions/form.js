@@ -1,6 +1,8 @@
 import { v4 as uuid } from 'uuid'
 import moment from 'moment'
 
+const api = require('../api-'+process.env.NODE_ENV)
+
 export function uniqueName(name, formElement) {
     return name + uniqueString + formElement.id
 }
@@ -116,4 +118,42 @@ export function deleteFormElement(formName, element) {
     }
 }
 
+export const REQUEST_EDITFORM_SUBMISSION = 'REQUEST_EDITFORM_SUBMISSION'
+
+export function requestSubmission() {
+    return {
+        type: REQUEST_EDITFORM_SUBMISSION,
+        route: 'protocols/new'
+    }
+}
+
+export const RECEIVED_EDITFORM_SUBMISSION = 'RECEIVED_EDITFORM_SUBMISSION'
+
+export function receivedSubmission(json) {
+    console.log(json)
+    return { 
+        type: RECEIVED_EDITFORM_SUBMISSION,
+        id: json.id
+    }
+}
+
+export function submitForm() {
+    
+    return function(dispatch) {
+        const action = dispatch(requestSubmission())
+        const url = api.server + action.route
+        fetch(url, {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${action.token}`      
+              },
+              body: JSON.stringify(action.protocol)
+        })
+        .then(response => response.ok ? response.json() : Promise.reject(response))
+        .then(json => dispatch(receivedSubmission(json)))
+        .catch(error => console.log(error))
+    }
+}
 const uniqueString = "___"

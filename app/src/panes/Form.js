@@ -29,7 +29,6 @@ export const formInitialState = {
 
 class Form extends Component {
     render() {
-        const { protocol, evaluations, days, dispatch, loading } = this.props
         return (
             <AddProtocolForm { ...this.props}/>
         )
@@ -41,6 +40,7 @@ function productsInDays(products, days) {
 
 function mapStateToProps(state, ownProps) {
     const { protocol, evaluations, days, loading, products } = state.editForm
+    //products are reinstated to days from redux store
     const restoredDays = productsInDays(products, days)
 
     return {

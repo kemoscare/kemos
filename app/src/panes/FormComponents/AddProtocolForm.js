@@ -14,7 +14,7 @@ import { FormGroup,
 import selectContent from './../selectContent'
 import { EvaluationsForm } from './EvaluationForm'
 import { DaysForm } from './DayForm'
-import { selectChanged, inputChanged, radioChanged } from '../../actions/form'
+import { submitForm, selectChanged, inputChanged, radioChanged } from '../../actions/form'
 
 export const protocolInitialState = {theme: "general", organ: "", category: "Chimiotherapie", clinicalTrial: false, dayOneEquals: 0}
 
@@ -45,7 +45,7 @@ export const AddProtocolForm = ({ protocol, evaluations, days, dispatch, loading
                     <Divider />
                     <DaysForm days={days} dispatch={dispatch} />
                     <Divider />
-                    <Button intent={Intent.PRIMARY} onClick={() => dispatch(submit(protocol))} loading={loading}>Ajouter / Modifier</Button>
+                    <Button intent={Intent.PRIMARY} onClick={() => dispatch(submitForm(protocol))} loading={loading}>Ajouter / Modifier</Button>
                 </div>
             )
 

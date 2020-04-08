@@ -10,6 +10,7 @@ import { RECEIVED_PROTOCOL } from '../actions/actions'
 import { products, extractProducts } from './products'
 import { v4 as uuid } from 'uuid'
 
+
 /*
  * inpired from https://redux.js.org/recipes/structuring-reducers/reusing-reducer-logic/#customizing-behavior-with-higher-order-reducers
  * @params {function} reducerFunction The reducer to adapt according to reducerName
@@ -122,6 +123,7 @@ export const editForm = (state=formInitialState, action) => {
                 products: extractProducts(days)
             }
             break
+           
         default:
             //needs a compatible action (e.g. has `formName` property)
             if(action.formName === undefined) return state
