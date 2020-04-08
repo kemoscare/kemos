@@ -1,11 +1,5 @@
-function actionPurpose(action) {
-    const { type } = action
-    const keyWords = type.split('_')
-    return keyWords[0]
-}
-
 export const auth = store => next => action => {
-    const purpose = actionPurpose(action)
+    const purpose = actionPurpose(action)[0]
     if(purpose === 'REQUEST') {
         if(sessionStorage.token) {
             action.token = sessionStorage.token
@@ -15,3 +9,5 @@ export const auth = store => next => action => {
     return next(action)
 }
 
+   
+    
