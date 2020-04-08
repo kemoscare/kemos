@@ -16,7 +16,6 @@ const Panes = ({ selectedTab, loading, dispatch }) => (
             <Tabs className="form-component" id="TabsExample" onChange={(tabId) => dispatch(changeTab(tabId))} large={true} selectedTabId={selectedTab}>
                 <Tab id="apercu" title="Protocole" panel={<Preview loading={loading}/>} />
                 <Tab id="plan" title="PPS" panel={<Plan loading={loading}/>} />
-                <Tab id="patient" title="Patient" panel={<Patient />} />
                 <Tab id="modifier" title="Modifier" panel={<Form /> } />
             </Tabs>
         </div>
