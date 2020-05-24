@@ -4,7 +4,9 @@ import {
     SUBMIT_PROTOCOL,
     ADD_FORM_ELEMENT,
     DELETE_FORM_ELEMENT,
-    INPUT_CHANGED, RADIO_CHANGED, SELECT_CHANGED, CHECKBOX_CHANGED, DATE_CHANGED
+    INPUT_CHANGED, RADIO_CHANGED, SELECT_CHANGED, CHECKBOX_CHANGED, DATE_CHANGED,
+    REQUEST_EDITFORM_PROTOCOL,
+    RECEIVED_EDITFORM_PROTOCOL
 } from '../actions/form'
 import { RECEIVED_PROTOCOL } from '../actions/actions'
 import { products, extractProducts } from './products'
@@ -112,6 +114,17 @@ export const formArrayReducer = (state, action) => {
  */
 export const editForm = (state=formInitialState, action) => {
     switch(action.type) {
+        case REQUEST_EDITFORM_PROTOCOL:
+            return {
+                ...state,
+                loading: true
+            }
+
+        case RECEIVED_EDITFORM_PROTOCOL:
+            return {
+                ...state,
+                loading: false
+            }
         case RECEIVED_PROTOCOL:
             const { formData } = action
             const days = formData.days.map((day, key) => { return { ...day, id: uuid() }})

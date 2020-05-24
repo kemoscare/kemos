@@ -4,7 +4,9 @@ import { actionPurpose } from './utils'
 export const submission = store => next => action => {
     //the action should be a REQUEST to EDITFORM
     const purpose = actionPurpose(action)
-    if(purpose[0] !== "REQUEST" && purpose[1] !== "EDITFORM") return next(action)
+    // exit early
+    if(purpose[0] !== "REQUEST" || purpose[1] !== "EDITFORM") return next(action)
+
     const state = store.getState()
     const { editForm } = state
 
