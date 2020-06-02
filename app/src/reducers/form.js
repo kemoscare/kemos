@@ -5,8 +5,8 @@ import {
     ADD_FORM_ELEMENT,
     DELETE_FORM_ELEMENT,
     INPUT_CHANGED, RADIO_CHANGED, SELECT_CHANGED, CHECKBOX_CHANGED, DATE_CHANGED,
-    REQUEST_EDITFORM_PROTOCOL,
-    RECEIVED_EDITFORM_PROTOCOL
+    REQUEST_EDITFORM_SUBMISSION,
+    RECEIVED_EDITFORM_SUBMISSION
 } from '../actions/form'
 import { RECEIVED_PROTOCOL } from '../actions/actions'
 import { products, extractProducts } from './products'
@@ -114,13 +114,13 @@ export const formArrayReducer = (state, action) => {
  */
 export const editForm = (state=formInitialState, action) => {
     switch(action.type) {
-        case REQUEST_EDITFORM_PROTOCOL:
+        case REQUEST_EDITFORM_SUBMISSION:
             return {
                 ...state,
                 loading: true
             }
 
-        case RECEIVED_EDITFORM_PROTOCOL:
+        case RECEIVED_EDITFORM_SUBMISSION:
             return {
                 ...state,
                 loading: false
