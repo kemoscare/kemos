@@ -1,4 +1,4 @@
-import { addFormElement, deleteFormElement, inputChagned, radioChanged } from './form'
+import { addFormElement, deleteFormElement, inputChanged, radioChanged } from './form'
 import { dayInitialState } from '../reducers/days'
 
 export const addDay = () => addFormElement('days', dayInitialState)

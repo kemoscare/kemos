@@ -18,13 +18,14 @@ import AddProtocolForm, { protocolInitialState } from './FormComponents/AddProto
 import { daysInitialState } from '../reducers/days'
 import { evaluationsInitialState } from './FormComponents/EvaluationForm'
 import { connect } from 'react-redux'
+import { productsInitialState } from '../reducers/products'
 
 export const formInitialState = {
     loading: false,
     protocol: protocolInitialState,
     evaluations: evaluationsInitialState,
     days: daysInitialState,
-    products: {}
+    products: { 0: productsInitialState}
 }
 
 class Form extends Component {
