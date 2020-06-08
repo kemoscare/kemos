@@ -8,7 +8,7 @@ import {
     REQUEST_EDITFORM_SUBMISSION,
     RECEIVED_EDITFORM_SUBMISSION
 } from '../actions/form'
-import { RECEIVED_PROTOCOL } from '../actions/actions'
+import { RECEIVED_PROTOCOL, SHOW_NEW_PROTOCOL_FORM } from '../actions/actions'
 import { products, extractProducts } from './products'
 import { v4 as uuid } from 'uuid'
 
@@ -125,6 +125,7 @@ export const editForm = (state=formInitialState, action) => {
                 ...state,
                 loading: false
             }
+        case SHOW_NEW_PROTOCOL_FORM:
         case RECEIVED_PROTOCOL:
             const { formData } = action
             const days = formData.days.map((day, key) => { return { ...day, id: uuid() }})

@@ -1,4 +1,5 @@
 import moment from 'moment'
+import { formInitialState } from '../panes/Form'
 
 export const RECEIVED_PROTOCOL = 'RECEIVED_PROTOCOL'
 
@@ -22,6 +23,7 @@ export const SHOW_NEW_PROTOCOL_FORM = 'SHOW_NEW_PROTOCOL_FORM'
 
 export function showNewProtocolForm() {
     return { 
-        type: SHOW_NEW_PROTOCOL_FORM
+        type: SHOW_NEW_PROTOCOL_FORM,
+        formData: formInitialState
     }
 }
