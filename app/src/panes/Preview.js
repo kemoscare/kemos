@@ -4,6 +4,7 @@ import { Cell, Table, Column, SelectionModes } from '@blueprintjs/table'
 import { ProtocolLoading } from './Loading';
 import { getProducts, getWrappedForProduct, getFormattedProducts, getFormattedCycles } from './protocolUtils'
 import { connect } from 'react-redux'
+/* import { createSelector } from 'reselect' */
 import './Preview.css'
 
 const ProductLine = (protocol, product) => (
@@ -67,6 +68,12 @@ const Preview = ({ protocol, products, loading }) => {
             )
     }
 }
+/*
+ * When Reselect will be needed
+ *
+ * const getProtocol = state => state.protocol
+ * const getProductsForProtocol = createSelector([getProtocol], getProducts)
+ */
 
 function mapStateToProps(state, ownProps) {
     const { loading } = state.panes
