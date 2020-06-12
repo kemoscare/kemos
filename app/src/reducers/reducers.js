@@ -6,12 +6,11 @@ import { plan } from './plan'
 import { users } from './users'
 import { combineReducers } from 'redux'
 
-
 export const rootReducer = combineReducers({
     sidebar,
     editForm,
     protocol,
     panes,
     plan,
-    users
+    users,
 })

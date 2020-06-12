@@ -1,16 +1,19 @@
 {
     "roles": [
-        {"label": "Interne", "value": "interne"},
-        {"label": "Externe", "value": "externe"},
-        {"label": "Praticien Hospitalier", "value": "ph"},
-        {"label": "Professeur des universités - Praticien Hospitalier", "value": "pu-ph"},
-        {"label": "IDE", "value": "ide"}
+        { "label": "Interne", "value": "interne" },
+        { "label": "Externe", "value": "externe" },
+        { "label": "Praticien Hospitalier", "value": "ph" },
+        {
+            "label": "Professeur des universités - Praticien Hospitalier",
+            "value": "pu-ph"
+        },
+        { "label": "IDE", "value": "ide" }
     ],
 
     "rights": [
-        {"label": "Administrateur", "value": "admin"},
-        {"label": "Ajouter un protocole", "value": "add-protocol"},
-        {"label": "Modifier un protocole", "value": "edit-protocol"},
-        {"label": "Utiliser l'application", "value": "use-app"}
+        { "label": "Administrateur", "value": "admin" },
+        { "label": "Ajouter un protocole", "value": "add-protocol" },
+        { "label": "Modifier un protocole", "value": "edit-protocol" },
+        { "label": "Utiliser l'application", "value": "use-app" }
     ]
 }

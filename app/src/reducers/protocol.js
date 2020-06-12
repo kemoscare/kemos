@@ -7,14 +7,12 @@ import { RECEIVED_PROTOCOL, SUBMIT_PROTOCOL } from '../actions/actions'
  * @returns the new state containing view and edit,
  */
 export const protocol = (state = {}, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case RECEIVED_PROTOCOL:
             return {
-                ...action.formData
+                ...action.formData,
             }
         default:
             return state
     }
 }
-
-

@@ -1,6 +1,7 @@
 @media print {
-
-    body { height: 100% }
+    body {
+        height: 100%;
+    }
 
     .displayComponent {
         display: none;
@@ -22,7 +23,8 @@
         border-collapse: collapse;
     }
 
-    tr, td {
+    tr,
+    td {
         border: 1px dotted black;
     }
     th {

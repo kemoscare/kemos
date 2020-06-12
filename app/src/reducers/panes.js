@@ -1,10 +1,13 @@
 import { TAB_CHANGED } from '../actions/panes'
-import { SHOW_NEW_PROTOCOL_FORM, REQUEST_PROTOCOL, RECEIVED_PROTOCOL } from '../actions/actions'
-
+import {
+    SHOW_NEW_PROTOCOL_FORM,
+    REQUEST_PROTOCOL,
+    RECEIVED_PROTOCOL,
+} from '../actions/actions'
 
 const panesInitialState = {
-    selectedTab: "apercu",
-    loading: "NON_IDEAL"
+    selectedTab: 'apercu',
+    loading: 'NON_IDEAL',
 }
 /*
  * Panes reducer
@@ -13,26 +16,26 @@ const panesInitialState = {
  * @return {object} reduced state
  */
 export const panes = (state = panesInitialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case REQUEST_PROTOCOL:
             return {
                 ...state,
-                loading: "LOADING"
+                loading: 'LOADING',
             }
         case RECEIVED_PROTOCOL:
             return {
                 ...state,
-                loading: "LOADED"
+                loading: 'LOADED',
             }
         case TAB_CHANGED:
             return {
                 ...state,
-                selectedTab: action.newTabId
+                selectedTab: action.newTabId,
             }
         case SHOW_NEW_PROTOCOL_FORM:
             return {
                 ...state,
-                selectedTab: "modifier"
+                selectedTab: 'modifier',
             }
         default:
             return state

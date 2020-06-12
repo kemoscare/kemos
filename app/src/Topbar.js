@@ -1,10 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { ProgressBar, Button, Intent, Popover, Menu, Position, MenuItem } from '@blueprintjs/core'
+import {
+    ProgressBar,
+    Button,
+    Intent,
+    Popover,
+    Menu,
+    Position,
+    MenuItem,
+} from '@blueprintjs/core'
 import { hasPermission } from './authentication'
 import { logoutUser } from './actions/users'
 import { showNewProtocolForm } from './actions/actions'
-import Logo from './Logo';
+import Logo from './Logo'
 import './Topbar.css'
 import { Link } from 'react-router-dom'
 /*
@@ -57,7 +65,18 @@ const Topbar = ({ connected, user, dispatch }) => (
         </div>
         <div className="right">
             {user.first_name}&nbsp;{user.last_name}
-            { hasPermission(['admin', 'add-protocol'], user) && <Button intent={Intent.PRIMARY} minimal large={true} icon="plus" onClick={() => dispatch(showNewProtocolForm())}>Ajouter</Button> } &nbsp;&nbsp;
+            {hasPermission(['admin', 'add-protocol'], user) && (
+                <Button
+                    intent={Intent.PRIMARY}
+                    minimal
+                    large={true}
+                    icon="plus"
+                    onClick={() => dispatch(showNewProtocolForm())}
+                >
+                    Ajouter
+                </Button>
+            )}{' '}
+            &nbsp;&nbsp;
             <Link to="/logout">logout</Link>&nbsp;&nbsp;
         </div>
     </div>
@@ -67,8 +86,8 @@ function mapStateToProps(state) {
     const { connected, user } = state.users
     return {
         connected,
-        user
+        user,
     }
 }
 
-export default connect(mapStateToProps)(Topbar);
+export default connect(mapStateToProps)(Topbar)

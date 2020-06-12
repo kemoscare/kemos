@@ -8,14 +8,14 @@ module.exports = merge(common, {
         publicPath: '/',
         contentBase: './public',
         hot: true,
-        historyApiFallback: true
+        historyApiFallback: true,
     },
     module: {
         rules: [
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
-            }
-        ]
-    }
+                use: ['style-loader', 'css-loader'],
+            },
+        ],
+    },
 })

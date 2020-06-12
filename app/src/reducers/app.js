@@ -8,8 +8,8 @@
  */
 const initialState = {}
 
-export const app = (state = initialState, action) {
-    switch(action.type) {
+export const app = (state = initialState, action) => {
+    switch (action.type) {
         case REQUEST_PROTOCOL:
             return state
         case RECEIVED_PROTOCOL:
@@ -18,4 +18,3 @@ export const app = (state = initialState, action) {
             return state
     }
 }
-
