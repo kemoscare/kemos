@@ -24,7 +24,7 @@ const dayList = (protocol, products) => (
     )
 
     
-const Preview = ({ protocol, loading }) => {
+const Preview = ({ protocol, products, loading }) => {
         if(loading === "LOADING") return ProtocolLoading
         else if(loading === "NON_IDEAL") {
             return (
@@ -57,11 +57,11 @@ const Preview = ({ protocol, loading }) => {
                         </div>
                     </div>
                 ))}
+                </div>
                     <br/>
                     <br/>
                     <H5>Produits : </H5>
-                    dayList(protocol, products)
-                </div>
+                    {dayList(protocol, products)}
             </div>
                 </div>
             )
@@ -69,7 +69,14 @@ const Preview = ({ protocol, loading }) => {
 }
 
 function mapStateToProps(state, ownProps) {
-    return { protocol: state.protocol }
+    const { loading } = state.panes
+    if(loading !== "LOADED") return { loading } // early exit
+
+    return {
+        loading: state.panes.loading,
+        protocol: state.protocol,
+        products: getProducts(state.protocol)
+    }
 }
 
 export default connect(mapStateToProps)(Preview)
