@@ -1,20 +1,23 @@
 import React, { Component } from 'react'
-import { FormGroup, 
-         InputGroup, 
-         HTMLSelect, 
-         Radio, 
-         RadioGroup, 
-         ControlGroup, 
-         Button,
-         Intent,
-         Divider,
-         Classes,
-         Checkbox
-        } from '@blueprintjs/core'
+import {
+    FormGroup,
+    InputGroup,
+    HTMLSelect,
+    Radio,
+    RadioGroup,
+    ControlGroup,
+    Button,
+    Intent,
+    Divider,
+    Classes,
+    Checkbox,
+} from '@blueprintjs/core'
 import selectContent from './selectContent'
 import DayForm from './FormComponents/DayForm'
 import FormLoading from './FormLoading'
-import AddProtocolForm, { protocolInitialState } from './FormComponents/AddProtocolForm'
+import AddProtocolForm, {
+    protocolInitialState,
+} from './FormComponents/AddProtocolForm'
 import { daysInitialState } from '../reducers/days'
 import { evaluationsInitialState } from './FormComponents/EvaluationForm'
 import { connect } from 'react-redux'
@@ -25,18 +28,18 @@ export const formInitialState = {
     protocol: protocolInitialState,
     evaluations: evaluationsInitialState,
     days: daysInitialState,
-    products: { 0: productsInitialState}
+    products: { 0: productsInitialState },
 }
 
 class Form extends Component {
     render() {
-        return (
-            <AddProtocolForm { ...this.props}/>
-        )
+        return <AddProtocolForm {...this.props} />
     }
 }
 function productsInDays(products, days) {
-    return days.map(day => { return { ...day, products: products[day.id]}})
+    return days.map(day => {
+        return { ...day, products: products[day.id] }
+    })
 }
 
 function mapStateToProps(state, ownProps) {
@@ -48,11 +51,8 @@ function mapStateToProps(state, ownProps) {
         protocol,
         evaluations,
         days: restoredDays,
-        loading
+        loading,
     }
 }
 
 export default connect(mapStateToProps)(Form)
-
-
-

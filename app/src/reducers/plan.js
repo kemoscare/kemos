@@ -8,19 +8,18 @@ moment.locale('fr')
 
 const planInitialState = {
     protocol: {},
-    md: "",
-    diagnosis: "",
+    md: '',
+    diagnosis: '',
     startDate: moment(new Date()),
-    dates: [
-        { date: {} }
-    ]
-} 
+    dates: [{ date: {} }],
+}
 
-const planWrapperReducer = (reducer) => createNamedWrapperReducer(reducer, 'plan')
-const datesPlanWrapperReducer = (reducer) => createNamedWrapperReducer(reducer, 'datesPlan')
+const planWrapperReducer = reducer => createNamedWrapperReducer(reducer, 'plan')
+const datesPlanWrapperReducer = reducer =>
+    createNamedWrapperReducer(reducer, 'datesPlan')
 
-export const plan = (state=planInitialState, action) => {
-    switch(action.type) {
+export const plan = (state = planInitialState, action) => {
+    switch (action.type) {
         case RECEIVED_PROTOCOL:
             const receivedProtocol = action.formData
             const currentDate = action.dateDispatched
@@ -28,32 +27,41 @@ export const plan = (state=planInitialState, action) => {
                 ...state,
                 protocol: receivedProtocol,
                 startDate: currentDate,
-                dates: calculatePlanning(receivedProtocol, currentDate,  false)
+                dates: calculatePlanning(receivedProtocol, currentDate, false),
             }
         default:
-            switch(action.formName) {
+            switch (action.formName) {
                 case 'plan':
                     const { name } = action.field
-                    if(name === 'startDate') {
-                        const newState = planWrapperReducer(field)(state, action)
+                    if (name === 'startDate') {
+                        const newState = planWrapperReducer(field)(
+                            state,
+                            action
+                        )
                         return {
                             ...newState,
-                            dates: calculatePlanning(state.protocol, newState.startDate, false)
+                            dates: calculatePlanning(
+                                state.protocol,
+                                newState.startDate,
+                                false
+                            ),
                         }
                     } else {
                         return {
                             ...state,
-                            ...planWrapperReducer(field)(state, action)
+                            ...planWrapperReducer(field)(state, action),
                         }
                     }
                 case 'datesPlan':
                     return {
                         ...state,
-                        dates: datesPlanWrapperReducer(formArrayReducer)(state.dates, action)
+                        dates: datesPlanWrapperReducer(formArrayReducer)(
+                            state.dates,
+                            action
+                        ),
                     }
                 default:
                     return state
             }
     }
 }
-

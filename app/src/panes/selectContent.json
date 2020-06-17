@@ -1,59 +1,56 @@
 {
     "themes": [
-        {"label": "Urologie", "value": "urologie"},
-        {"label": "Général", "value": "general"},
-        {"label": "Immunothérapie", "value": "immunotherapie"},
-        {"label": "Neurologie", "value": "neurologie"},
-        {"label": "Gynécologie", "value": "gynecologie"},
-        {"label": "ORL", "value": "orl"},
-        {"label": "Poumon", "value": "poumon"},
-        {"label": "Système Digestif", "value": "systeme digestif"},
-        {"label": "Sein", "value": "sein"}
-    ], 
+        { "label": "Urologie", "value": "urologie" },
+        { "label": "Général", "value": "general" },
+        { "label": "Immunothérapie", "value": "immunotherapie" },
+        { "label": "Neurologie", "value": "neurologie" },
+        { "label": "Gynécologie", "value": "gynecologie" },
+        { "label": "ORL", "value": "orl" },
+        { "label": "Poumon", "value": "poumon" },
+        { "label": "Système Digestif", "value": "systeme digestif" },
+        { "label": "Sein", "value": "sein" }
+    ],
     "organs": {
         "gynecologie": [
-            {"label": "", "value": ""},
-            {"label": "Ovaire", "value": "ovaire"},
-            {"label": "Col", "value": "col"},
-            {"label": "Endomètre", "value": "endomètre"},
-            {"label": "Sein", "value": "sein"}
-
+            { "label": "", "value": "" },
+            { "label": "Ovaire", "value": "ovaire" },
+            { "label": "Col", "value": "col" },
+            { "label": "Endomètre", "value": "endomètre" },
+            { "label": "Sein", "value": "sein" }
         ],
         "urologie": [
-            {"label": "", "value": ""},
-            {"label": "Rein", "value": "rein"},
-            {"label": "Vessie", "value": "vessie"},
-            {"label": "Prostate", "value": "prostate"},
-            {"label": "Penis", "value": "penis"}
+            { "label": "", "value": "" },
+            { "label": "Rein", "value": "rein" },
+            { "label": "Vessie", "value": "vessie" },
+            { "label": "Prostate", "value": "prostate" },
+            { "label": "Penis", "value": "penis" }
         ],
-        "general": [
-            {"label": "", "value": ""}
-        ],
-        "immunotherapie": [
-            {"label": "", "value": ""}
-        ],
-        "neurologie": [
-            {"label": "", "value": ""}
-        ],
-        "orl": [
-            {"label": "", "value": ""}
-        ],
+        "general": [{ "label": "", "value": "" }],
+        "immunotherapie": [{ "label": "", "value": "" }],
+        "neurologie": [{ "label": "", "value": "" }],
+        "orl": [{ "label": "", "value": "" }],
         "poumon": [
-            {"label": "", "value": ""},
-            {"label": "CBPC", "value": "CBPC"},
-            {"label": "CBNPC", "value": "CBNPC"},
-            {"label": "Mésothéliome", "value": "mesotheliome"}
+            { "label": "", "value": "" },
+            { "label": "CBPC", "value": "CBPC" },
+            { "label": "CBNPC", "value": "CBNPC" },
+            { "label": "Mésothéliome", "value": "mesotheliome" }
         ],
         "systeme digestif": [
-            {"label": "", "value": ""},
-            {"label": "Anus", "value": "anus"},
-            {"label": "Colon / Rectum / Oesophage", "value": "colonrectumoesophage"},
-            {"label": "Estomac", "value": "estomac"}
+            { "label": "", "value": "" },
+            { "label": "Anus", "value": "anus" },
+            {
+                "label": "Colon / Rectum / Oesophage",
+                "value": "colonrectumoesophage"
+            },
+            { "label": "Estomac", "value": "estomac" }
         ],
         "sein": [
-            {"label": "", "value": ""},
-            {"label": "Adjuvant/Néoadjuvant", "value": "adjuvant neoadjuvant"},
-            {"label": "Métastatique", "value": "metastatique"}
+            { "label": "", "value": "" },
+            {
+                "label": "Adjuvant/Néoadjuvant",
+                "value": "adjuvant neoadjuvant"
+            },
+            { "label": "Métastatique", "value": "metastatique" }
         ]
     }
 }

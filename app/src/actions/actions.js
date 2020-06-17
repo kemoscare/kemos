@@ -7,7 +7,7 @@ export function receivedProtocol(data) {
     return {
         type: RECEIVED_PROTOCOL,
         dateDispatched: moment(new Date()),
-        formData: data
+        formData: data,
     }
 }
 
@@ -15,15 +15,15 @@ export const REQUEST_PROTOCOL = 'REQUEST_PROTOCOL'
 
 export function requestProtocol() {
     return {
-        type: REQUEST_PROTOCOL
+        type: REQUEST_PROTOCOL,
     }
 }
 
 export const SHOW_NEW_PROTOCOL_FORM = 'SHOW_NEW_PROTOCOL_FORM'
 
 export function showNewProtocolForm() {
-    return { 
+    return {
         type: SHOW_NEW_PROTOCOL_FORM,
-        formData: formInitialState
+        formData: formInitialState,
     }
 }

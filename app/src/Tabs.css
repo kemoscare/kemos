@@ -5,7 +5,7 @@
 }
 
 @media print {
-    .bp3-tab-list { 
+    .bp3-tab-list {
         display: none;
     }
 }

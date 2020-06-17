@@ -1,27 +1,33 @@
 import React, { Component } from 'react'
 import Logo from '../Logo'
-import { H5, Intent, HTMLTable } from '@blueprintjs/core';
+import { H5, Intent, HTMLTable } from '@blueprintjs/core'
 import './PrintablePPS.css'
 
 class PrintablePPS extends Component {
-
-    dayComponent = (day) => (
-        <tr className={day.type === "Reevaluation" && "evaluation"} intent={day.evaluation && Intent.SUCCESS} key={day.id}>
+    dayComponent = day => (
+        <tr
+            className={day.type === 'Reevaluation' && 'evaluation'}
+            intent={day.evaluation && Intent.SUCCESS}
+            key={day.id}
+        >
             <td>{day.type}</td>
-            <td>{day.products && day.products.join(", ")}</td>
-            <td>{day.date.format("Do MMMM YYYY")}</td>
-            <td>{day.careMode === "Admission" && "Hospitalisation"}
-                {day.careMode === "Home" && "À Domicile"}
-                {day.careMode === "DayCare" && "Hopital de jour"}</td>
-            <td>{day.type === "Reevaluation" && this.showEvaluation(day) }</td>
+            <td>{day.products && day.products.join(', ')}</td>
+            <td>{day.date.format('Do MMMM YYYY')}</td>
+            <td>
+                {day.careMode === 'Admission' && 'Hospitalisation'}
+                {day.careMode === 'Home' && 'À Domicile'}
+                {day.careMode === 'DayCare' && 'Hopital de jour'}
+            </td>
+            <td>{day.type === 'Reevaluation' && this.showEvaluation(day)}</td>
         </tr>
     )
 
-    showEvaluation = (evaluation) => {
+    showEvaluation = evaluation => {
         return (
             <div>
-                {evaluation.imagery && "Imagerie"}{evaluation.imagery && <br />}
-                {evaluation.consultation && "Consultation"}
+                {evaluation.imagery && 'Imagerie'}
+                {evaluation.imagery && <br />}
+                {evaluation.consultation && 'Consultation'}
             </div>
         )
     }
@@ -31,16 +37,18 @@ class PrintablePPS extends Component {
 
         return (
             <div className="bp3-text-large PrintablePPS">
-                <Logo className="Logo"/>
+                <Logo className="Logo" />
                 <div className="floatBlock">
                     <div className="patientTag">Étiquette Patient</div>
                     <div className="referentMD">
-                        <strong>Médecin référent</strong><br/>
+                        <strong>Médecin référent</strong>
+                        <br />
                         {pps.referentMD}
                     </div>
                     <div className="prescriptionDate">
-                        <strong>Date de prescription</strong><br />
-                        {pps.startDate.format("dddd Do MMMM YYYY")}
+                        <strong>Date de prescription</strong>
+                        <br />
+                        {pps.startDate.format('dddd Do MMMM YYYY')}
                     </div>
                 </div>
                 <div className="protocol">
@@ -53,21 +61,21 @@ class PrintablePPS extends Component {
                     {pps.diagnosis}
                 </div>
                 <div className="appointments">
-                            <HTMLTable className="correctHeigth">
-                                <thead>
-                                    <tr>
-                                        <th>Rendez vous</th>
-                                        <th>Produits</th>
-                                        <th>Date</th>
-                                        <th>à</th>
-                                        <th>Réévaluation</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="break-inside">
-                                    { pps.days.map(day => this.dayComponent(day)) }
-                                </tbody>
-                            </HTMLTable>
-                        </div>
+                    <HTMLTable className="correctHeigth">
+                        <thead>
+                            <tr>
+                                <th>Rendez vous</th>
+                                <th>Produits</th>
+                                <th>Date</th>
+                                <th>à</th>
+                                <th>Réévaluation</th>
+                            </tr>
+                        </thead>
+                        <tbody className="break-inside">
+                            {pps.days.map(day => this.dayComponent(day))}
+                        </tbody>
+                    </HTMLTable>
+                </div>
             </div>
         )
     }

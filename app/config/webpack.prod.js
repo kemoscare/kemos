@@ -9,26 +9,25 @@ module.exports = merge(common, {
         new MiniCSSExtractPlugin({
             name: '[name].css',
             chunkFileName: '[id].css',
-            ignoreOrder: false
-        })
+            ignoreOrder: false,
+        }),
     ],
     module: {
         rules: [
             {
-            test: /\.css$/,
+                test: /\.css$/,
                 use: [
                     {
-                        loader: MiniCSSExtractPlugin.loader
+                        loader: MiniCSSExtractPlugin.loader,
                     },
-                    'css-loader'
-                ]
-            }
-        ]
+                    'css-loader',
+                ],
+            },
+        ],
     },
     optimization: {
         splitChunks: {
-            chunks: 'all'
-        }
-    }
+            chunks: 'all',
+        },
+    },
 })
-

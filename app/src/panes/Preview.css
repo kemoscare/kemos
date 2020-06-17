@@ -26,19 +26,19 @@
     height: 30px;
     border-radius: 4px;
     font-weight: bold;
-    background-color: #B3CFFF;
-    color: #1F4B99;
+    background-color: #b3cfff;
+    color: #1f4b99;
     margin: 3px;
 }
 .notDelivered {
     display: inline-block;
     padding: auto;
-    color: rgba(0, 0, 0 ,0);
+    color: rgba(0, 0, 0, 0);
     border: 1px solid grey;
     width: 24px;
     height: 24px;
     border-radius: 4px;
-    margin:6px;
+    margin: 6px;
 }
 .productLine {
     padding: 5px 0px 0px 5px;
@@ -47,9 +47,9 @@
 .dayOneEquals {
     display: inline-block;
     border-radius: 4px;
-    background-color: #B3CFFF;
+    background-color: #b3cfff;
     font-weight: bold;
-    color: #1F4B99;
+    color: #1f4b99;
     font-size: 14pt;
     text-align: center;
     padding-top: 5px;

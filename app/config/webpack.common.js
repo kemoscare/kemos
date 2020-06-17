@@ -7,18 +7,18 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 // const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 // const TerserJSPlugin = require('terser-webpack-plugin')
 module.exports = {
-    entry: "./src/index.js",
+    entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, '..', 'dist'),
-        filename: '[name].[hash:8].js'
+        filename: '[name].[hash:8].js',
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: "KEMOS",
+            title: 'KEMOS',
             favicon: './public/favicon.ico',
-            template: './public/index.html'
+            template: './public/index.html',
         }),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
     ],
     module: {
         rules: [
@@ -29,19 +29,19 @@ module.exports = {
                     loader: 'babel-loader',
                     options: {
                         presets: ['@babel/preset-env', '@babel/preset-react'],
-                        plugins: ['@babel/plugin-proposal-class-properties']
-                    }
-                }
+                        plugins: ['@babel/plugin-proposal-class-properties'],
+                    },
+                },
             },
             {
                 test: /\.(svg)$/,
                 use: {
-                    loader: '@svgr/webpack'
-                }
-            }
-        ]
+                    loader: '@svgr/webpack',
+                },
+            },
+        ],
     },
-    resolve : {
-        extensions: ['.js', '.jsx', '.json']
-    }
+    resolve: {
+        extensions: ['.js', '.jsx', '.json'],
+    },
 }

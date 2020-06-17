@@ -5,17 +5,16 @@ import {
     ControlGroup,
     FormGroup,
     Intent,
-    Divider
+    Divider,
 } from '@blueprintjs/core'
 
 import { remove } from 'lodash'
 
 class ProductAdder extends Component {
-
     constructor() {
         super()
         this.state = {
-            products: []
+            products: [],
         }
     }
 
@@ -25,18 +24,28 @@ class ProductAdder extends Component {
     }
 
     productElement = (product, id) => (
-            <ControlGroup key={id}>
-                <InputGroup id={id} placeholder="Produit" value={product} onChange={(event) => this.handleInputChange(event, id)}/>
-                <Button icon="minus" intent={Intent.DANGER} onClick={() => this.deleteProduct(id)} id={id} />
-                
-            </ControlGroup>)
+        <ControlGroup key={id}>
+            <InputGroup
+                id={id}
+                placeholder="Produit"
+                value={product}
+                onChange={event => this.handleInputChange(event, id)}
+            />
+            <Button
+                icon="minus"
+                intent={Intent.DANGER}
+                onClick={() => this.deleteProduct(id)}
+                id={id}
+            />
+        </ControlGroup>
+    )
 
     addProduct = () => {
-        this.props.products.push("")
+        this.props.products.push('')
         this.setState(this.state)
     }
 
-    deleteProduct = (id) => {
+    deleteProduct = id => {
         remove(this.props.products, (_, index) => index === id)
 
         this.setState(this.state)
@@ -48,12 +57,12 @@ class ProductAdder extends Component {
             <FormGroup>
                 {products.map((product, index) => (
                     <div vertical>
-                        {this.productElement(product, index)} 
+                        {this.productElement(product, index)}
                         <Divider />
-                    </div> 
+                    </div>
                 ))}
 
-                <Button onClick={this.addProduct} icon="plus"/>
+                <Button onClick={this.addProduct} icon="plus" />
             </FormGroup>
         )
     }

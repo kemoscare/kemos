@@ -1,12 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 import 'normalize.css/normalize.css'
 import '@blueprintjs/core/lib/css/blueprint.css'
 import '@blueprintjs/table/lib/css/table.css'
 import Router from './Router'
 import { BrowserRouter } from 'react-router-dom'
-import './index.css';
-import registerServiceWorker from './registerServiceWorker';
+import './index.css'
+import registerServiceWorker from './registerServiceWorker'
 
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
@@ -18,14 +18,19 @@ import { auth } from './middlewares/auth'
 import { submission } from './middlewares/submission'
 
 const logger = createLogger({})
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware, logger, auth, submission)))
+const store = createStore(
+    rootReducer,
+    composeWithDevTools(
+        applyMiddleware(thunkMiddleware, logger, auth, submission)
+    )
+)
 
-ReactDOM.render((
+ReactDOM.render(
     <Provider store={store}>
-      <BrowserRouter>
-       <Router />
-      </BrowserRouter>
-    </Provider>
- ), document.getElementById('root')
-);
+        <BrowserRouter>
+            <Router />
+        </BrowserRouter>
+    </Provider>,
+    document.getElementById('root')
+)
 //registerServiceWorker();

@@ -1,20 +1,18 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import {
     InputGroup,
     Checkbox,
     Button,
     HTMLTable,
-    Intent
+    Intent,
 } from '@blueprintjs/core'
 
-import {remove} from 'lodash'
+import { remove } from 'lodash'
 
 class FormEvaluation extends Component {
-
     constructor() {
         super()
-        this.state = {
-        }
+        this.state = {}
     }
 
     handleChangeInput = (event, id) => {
@@ -29,25 +27,64 @@ class FormEvaluation extends Component {
 
     evaluationComponent = (evaluation, id) => (
         <tr key={id}>
-            <td><InputGroup name="dayAfter" placeholder="N cycles" value={evaluation.dayAfter} onChange={(event) => this.handleChangeInput(event, id)}/></td>
-            <td><InputGroup name="delay"placeholder="N semaines" value={evaluation.delay} onChange={(event) => this.handleChangeInput(event, id)}/></td>
             <td>
-                <Checkbox name="imagery" inline checked={evaluation.imagery} onChange={(event) => this.handleChangeCheckBox(event, id)}>Imagerie</Checkbox>
-                <Checkbox name="consultation" inline checked={evaluation.consultation} onChange={(event) => this.handleChangeCheckBox(event, id)} >Consultation</Checkbox>
+                <InputGroup
+                    name="dayAfter"
+                    placeholder="N cycles"
+                    value={evaluation.dayAfter}
+                    onChange={event => this.handleChangeInput(event, id)}
+                />
             </td>
-            <td><Button icon="minus" intent={Intent.DANGER} onClick={() => this.deleteEvaluation(id)} id={id}/></td>
-
+            <td>
+                <InputGroup
+                    name="delay"
+                    placeholder="N semaines"
+                    value={evaluation.delay}
+                    onChange={event => this.handleChangeInput(event, id)}
+                />
+            </td>
+            <td>
+                <Checkbox
+                    name="imagery"
+                    inline
+                    checked={evaluation.imagery}
+                    onChange={event => this.handleChangeCheckBox(event, id)}
+                >
+                    Imagerie
+                </Checkbox>
+                <Checkbox
+                    name="consultation"
+                    inline
+                    checked={evaluation.consultation}
+                    onChange={event => this.handleChangeCheckBox(event, id)}
+                >
+                    Consultation
+                </Checkbox>
+            </td>
+            <td>
+                <Button
+                    icon="minus"
+                    intent={Intent.DANGER}
+                    onClick={() => this.deleteEvaluation(id)}
+                    id={id}
+                />
+            </td>
         </tr>
     )
 
     addEvaluation = () => {
         let { evaluations } = this.props
-        evaluations.push({dayAfter: "", delay: "", imagery: false, consultation: false})
+        evaluations.push({
+            dayAfter: '',
+            delay: '',
+            imagery: false,
+            consultation: false,
+        })
 
         this.setState(this.state)
     }
 
-    deleteEvaluation = (id) => {
+    deleteEvaluation = id => {
         remove(this.props.evaluations, (_, index) => index === id)
         this.setState(this.state)
     }
@@ -56,8 +93,8 @@ class FormEvaluation extends Component {
         const { evaluations } = this.props
 
         return (
-        <div>
-            <HTMLTable>
+            <div>
+                <HTMLTable>
                     <thead>
                         <tr>
                             <th>Reevaluation à</th>
@@ -67,11 +104,15 @@ class FormEvaluation extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {evaluations && evaluations.map((evaluation, index) => this.evaluationComponent(evaluation, index))}
+                        {evaluations &&
+                            evaluations.map((evaluation, index) =>
+                                this.evaluationComponent(evaluation, index)
+                            )}
                     </tbody>
-
                 </HTMLTable>
-                <Button onClick={this.addEvaluation} >Ajouter une evaluation</Button>
+                <Button onClick={this.addEvaluation}>
+                    Ajouter une evaluation
+                </Button>
             </div>
         )
     }
