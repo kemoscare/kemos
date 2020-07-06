@@ -6,3 +6,5 @@ app/protocols/__pycache__
 dump/
 dist/
 .idea/
+*.swo
+*.swp
