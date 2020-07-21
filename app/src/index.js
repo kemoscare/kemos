@@ -16,12 +16,14 @@ import { rootReducer } from './reducers/reducers'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { auth } from './middlewares/auth'
 import { submission } from './middlewares/submission'
+import { api } from './middlewares/api'
+import date from './middlewares/date'
 
 const logger = createLogger({})
 const store = createStore(
     rootReducer,
     composeWithDevTools(
-        applyMiddleware(thunkMiddleware, logger, auth, submission)
+        applyMiddleware(thunkMiddleware, logger, auth, submission, api, date)
     )
 )
 
