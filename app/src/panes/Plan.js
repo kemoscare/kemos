@@ -40,7 +40,7 @@ const Date = ({ date, dispatch }) => (
             )}
         </td>
         <td>{date.type}</td>
-        <td>{date.products && date.products.join(', ')}</td>
+        <td>{date.products && date.products.map(p => p.name).join(', ')}</td>
         <td>
             {
                 <DateInput
@@ -192,7 +192,6 @@ const Plan = ({ loading, plan, dispatch }) => {
 
 function mapStateToProps(state) {
     const { plan } = state
-    console.log(plan.startDate)
     plan.maxDate = moment(plan.startDate).add({ year: 5 })
     return { plan }
 }

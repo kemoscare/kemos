@@ -1,4 +1,5 @@
 import { RECEIVED_PROTOCOL } from './../actions/actions'
+import { RECEIVED_PRODUCTS } from './../actions/products'
 import { formArrayReducer } from './form'
 import { ADD_FORM_ELEMENT, DELETE_FORM_ELEMENT } from '../actions/form'
 import { v4 as uuid } from 'uuid'
@@ -35,6 +36,10 @@ export const products = (state = productsInitialState, action) => {
     const { dayId } = action
 
     switch (action.type) {
+        case RECEIVED_PRODUCTS:
+            return {
+                products: action.products
+            }
         case ADD_FORM_ELEMENT:
             if (formName === 'days') {
                 return {

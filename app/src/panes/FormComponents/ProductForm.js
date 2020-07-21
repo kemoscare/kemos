@@ -43,7 +43,7 @@ const Product = ({ product, productInputChanged, deleteProduct }) => (
             name={uniqueName('value', 0)}
             id={product.id}
             placeholder="Produit"
-            value={product.value}
+            value={product.value.name}
             onChange={event => productInputChanged(event, product.id)}
         />
         <Button
@@ -57,6 +57,7 @@ const Product = ({ product, productInputChanged, deleteProduct }) => (
 
 function mapStateToProps(state, ownProps) {
     const { products } = state.editForm
+    console.log(products)
     return {
         products: products[ownProps.dayId],
     }
@@ -66,10 +67,10 @@ function mapDispatchToProps(dispatch, ownProps) {
     const { dayId } = ownProps
     return {
         addProduct: () =>
-            dispatch({ ...addFormElement('products', {}), dayId }),
+            dispatch({ ...addFormElement('products', {name: "", id: ""}), dayId }),
         deleteProduct: product =>
             dispatch({ ...deleteFormElement('products', product), dayId }),
-        productInputChanged: (event, fieldId) =>
+        productInputChanged: (evenct, fieldId) =>
             dispatch({ ...inputChanged('products', event, fieldId), dayId }),
     }
 }
