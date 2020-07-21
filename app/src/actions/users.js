@@ -10,84 +10,37 @@ export function requestUser() {
     }
 }
 
-export const RECEIVED_USER = 'RECEIVED_USER'
+export const RECEIVED_AUTH = 'RECEIVED_AUTH'
 
-export function receivedUser(json) {
+export const REQUEST_AUTH = 'REQUEST_AUTH'
+
+
+export const AUTH_FAILED = 'AUTH_FAILED'
+
+export function authFailed() {
     return {
-        type: RECEIVED_USER,
-        user: json,
+        type: AUTH_FAILED,
     }
 }
-
-export function fetchUser() {
-    return function (dispatch, getState) {
-        const action = requestUser()
-        dispatch(action)
-        const url = api.server + action.route
-        const {
-            users: { token },
-        } = getState()
-        console.log(getState())
-        fetch(url, {
-            headers: makeTokenHeaders(token),
-        })
-            .then(
-                response => response.json(),
-                error => console.log(error)
-            )
-            .then(json => dispatch(receivedUser(json)))
-    }
-}
-
-export const REQUEST_LOGIN = 'REQUEST_LOGIN'
-
-export function requestLogin() {
+/**
+ * Action creator to request a login (intercepted by the `api` middleware).
+ * @param {Object} credentials A JSON object containing an `email` and a `password` from a form
+ */ 
+export function requestAuth(credentials) {
     return {
-        type: REQUEST_LOGIN,
+        type: REQUEST_AUTH,
         route: 'users/token',
+        method: 'POST',
+        error: AUTH_FAILED,
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            Authorization: `Basic ${btoa(credentials.email + ':' + credentials.password)}`
+        }),
+        body: JSON.stringify(credentials)
     }
 }
 
-export const LOGIN_FAILED = 'LOGIN_FAILED'
-
-export function loginFailed() {
-    return {
-        type: LOGIN_FAILED,
-    }
-}
-
-export const RECEIVED_LOGIN = 'RECEIVED_LOGIN'
-
-export function receivedLogin(json) {
-    return {
-        type: RECEIVED_LOGIN,
-        token: json.token,
-    }
-}
-
-export function loginUser(credentials) {
-    return function (dispatch) {
-        const action = requestLogin()
-        dispatch(action)
-        const url = api.server + action.route
-        console.log(credentials)
-        fetch(url, {
-            method: 'POST',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                Authorization: `Basic ${btoa(
-                    credentials.email + ':' + credentials.password
-                )}`,
-            }),
-            body: JSON.stringify(credentials),
-        })
-            .then(response =>
-                response.ok ? response.json() : Promise.reject(response)
-            )
-            .then(json => dispatch(receivedLogin(json)))
-            .catch(error => dispatch(loginFailed()))
-    }
-}
 
 export const USER_LOGGED_OUT = 'USER_LOGGED_OUT'
 

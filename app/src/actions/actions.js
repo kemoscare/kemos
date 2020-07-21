@@ -3,19 +3,14 @@ import { formInitialState } from '../panes/Form'
 
 export const RECEIVED_PROTOCOL = 'RECEIVED_PROTOCOL'
 
-export function receivedProtocol(data) {
-    return {
-        type: RECEIVED_PROTOCOL,
-        dateDispatched: moment(new Date()),
-        formData: data,
-    }
-}
 
 export const REQUEST_PROTOCOL = 'REQUEST_PROTOCOL'
 
-export function requestProtocol() {
+export function requestProtocol(protocolId) {
     return {
         type: REQUEST_PROTOCOL,
+        route: 'protocols/',
+        params: [protocolId]
     }
 }
 
