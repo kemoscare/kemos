@@ -10,8 +10,7 @@ import { makeTokenHeaders, forEachNode, mapLabel } from './utils'
 import { dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { receivedProtocol, requestProtocol } from './actions/actions'
-
-import { fetchUser } from './actions/users'
+import { requestUser } from './actions/users'
 
 const api = require('./api-' + process.env.NODE_ENV)
 
@@ -43,8 +42,7 @@ class App extends Component {
                             dayAfter: 0,
                             delay: 0,
                             imagery: false,
-                            consultation: false,
-                        },
+                            consultation: false, },
                     ],
                     days: [
                         {
@@ -61,7 +59,7 @@ class App extends Component {
     componentDidMount() {
         this.fetchNames()
         const { dispatch } = this.props
-        dispatch(fetchUser())
+        dispatch(requestUser())
     }
 
     logout = () => {

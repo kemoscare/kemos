@@ -4,7 +4,7 @@ import App from './App'
 import AddUser from './AddUser'
 import Login from './Login'
 import { DISCONNECTED, WRONG_CREDENTIALS } from './flashes'
-import { loginUser, logoutUser } from './actions/users'
+import { authUser, logoutUser } from './actions/users'
 import { connect } from 'react-redux'
 
 const api = require('./api-' + process.env.NODE_ENV)
@@ -71,7 +71,6 @@ const Router = ({
     const LoginComponent = (
         <Login dispatch={dispatch} connecting={connecting} flash={flash} />
     )
-    console.log(isAuthenticated())
     return (
         <Switch>
             <Route
@@ -83,9 +82,7 @@ const Router = ({
             />
             <Route
                 path="/login"
-                render={() =>
-                    !isAuthenticated() ? LoginComponent : <Redirect to="/" />
-                }
+                render={() => !isAuthenticated() ? LoginComponent : <Redirect to="/" /> }
             />
             <Route path="/logout" render={() => logoutAndRedirect(dispatch)} />
         </Switch>
@@ -93,7 +90,7 @@ const Router = ({
 }
 
 function isAuthenticated() {
-    return sessionStorage.token
+    return sessionStorage.token ? true : false
 }
 
 function logoutAndRedirect(dispatch) {
