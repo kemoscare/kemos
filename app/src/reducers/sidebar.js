@@ -65,7 +65,7 @@ export const sidebar = (
             return {
                 ...state,
                 isFetching: false,
-                contentTree: forEachNodes(action.contentTree, action),
+                contentTree: forEachNodes(action.tree, action),
                 filteredContent: [],
             }
             break

@@ -4,6 +4,7 @@ export const getFormattedCycles = protocol =>
     protocol.evaluations
         .map(e => e.dayAfter)
         .reduce((d1, d2) => d1 + (d2 && ', ' + d2))
+        
 export function getProducts(protocol) {
     const products = protocol.days.flatMap(d => d.products)
     let uniqueProducts = []

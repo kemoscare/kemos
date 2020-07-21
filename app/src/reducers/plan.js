@@ -21,13 +21,12 @@ const datesPlanWrapperReducer = reducer =>
 export const plan = (state = planInitialState, action) => {
     switch (action.type) {
         case RECEIVED_PROTOCOL:
-            const receivedProtocol = action.formData
-            const currentDate = action.dateDispatched
+            const { protocol, dispatchedAt } = action
             return {
                 ...state,
-                protocol: receivedProtocol,
-                startDate: currentDate,
-                dates: calculatePlanning(receivedProtocol, currentDate, false),
+                protocol,
+                startDate: dispatchedAt,
+                dates: calculatePlanning(protocol, dispatchedAt, false),
             }
         default:
             switch (action.formName) {

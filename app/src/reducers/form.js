@@ -104,7 +104,6 @@ export const formArrayReducer = (state, action) => {
         case CHECKBOX_CHANGED:
         case DATE_CHANGED:
             const idToChange = action.fieldId
-            console.log(state)
             return state.map(e => (e.id === idToChange ? field(e, action) : e))
         default:
             return state
@@ -133,14 +132,14 @@ export const editForm = (state = formInitialState, action) => {
             }
         case SHOW_NEW_PROTOCOL_FORM:
         case RECEIVED_PROTOCOL:
-            const { formData } = action
-            const days = formData.days.map((day, key) => {
+            const { protocol } = action
+            const days = protocol.days.map((day, key) => {
                 return { ...day, id: uuid() }
             })
             return {
-                protocol: formData,
+                protocol: protocol,
                 //Creates new arrays with key values inside object.
-                evaluations: formData.evaluations.map((evaluation, key) => {
+                evaluations: protocol.evaluations.map((evaluation, key) => {
                     return { ...evaluation, id: uuid() }
                 }),
                 days: days,
