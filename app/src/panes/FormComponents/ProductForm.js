@@ -67,7 +67,10 @@ function mapDispatchToProps(dispatch, ownProps) {
     const { dayId } = ownProps
     return {
         addProduct: () =>
-            dispatch({ ...addFormElement('products', {name: "", id: ""}), dayId }),
+            dispatch({
+                ...addFormElement('products', { name: '', id: '' }),
+                dayId,
+            }),
         deleteProduct: product =>
             dispatch({ ...deleteFormElement('products', product), dayId }),
         productInputChanged: (evenct, fieldId) =>

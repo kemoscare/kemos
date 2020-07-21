@@ -6,7 +6,7 @@ export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS'
 
 export function requestProducts() {
     return {
-        type: REQUEST_PRODUCTS
+        type: REQUEST_PRODUCTS,
     }
 }
 
@@ -15,7 +15,6 @@ export const RECEIVED_PRODUCTS = 'RECEIVED_PRODUCTS'
 export function receivedProducts(products) {
     return {
         type: RECEIVED_PRODUCTS,
-        products
+        products,
     }
 }
-

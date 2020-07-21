@@ -72,7 +72,11 @@ class Sidebar extends Component {
                         contents={query === '' ? contentTree : filteredContent}
                         onNodeCollapse={node => dispatch(collapseNode(node))}
                         onNodeExpand={node => dispatch(expandNode(node))}
-                        onNodeClick={node => node.category === 'protocol' ? dispatch(requestProtocol(node.id)) : dispatch(nodeClicked(node))}
+                        onNodeClick={node =>
+                            node.category === 'protocol'
+                                ? dispatch(requestProtocol(node.id))
+                                : dispatch(nodeClicked(node))
+                        }
                     />
                 </div>
             )

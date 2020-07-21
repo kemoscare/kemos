@@ -38,7 +38,7 @@ export const products = (state = productsInitialState, action) => {
     switch (action.type) {
         case RECEIVED_PRODUCTS:
             return {
-                products: action.products
+                products: action.products,
             }
         case ADD_FORM_ELEMENT:
             if (formName === 'days') {

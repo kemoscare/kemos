@@ -30,7 +30,9 @@ const Router = ({
             />
             <Route
                 path="/login"
-                render={() => !isAuthenticated() ? LoginComponent : <Redirect to="/" /> }
+                render={() =>
+                    !isAuthenticated() ? LoginComponent : <Redirect to="/" />
+                }
             />
             <Route path="/logout" render={() => logoutAndRedirect(dispatch)} />
         </Switch>

@@ -1,5 +1,5 @@
 import { USER_LOGGED_OUT, REQUEST_AUTH, RECEIVED_AUTH } from '../actions/users'
-import { makeTokenHeaders } from '../utils'
+import { makeTokenHeaders } from '../utils'
 
 export const auth = store => next => action => {
     const [method, resource] = action.type.split('_')
@@ -10,9 +10,9 @@ export const auth = store => next => action => {
             })
             return next(action)
         }
-    } else if(action.type === RECEIVED_AUTH) {
+    } else if (action.type === RECEIVED_AUTH) {
         sessionStorage.token = action.auth.token
-    } else if(action.type === USER_LOGGED_OUT) {
+    } else if (action.type === USER_LOGGED_OUT) {
         sessionStorage.token = ''
     }
     return next(action)

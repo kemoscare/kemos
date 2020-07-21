@@ -3,14 +3,13 @@ import { formInitialState } from '../panes/Form'
 
 export const RECEIVED_PROTOCOL = 'RECEIVED_PROTOCOL'
 
-
 export const REQUEST_PROTOCOL = 'REQUEST_PROTOCOL'
 
 export function requestProtocol(protocolId) {
     return {
         type: REQUEST_PROTOCOL,
         route: 'protocols/',
-        params: [protocolId]
+        params: [protocolId],
     }
 }
 

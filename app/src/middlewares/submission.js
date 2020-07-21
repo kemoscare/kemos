@@ -3,8 +3,7 @@ export const submission = store => next => action => {
     //the action should be a REQUEST to EDITFORM
     const [method, resource] = action.type.split('_')
     // exit early
-    if (method !== 'REQUEST' || resource !== 'EDITFORM')
-        return next(action)
+    if (method !== 'REQUEST' || resource !== 'EDITFORM') return next(action)
 
     const state = store.getState()
     const { editForm } = state

@@ -42,7 +42,8 @@ class App extends Component {
                             dayAfter: 0,
                             delay: 0,
                             imagery: false,
-                            consultation: false, },
+                            consultation: false,
+                        },
                     ],
                     days: [
                         {
