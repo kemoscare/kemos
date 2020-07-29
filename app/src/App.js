@@ -11,6 +11,7 @@ import { dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { receivedProtocol, requestProtocol } from './actions/actions'
 import { requestUser } from './actions/users'
+import { requestProducts } from './actions/products'
 
 const api = require('./api-' + process.env.NODE_ENV)
 
@@ -61,6 +62,7 @@ class App extends Component {
         this.fetchNames()
         const { dispatch } = this.props
         dispatch(requestUser())
+        dispatch(requestProducts())
     }
 
     logout = () => {
