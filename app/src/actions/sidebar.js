@@ -1,4 +1,3 @@
-import { makeTokenHeaders } from '../utils'
 export const REQUEST_TREE = 'REQUEST_TREE'
 
 export function requestTree() {
