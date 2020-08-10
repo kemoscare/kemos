@@ -38,7 +38,7 @@ export const api = store => next => action => {
 
     if (request !== 'REQUEST') return next(action)
     const { route, headers, error, method, body, params } = action
-    let queryNoParams = route ? route : resource.toLowerCase() + 's'
+    let queryNoParams = route ? route : resource.toLowerCase() + 's' + '/'
     const query = makeQuery(queryNoParams, params)
 
     fetch(server + query, {
