@@ -7,6 +7,7 @@ export function makeHTTPString(username, password = '') {
 }
 
 export function makeTokenHeaders(token) {
+    if (!token) return new Headers({})
     return new Headers({
         Authorization: `Bearer ${token}`,
     })

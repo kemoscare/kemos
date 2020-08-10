@@ -7,11 +7,10 @@ import Topbar from './Topbar'
 import moment from 'moment'
 import { calculatePlanning } from './panes/calculatePlanning'
 import { makeTokenHeaders, forEachNode, mapLabel } from './utils'
-import { dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { receivedProtocol, requestProtocol } from './actions/actions'
-
-import { fetchUser } from './actions/users'
+import { requestProtocol } from './actions/actions'
+import { requestUser } from './actions/users'
+import { requestAllProducts } from './actions/products'
 
 const api = require('./api-' + process.env.NODE_ENV)
 
@@ -61,7 +60,9 @@ class App extends Component {
     componentDidMount() {
         this.fetchNames()
         const { dispatch } = this.props
-        dispatch(fetchUser())
+        console.log('App did mount')
+        dispatch(requestUser())
+        dispatch(requestAllProducts())
     }
 
     logout = () => {

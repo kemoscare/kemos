@@ -1,20 +1,13 @@
 export const REQUEST_TREE = 'REQUEST_TREE'
 
-export function requestTree(url) {
+export function requestTree() {
     return {
         type: REQUEST_TREE,
-        url,
+        route: 'protocols/names/',
     }
 }
 
 export const RECEIVED_TREE = 'RECEIVED_TREE'
-
-export function receivedTree(json) {
-    return {
-        type: RECEIVED_TREE,
-        contentTree: json,
-    }
-}
 
 export const EXPAND_NODE = 'EXPAND_NODE'
 
@@ -68,21 +61,6 @@ export function keyTypedFilterTree(query) {
         clearTimeout(timeout)
         timeout = setTimeout(() => dispatch(filterTree(query)), 500)
         return timeout
-    }
-}
-import { makeTokenHeaders } from '../utils'
-
-export function fetchTree(url) {
-    return function (dispatch) {
-        dispatch(requestTree(url))
-        return fetch(url, {
-            headers: makeTokenHeaders(sessionStorage.token),
-        })
-            .then(
-                response => response.json(),
-                error => console.log(error)
-            )
-            .then(json => dispatch(receivedTree(json)))
     }
 }
 

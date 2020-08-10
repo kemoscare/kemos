@@ -3,13 +3,14 @@ import { connect } from 'react-redux'
 import { Tree, Button, Intent, Classes, InputGroup } from '@blueprintjs/core'
 import { hasPermission } from './authentication'
 import {
-    fetchTree,
+    requestTree,
     nodeClicked,
     collapseNode,
     expandNode,
     keyTypedFilterTree,
     selectChemo,
 } from './actions/sidebar'
+import { requestProtocol } from './actions/actions'
 import content from './panes/selectContent'
 import SidebarLoading from './SidebarLoading'
 
@@ -25,7 +26,7 @@ class Sidebar extends Component {
 
     componentDidMount() {
         const { dispatch } = this.props
-        dispatch(fetchTree(api.server + 'protocols/names/'))
+        dispatch(requestTree())
     }
 
     checkId(id) {
@@ -45,7 +46,6 @@ class Sidebar extends Component {
             reset,
             shouldSelect,
             isFetching,
-            actionFunc,
             dispatch,
         } = this.props
         /*
@@ -73,7 +73,9 @@ class Sidebar extends Component {
                         onNodeCollapse={node => dispatch(collapseNode(node))}
                         onNodeExpand={node => dispatch(expandNode(node))}
                         onNodeClick={node =>
-                            dispatch(selectChemo(node, actionFunc))
+                            node.category === 'protocol'
+                                ? dispatch(requestProtocol(node.id))
+                                : dispatch(nodeClicked(node))
                         }
                     />
                 </div>

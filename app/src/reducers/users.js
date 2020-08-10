@@ -1,8 +1,8 @@
 import {
-    REQUEST_LOGIN,
-    RECEIVED_LOGIN,
+    REQUEST_AUTH,
+    RECEIVED_AUTH,
     USER_LOGGED_OUT,
-    LOGIN_FAILED,
+    AUTH_FAILED,
 } from '../actions/users'
 import { WRONG_CREDENTIALS } from '../flashes'
 
@@ -20,20 +20,17 @@ const initialState = {
 
 export const users = (state = initialState, action) => {
     switch (action.type) {
-        case REQUEST_LOGIN:
+        case REQUEST_AUTH:
             return { ...state, connecting: true }
-        case RECEIVED_LOGIN:
-            //side effect tolerated here, as it is admitted that it is the only way
-            //to access `sessionStorage.token` throughout the app
-            sessionStorage.token = action.token
+        case RECEIVED_AUTH:
             return {
                 ...state,
-                token: action.token,
+                token: action.auth.token,
                 connected: true,
                 connecting: false,
                 flash: '',
             }
-        case LOGIN_FAILED:
+        case AUTH_FAILED:
             return {
                 ...state,
                 connected: false,
@@ -41,8 +38,6 @@ export const users = (state = initialState, action) => {
                 flash: WRONG_CREDENTIALS,
             }
         case USER_LOGGED_OUT:
-            //same as RECEIVED_LOGIN here
-            sessionStorage.token = ''
             return initialState
         default:
             return state

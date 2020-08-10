@@ -10,7 +10,7 @@ export const protocol = (state = {}, action) => {
     switch (action.type) {
         case RECEIVED_PROTOCOL:
             return {
-                ...action.formData,
+                ...action.protocol,
             }
         default:
             return state

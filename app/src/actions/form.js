@@ -96,8 +96,23 @@ export function dateChanged(formName, fieldName, date, fieldId = 0) {
     }
 }
 
-export const ADD_FORM_ELEMENT = 'ADD_FORM_ELEMENT'
+export const PRODUCT_CHANGED = 'PRODUCT_CHANGED'
 
+export function productChanged(product) {
+    return {
+        type: PRODUCT_CHANGED,
+        formName: 'products',
+        product,
+    }
+}
+
+export const ADD_FORM_ELEMENT = 'ADD_FORM_ELEMENT'
+/*
+ * Add an element to a form array, providing it with an uuid.
+ * @param formName {string} The name of the array of forms.
+ * @param formState {object} The default state for the form
+ * @return {object} an ADD_FORM_ELEMENT action
+ */
 export function addFormElement(formName, formState) {
     return {
         uuid: uuid(),

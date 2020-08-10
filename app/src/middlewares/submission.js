@@ -1,12 +1,9 @@
-import { actionPurpose } from './utils'
-
 /* Middleware meant to reshape state for form submission to the server */
 export const submission = store => next => action => {
     //the action should be a REQUEST to EDITFORM
-    const purpose = actionPurpose(action)
+    const [method, resource] = action.type.split('_')
     // exit early
-    if (purpose[0] !== 'REQUEST' || purpose[1] !== 'EDITFORM')
-        return next(action)
+    if (method !== 'REQUEST' || resource !== 'EDITFORM') return next(action)
 
     const state = store.getState()
     const { editForm } = state

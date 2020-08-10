@@ -5,6 +5,7 @@ from flask_mail import Mail
 from app.protocols.controllers import protocols
 from app.users.controllers import users
 from app.hospitals.controllers import hospitals
+from app.products.controllers import products
 import logging
 
 app = Flask(__name__)
@@ -18,4 +19,4 @@ logging.getLogger('flask_cors').level = logging.DEBUG
 app.register_blueprint(protocols)
 app.register_blueprint(users)
 app.register_blueprint(hospitals)
-
+app.register_blueprint(products)

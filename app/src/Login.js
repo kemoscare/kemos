@@ -10,7 +10,7 @@ import {
     Intent,
 } from '@blueprintjs/core'
 import './Login.css'
-import { loginUser } from './actions/users'
+import { requestAuth } from './actions/users'
 import Logo from './Logo'
 
 class Login extends Component {
@@ -90,7 +90,7 @@ class Login extends Component {
                             type="password"
                         />
                         <Button
-                            onClick={() => dispatch(loginUser(credentials))}
+                            onClick={() => dispatch(requestAuth(credentials))}
                             text="Se Connecter"
                             rightIcon="log-in"
                             loading={connecting}

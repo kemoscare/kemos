@@ -45,7 +45,7 @@ def migrate(db):
         return db.products.find()
 
 def make_query(db, product):
-    res = db.protocole_test.update_many(
+    res = db.protocoles.update_many(
             {'days.products': product['name']},
             {
                 '$set': {

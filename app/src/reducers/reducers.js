@@ -4,6 +4,7 @@ import { protocol } from './protocol'
 import { panes } from './panes'
 import { plan } from './plan'
 import { users } from './users'
+import { products } from './products'
 import { combineReducers } from 'redux'
 
 export const rootReducer = combineReducers({
@@ -13,4 +14,5 @@ export const rootReducer = combineReducers({
     panes,
     plan,
     users,
+    products,
 })

@@ -14,7 +14,7 @@ import './Preview.css'
 
 const ProductLine = (protocol, product) => (
     <div className="productLine">
-        <strong>{product}</strong>
+        <strong>{product.name}</strong>
         <br />
         {getWrappedForProduct(protocol, product).map(wrapped => (
             <span
