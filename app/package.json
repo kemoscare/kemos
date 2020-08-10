@@ -9,7 +9,7 @@
     "@blueprintjs/table": "^3.4.1",
     "identity-obj-proxy": "3.0.0",
     "is-wsl": "^1.1.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.3",
