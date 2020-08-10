@@ -33,6 +33,11 @@
     "predeploy": "npm run build",
     "deploy-ec2": "scp -r build/ ec2-paris:~/biglazy/"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -46,9 +51,11 @@
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.3.2",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^4.2.5",
     "mini-css-extract-plugin": "^0.8.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "prettier": "2.0.5",
+    "pretty-quick": "^2.0.1",
     "style-loader": "^1.0.1",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
