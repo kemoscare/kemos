@@ -1,20 +1,18 @@
-import { addFormElement, inputChanged } from './form'
-const api = require('../api-' + process.env.NODE_ENV)
-import { makeTokenHeaders } from '../utils'
+export const REQUEST_PRODUCT = 'REQUEST_PRODUCT'
 
-export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS'
-
-export function requestProducts() {
+/*
+ * Action creator to request all products from the api
+ * @return {object} A REQUEST_PRODUCT action with no parameter or id telling
+ * the api to return all products.
+ */
+export function requestAllProducts() {
     return {
-        type: REQUEST_PRODUCTS,
+        type: REQUEST_PRODUCT,
     }
 }
 
-export const RECEIVED_PRODUCTS = 'RECEIVED_PRODUCTS'
+export const RECEIVED_PRODUCT = 'RECEIVED_PRODUCT'
 
-export function receivedProducts(products) {
-    return {
-        type: RECEIVED_PRODUCTS,
-        products,
-    }
-}
+/*
+ * `editForm` reducer related actions
+ */

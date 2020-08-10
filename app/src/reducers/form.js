@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { formInitialState } from '../panes/Form'
 import {
-    SUBMIT_PROTOCOL,
+    PRODUCT_CHANGED,
     ADD_FORM_ELEMENT,
     DELETE_FORM_ELEMENT,
     INPUT_CHANGED,
@@ -67,12 +67,16 @@ export const field = (state, action) => {
                 [field.name]: !value,
             }
             break
-        case DATE_CHANGED:
             return {
                 ...state,
                 [field.name]: field.value,
             }
             break
+        case PRODUCT_CHANGED:
+            return {
+                ...state,
+                value: action.product.value,
+            }
         default:
             return state
             break
@@ -80,6 +84,7 @@ export const field = (state, action) => {
 }
 /*
  * A reducer that can handle a formReducer array of element with
+ * NEEDS REFACTORING : refactor to return a generic reducer that takes a field/other type of reducer as a parameter
  * @params {state} The initial array state.
  * @params {function} reducer the reducer to apply to each element of the array
  * @params {object} action The action to pass down to reducers, must contain an `id` key.
@@ -92,12 +97,26 @@ export const formArrayReducer = (state, action) => {
 
             const { formState } = action
             const newFormState = { ...formState, id: action.uuid }
-            return [...state, newFormState]
+            if(action.dayId) {
+                return {
+                    ...state,
+                    [action.dayId]: [...state[action.dayId], newFormState]
+                }
+            } else {
+                return [...state, newFormState]
+            }
 
         case DELETE_FORM_ELEMENT:
             const { element } = action
             const idToDelete = element.id
-            return state.filter(element => element.id != idToDelete)
+            if(action.dayId) {
+                return {
+                    ...state,
+                    [action.dayId]: state[action.dayId].filter(p => p.id != idToDelete)
+                }
+            } else {
+                return state.filter(element => element.id != idToDelete)
+            }
         case INPUT_CHANGED:
         case RADIO_CHANGED:
         case SELECT_CHANGED:
@@ -105,6 +124,18 @@ export const formArrayReducer = (state, action) => {
         case DATE_CHANGED:
             const idToChange = action.fieldId
             return state.map(e => (e.id === idToChange ? field(e, action) : e))
+
+        case PRODUCT_CHANGED:
+            if (!action.dayId) return state
+            const { dayId } = action
+            const productIdToChange = action.product.id
+            return {
+                ...state,
+                [dayId]: state[dayId].map(p =>
+                    p.id === productIdToChange ? field(p, action) : p
+                ),
+            }
+
         default:
             return state
     }
@@ -175,7 +206,7 @@ export const editForm = (state = formInitialState, action) => {
                             'days'
                         )(state.days, action),
                         products: createNamedWrapperReducer(
-                            products,
+                            formArrayReducer,
                             'products'
                         )(state.products, action),
                     }
@@ -183,7 +214,7 @@ export const editForm = (state = formInitialState, action) => {
                     return {
                         ...state,
                         products: createNamedWrapperReducer(
-                            products,
+                            formArrayReducer,
                             'products'
                         )(state.products, action),
                     }

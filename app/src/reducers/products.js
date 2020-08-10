@@ -1,11 +1,12 @@
 import { RECEIVED_PROTOCOL } from './../actions/actions'
-import { RECEIVED_PRODUCTS } from './../actions/products'
+import { RECEIVED_PRODUCT } from './../actions/products'
 import { formArrayReducer } from './form'
 import { ADD_FORM_ELEMENT, DELETE_FORM_ELEMENT } from '../actions/form'
 import { v4 as uuid } from 'uuid'
 
-export const productInitialState = { id: 0, value: '' }
-export const productsInitialState = [productInitialState]
+const productsInitialState = {
+    allProducts: [{ name: '', productId: '' }],
+}
 /*
  * A helper function that takes a product from kemos' api and creates a flatten
  * model ordered by dayId, this function is called whenever a new protocol is received
@@ -36,29 +37,15 @@ export const products = (state = productsInitialState, action) => {
     const { dayId } = action
 
     switch (action.type) {
-        case RECEIVED_PRODUCTS:
+        case RECEIVED_PRODUCT:
             return {
-                products: action.products,
-            }
-        case ADD_FORM_ELEMENT:
-            if (formName === 'days') {
-                return {
-                    ...state,
-                    [action.uuid]: productsInitialState,
-                }
-            }
-        case DELETE_FORM_ELEMENT:
-            if (formName === 'days') {
-                const idToDelete = action.element.id
-                const { [idToDelete]: deleted, ...newState } = state
-                return newState
+                ...state,
+                allProducts: action.product.map(p => {
+                    return { name: p['name'], productId: p['_id'] }
+                }),
             }
 
         default:
-            if (dayId === undefined) return state
-            return {
-                ...state,
-                [action.dayId]: formArrayReducer(state[dayId], action),
-            }
+            return state
     }
 }

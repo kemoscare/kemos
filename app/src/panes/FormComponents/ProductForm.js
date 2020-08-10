@@ -6,80 +6,95 @@ import {
     FormGroup,
     Intent,
     Divider,
-    MenuItem
+    MenuItem,
 } from '@blueprintjs/core'
 import { Suggest } from '@blueprintjs/select'
 import { connect } from 'react-redux'
 import {
-    inputChanged,
+    productChanged,
     addFormElement,
     deleteFormElement,
     uniqueName,
 } from '../../actions/form'
 
 function highlightText(text, query) {
-    let lastIndex = 0;
+    let lastIndex = 0
     const words = query
         .split(/\s+/)
         .filter(word => word.length > 0)
-        .map(escapeRegExpChars);
+        .map(escapeRegExpChars)
     if (words.length === 0) {
-        return [text];
+        return [text]
     }
-    const regexp = new RegExp(words.join("|"), "gi");
-    const tokens = [];
+    const regexp = new RegExp(words.join('|'), 'gi')
+    const tokens = []
     while (true) {
-        const match = regexp.exec(text);
+        const match = regexp.exec(text)
         if (!match) {
-            break;
+            break
         }
-        const length = match[0].length;
-        const before = text.slice(lastIndex, regexp.lastIndex - length);
+        const length = match[0].length
+        const before = text.slice(lastIndex, regexp.lastIndex - length)
         if (before.length > 0) {
-            tokens.push(before);
+            tokens.push(before)
         }
-        lastIndex = regexp.lastIndex;
-        tokens.push(<strong key={lastIndex}>{match[0]}</strong>);
+        lastIndex = regexp.lastIndex
+        tokens.push(<strong key={lastIndex}>{match[0]}</strong>)
     }
-    const rest = text.slice(lastIndex);
+    const rest = text.slice(lastIndex)
     if (rest.length > 0) {
-        tokens.push(rest);
+        tokens.push(rest)
     }
-    return tokens;
+    return tokens
 }
 
 function escapeRegExpChars(text) {
-    return text.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+    return text.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1')
 }
 
-const SuggestProductRenderer = (item, { modifiers, handleClick, query}) => (
-    <MenuItem active={modifiers.active}
-              disabled={modifiers.disabled}
-              label={item.name}
-              key={item.productId}
-              onClick={handleClick}
-              text={highlightText(text, query)}
-              />
-)
+const SuggestProductRenderer = (item, { modifiers, handleClick, query }) => {
+    if (!modifiers.matchesPredicate) {
+        return null
+    }
+    return (
+        <MenuItem
+            active={modifiers.active}
+            disabled={modifiers.disabled}
+            label={item.name}
+            key={item.productId}
+            onClick={handleClick}
+            text={highlightText(item.name, query)}
+        />
+    )
+}
 
-const SuggestProduct = ({ products }) => (
-    <Suggest items={products}
-             inputValueRenderer={(p) => p.name}
-             itemRenderer={SuggestProductRenderer}
-            /> 
-)
+const SuggestProduct = ({ products, currentProduct, setProduct }) => {
+    return (
+        <Suggest
+            items={products}
+            inputValueRenderer={p => p.name}
+            itemRenderer={SuggestProductRenderer}
+            onItemSelect={setProduct}
+            selectedItem={currentProduct}
+            itemsEqual={'productId'}
+        />
+    )
+}
 
 const ProductForm = ({
     products,
     addProduct,
     deleteProduct,
     productInputChanged,
+    allProducts,
 }) => (
     <FormGroup>
         {products.map(product => (
             <div>
                 <Product
+                    key={product.id}
                     product={product}
+                    allProducts={allProducts}
                     productInputChanged={productInputChanged}
                     deleteProduct={deleteProduct}
                 />
@@ -91,23 +106,23 @@ const ProductForm = ({
     </FormGroup>
 )
 
-const Product = ({ product, productInputChanged, deleteProduct }) => {
-
-    let [query, setQuery] = useState("")
-    
+const Product = ({
+    allProducts,
+    product,
+    productInputChanged,
+    deleteProduct,
+}) => {
+    const name = uniqueName('product', product.id)
+    const setProduct = p => productInputChanged({ id: product.id, value: p })
     return (
         <ControlGroup key={product.id}>
-            <InputGroup
-                name={uniqueName('value', 0)}
+            <SuggestProduct
+                name={name}
                 id={product.id}
-                placeholder="Produit"
-                value={product.value.name}
-                onChange={event => productInputChanged(event, product.id)}
+                currentProduct={product.value}
+                setProduct={setProduct}
+                products={allProducts}
             />
-           <SuggestProduct
-                name={uniqueName('value', 0)}
-                id={product.id}
-                />
             <Button
                 icon="minus"
                 intent={Intent.DANGER}
@@ -120,11 +135,10 @@ const Product = ({ product, productInputChanged, deleteProduct }) => {
 
 function mapStateToProps(state, ownProps) {
     const { products } = state.editForm
-    const allProducts = state.products
-
+    const { allProducts } = state.products
     return {
         products: products[ownProps.dayId],
-        allProducts
+        allProducts,
     }
 }
 
@@ -138,8 +152,8 @@ function mapDispatchToProps(dispatch, ownProps) {
             }),
         deleteProduct: product =>
             dispatch({ ...deleteFormElement('products', product), dayId }),
-        productInputChanged: (evenct, fieldId) =>
-            dispatch({ ...inputChanged('products', event, fieldId), dayId }),
+        productInputChanged: product =>
+            dispatch({ ...productChanged(product), dayId }),
     }
 }
 

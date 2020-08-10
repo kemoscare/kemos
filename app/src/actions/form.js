@@ -96,6 +96,16 @@ export function dateChanged(formName, fieldName, date, fieldId = 0) {
     }
 }
 
+export const PRODUCT_CHANGED = 'PRODUCT_CHANGED'
+
+export function productChanged(product) {
+    return {
+        type: PRODUCT_CHANGED,
+        formName: 'products',
+        product,
+    }
+}
+
 export const ADD_FORM_ELEMENT = 'ADD_FORM_ELEMENT'
 /*
  * Add an element to a form array, providing it with an uuid.
