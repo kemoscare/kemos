@@ -8,10 +8,11 @@ api/dump/
 api/dist/
 .idea/
 .DS_STORE
+.cache
 
 ## Front-end App .gitignore
 # dependencies
-app/node_modules
+node_modules/
 
 # testing
 app/coverage
