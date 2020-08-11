@@ -12,7 +12,7 @@ import { connect } from 'react-redux'
 /* import { createSelector } from 'reselect' */
 import './Preview.css'
 
-const ProductLine = (protocol, product) => (
+export const ProductLine = (protocol, product) => (
     <div className="productLine">
         <strong>{product.name}</strong>
         <br />
@@ -32,7 +32,7 @@ const dayList = (protocol, products) => (
     </div>
 )
 
-const Preview = ({ protocol, products, loading }) => {
+export const Preview = ({ protocol, products, loading }) => {
     if (loading === 'LOADING') return ProtocolLoading
     else if (loading === 'NON_IDEAL') {
         return (
