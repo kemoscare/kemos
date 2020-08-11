@@ -1,0 +1,47 @@
+{
+    "_id": "5bb0dee0cf4fb86664d60065",
+    "dayOneEquals": 15,
+    "days": [
+        {
+            "careGalenic": "IntraVeinous",
+            "careMode": "Admission",
+            "day": "1",
+            "products": [
+                {
+                    "name": "Vinblastine",
+                    "productId": "5ef4485f34bc2f8d95d67855"
+                },
+                {
+                    "name": "M\u00e9thotrexate",
+                    "productId": "5ef4485f34bc2f8d95d67863"
+                }
+            ]
+        },
+        {
+            "careGalenic": "IntraVeinous",
+            "careMode": "Admission",
+            "day": "2",
+            "products": [
+                {
+                    "name": "Cisplatine",
+                    "productId": "5ef4485f34bc2f8d95d678a3"
+                },
+                {
+                    "name": "Doxorubicine",
+                    "productId": "5ef4485f34bc2f8d95d6787f"
+                }
+            ]
+        }
+    ],
+    "evaluations": [
+        {
+            "consultation": true,
+            "dayAfter": 4,
+            "imagery": true
+        }
+    ],
+    "name": "MVAC Intensifi\u00e9 ",
+    "organ": "vessie",
+    "radio_radiochimiottt": "Chimiotherapie",
+    "theme": "urologie"
+}
