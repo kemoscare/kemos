@@ -30,6 +30,7 @@
   "scripts": {
     "start": "webpack-dev-server --config ./config/webpack.dev.js",
     "build": "webpack --config ./config/webpack.prod.js",
+    "test": "jest",
     "predeploy": "npm run build",
     "deploy-ec2": "scp -r build/ ec2-paris:~/biglazy/"
   },
@@ -53,6 +54,7 @@
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
     "@svgr/webpack": "^4.3.3",
+    "@testing-library/jest-dom": "^5.11.3",
     "@testing-library/react": "^10.4.8",
     "babel-jest": "^26.3.0",
     "babel-loader": "^8.0.6",
