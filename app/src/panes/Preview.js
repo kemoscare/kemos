@@ -61,9 +61,9 @@ export const Preview = ({ protocol, products, loading }) => {
                 <br />
                 <div className="evaluations">
                     <H5>Réévaluations : </H5>
-                    <div className="evaluationBox">
+                    <div className="evaluationBox" key={protocol.dayOneEquals}>
                         {protocol.evaluations.map(e => (
-                            <div className="flexLine">
+                            <div className="flexLine" key={e.day}>
                                 <div className="evaluation">
                                     {e.dayAfter} cycles
                                 </div>

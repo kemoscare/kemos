@@ -15,7 +15,7 @@ describe('Preview Component', () => {
                 loading={false}
             />
         )
-        console.log(container)
-        console.log(asFragment)
+
+        expect(container).toMatchSnapshot()
     })
 })
