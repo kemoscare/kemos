@@ -14,7 +14,7 @@ function create(middleware) {
 }
 
 describe('Test Middlewares', () => {
-    it('Tests date middleware', () => {
+    it('Tests `date` adding a dispatchedAt property', () => {
         const { store, next, invoke } = create(date)
         const anyAction = { type: 'ANY_ACTION' }
         expect(anyAction).not.toHaveProperty('dispatchedAt')
