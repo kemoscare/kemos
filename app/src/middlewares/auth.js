@@ -1,7 +1,7 @@
 import { USER_LOGGED_OUT, REQUEST_AUTH, RECEIVED_AUTH } from '../actions/users'
 import { makeTokenHeaders } from '../utils'
 
-export const auth = store => next => action => {
+const auth = store => next => action => {
     const [method, resource] = action.type.split('_')
     if (method === 'REQUEST') {
         if (sessionStorage.token) {
@@ -17,3 +17,5 @@ export const auth = store => next => action => {
     }
     return next(action)
 }
+
+export default auth
