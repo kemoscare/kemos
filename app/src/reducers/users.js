@@ -6,7 +6,7 @@ import {
 } from '../actions/users'
 import { WRONG_CREDENTIALS } from '../flashes'
 
-const initialState = {
+export const initialState = {
     credentials: {},
     token: '',
     connecting: false,
