@@ -13,6 +13,28 @@
             "webRoot": "${workspaceRoot}/",
             "sourceMaps": true,
             "trace": "verbose"
+        },
+        {
+            "name": "Jest Debug",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Jest Debug --watch",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+            "args": ["--watch"]
+        },
+        {
+            "name": "Jest Debug File --watch",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+            "args": ["${fileBasename}", "--watch"],
+            "console": "integratedTerminal"
         }
     ]
 }
