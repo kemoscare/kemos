@@ -10,7 +10,7 @@
     "identity-obj-proxy": "3.0.0",
     "is-wsl": "^1.1.0",
     "lodash": "^4.17.19",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "prop-types": "^15.7.2",
     "react": "^16.8.3",
     "react-dev-utils": "^9.0.1",
